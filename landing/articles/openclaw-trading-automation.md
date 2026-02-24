@@ -596,4 +596,4 @@ Start simple -- track a token, set a price alert. Then layer on complexity: add 
 - [MCP Setup Guide](/docs/mcp-setup-guide) -- Detailed MCP configuration
 - [OpenClaw Skills](/docs/openclaw-skills) -- How skill files work
 - [Building Trading Agents](/docs/building-trading-agents) -- Advanced agent patterns
-- [GitHub Repository](https://github.com/samterminal/samterminal) -- Source code and issues
+- [GitHub Repository](https://github.com/0xtinylabs/samterminal) -- Source code and issues

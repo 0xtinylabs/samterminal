@@ -7,7 +7,7 @@ SAM Terminal is a plugin-based trading framework for AI agents. Build agents tha
 ## Links
 
 - Website: https://samterminal.com
-- GitHub: https://github.com/samterminal/samterminal
+- GitHub: https://github.com/0xtinylabs/samterminal
 - X (Twitter): https://x.com/samterminalcom
 
 ## Docs

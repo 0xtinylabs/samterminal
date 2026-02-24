@@ -211,4 +211,4 @@ pnpm --filter <service-name> test:watch
 
 ## Questions?
 
-If you have questions about contributing, please open an issue or start a [discussion](https://github.com/samterminal/samterminal/discussions) in the repository. For setup help, see the [Setup Guide](docs/SETUP.md).
+If you have questions about contributing, please open an issue or start a [discussion](https://github.com/0xtinylabs/samterminal/discussions) in the repository. For setup help, see the [Setup Guide](docs/SETUP.md).

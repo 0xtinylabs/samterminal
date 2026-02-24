@@ -923,7 +923,7 @@ describe('edge cases', () => {
 
 ## Next Steps
 
-- Review existing plugins in the [GitHub repository](https://github.com/samterminal/samterminal)
+- Review existing plugins in the [GitHub repository](https://github.com/0xtinylabs/samterminal)
 - Read the [Building Trading Agents](/docs/building-trading-agents) guide for workflow engine and order templates
 - Check out [OpenClaw Skills](/docs/openclaw-skills) to teach AI assistants to use your plugins
 

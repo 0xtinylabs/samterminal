@@ -221,7 +221,7 @@ When a bug is reported:
 **Project:** SAM Terminal
 **Stack:** TypeScript (NestJS, Node.js), Go, Turborepo, Prisma, gRPC
 **Network:** Base / Ethereum / Arbitrum / Polygon / Optimism / BSC
-**Repo:** https://github.com/samterminal/samterminal
+**Repo:** https://github.com/0xtinylabs/samterminal
 
 ### Important Directories
 ```

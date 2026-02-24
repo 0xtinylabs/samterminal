@@ -16,7 +16,7 @@ We take security vulnerabilities seriously. If you discover a security issue, pl
 
 **Do NOT open a public GitHub issue for security vulnerabilities.**
 
-Instead, please use [GitHub Security Advisories](https://github.com/samterminal/samterminal/security/advisories/new) to privately report the vulnerability.
+Instead, please use [GitHub Security Advisories](https://github.com/0xtinylabs/samterminal/security/advisories/new) to privately report the vulnerability.
 
 ### What to Include
 

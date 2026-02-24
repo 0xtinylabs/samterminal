@@ -1026,9 +1026,9 @@ DEBUG=sam:* pnpm dev
 
 ### Getting Help
 
-1. Check [existing issues](https://github.com/samterminal/samterminal/issues)
+1. Check [existing issues](https://github.com/0xtinylabs/samterminal/issues)
 2. Join [Discord community](https://discord.gg/samterminal)
-3. Open a [new issue](https://github.com/samterminal/samterminal/issues/new)
+3. Open a [new issue](https://github.com/0xtinylabs/samterminal/issues/new)
 
 ---
 
@@ -1052,7 +1052,7 @@ After completing setup:
 
 4. **Join the Community**
    - [Discord](https://discord.gg/samterminal)
-   - [GitHub Discussions](https://github.com/samterminal/samterminal/discussions)
+   - [GitHub Discussions](https://github.com/0xtinylabs/samterminal/discussions)
 
 ---
 

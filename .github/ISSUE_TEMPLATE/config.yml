@@ -1,10 +1,10 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://github.com/samterminal/samterminal/tree/main/docs
+    url: https://github.com/0xtinylabs/samterminal/tree/main/docs
     about: Check our documentation before opening an issue
   - name: Discussions
-    url: https://github.com/samterminal/samterminal/discussions
+    url: https://github.com/0xtinylabs/samterminal/discussions
     about: Ask questions and discuss ideas
   - name: Discord Community
     url: https://discord.gg/samterminal

@@ -3,7 +3,7 @@
 **Onchain Trading Agent Framework** -- Modular, plugin-based autonomous trading agent platform for EVM ecosystems.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/samterminal/samterminal/ci.yml?branch=main&label=CI)](https://github.com/samterminal/samterminal/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/samterminal/samterminal/ci.yml?branch=main&label=CI)](https://github.com/0xtinylabs/samterminal/actions)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Go](https://img.shields.io/badge/Go-1.24+-00ADD8.svg)](https://go.dev/)
