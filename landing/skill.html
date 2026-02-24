@@ -207,15 +207,11 @@
 </blockquote>
 <h2>CLI Commands</h2>
 <h3>Project Management</h3>
-<pre><code class="language-bash">sam init &lt;project-name&gt;        # Scaffold a new agent project
-sam run                        # Start agent in production mode
-sam dev                        # Start agent in dev mode (hot reload)
-sam order                      # Generate flow from natural language
-</code></pre>
-<h3>Plugin Management</h3>
-<pre><code class="language-bash">sam plugin install &lt;name&gt;      # Install a plugin
-sam plugin remove &lt;name&gt;       # Remove a plugin
-sam plugin list                # List installed plugins
+<pre><code class="language-bash"># Clone and setup
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal &amp;&amp; cp .env.example .env
+pnpm install &amp;&amp; pnpm build
+pnpm dev                       # Start in dev mode (hot reload)
 </code></pre>
 <h2>Configuration</h2>
 <p>Config file: <code>samterminal.config.json</code></p>
@@ -350,8 +346,8 @@ await agent.shutdown();</code></pre>
 <pre><code class="language-json">{
   "mcpServers": {
     "sam-terminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "SAM_GRPC_HOST": "localhost",
         "SAM_MAIN_PORT": "50060",
@@ -387,20 +383,21 @@ await agent.shutdown();</code></pre>
 <h2>Common Workflows</h2>
 <h3>New Agent Setup</h3>
 <ol>
-<li><code>sam init my-agent</code></li>
-<li>Edit <code>samterminal.config.json</code> — add plugins</li>
-<li>Set environment variables in <code>.env</code></li>
-<li><code>sam dev</code> — start in development mode</li>
+<li><code>git clone https://github.com/0xtinylabs/samterminal.git</code></li>
+<li><code>cd samterminal &amp;&amp; cp .env.example .env</code></li>
+<li>Edit <code>.env</code> with your API keys</li>
+<li><code>pnpm install &amp;&amp; pnpm build</code></li>
+<li><code>pnpm dev</code> — start in development mode</li>
 </ol>
 <h3>Adding a Plugin</h3>
 <ol>
-<li><code>sam plugin install @samterminal/plugin-tokendata</code></li>
+<li>Add plugin to <code>samterminal.config.json</code></li>
 <li>Add config in <code>samterminal.config.json</code></li>
 <li>Set required env vars</li>
 <li>Restart agent</li>
 </ol>
 <h3>Running with Docker</h3>
-<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+<pre><code class="language-bash">git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal &amp;&amp; cp .env.example .env
 docker compose up -d</code></pre>
     </div>

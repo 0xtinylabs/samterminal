@@ -42,7 +42,7 @@ git --version
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 ```
 
@@ -86,19 +86,7 @@ REDIS_URL=redis://localhost:6379
 
 ### 4. Setup Development Environment
 
-SAM Terminal provides a convenient command to setup everything:
-
-```bash
-npx sam setup
-```
-
-This command will:
-- Install all dependencies
-- Build all packages
-- Run database migrations
-- Verify Docker services
-
-Alternatively, you can run these steps manually:
+Run these steps to setup your development environment:
 
 ```bash
 pnpm install
@@ -107,76 +95,48 @@ docker compose up -d
 pnpm db:migrate
 ```
 
+This will:
+- Install all dependencies
+- Build all packages
+- Start Docker services (PostgreSQL, Redis, microservices)
+- Run database migrations
+
 ## Quick Start with CLI
 
 SAM Terminal includes a powerful CLI that streamlines agent creation and management.
 
 ### Creating Your First Agent
 
-**Option 1: Using a Template**
+Clone the repository and configure your agent:
 
 ```bash
-npx sam init my-trading-agent --template web3-agent
+git clone https://github.com/0xtinylabs/samterminal.git my-trading-agent
+cd my-trading-agent
+cp .env.example .env
+pnpm install && pnpm build
 ```
 
-Available templates:
-- `basic` - Minimal setup with core functionality
-- `telegram-bot` - Agent with Telegram notification support
-- `web3-agent` - Full-featured trading agent with swap capabilities
-- `custom` - Start from scratch
+Then edit `samterminal.config.json` to select your plugins and chains. Available plugin profiles:
 
-**Option 2: Interactive Wizard Mode (Recommended for beginners)**
+- `minimal` - Core functionality only
+- `trader` - Token tracking + swap capabilities
+- `notifier` - Token tracking + Telegram notifications
+- `full` - All plugins enabled
 
-```bash
-npx sam init my-agent --wizard
-```
-
-The wizard will guide you through:
-
-1. **Profile Selection:**
-   - `minimal` - Core functionality only
-   - `trader` - Token tracking + swap capabilities
-   - `notifier` - Token tracking + Telegram notifications
-   - `full` - All plugins enabled
-   - `custom` - Pick and choose
-
-2. **Chain Selection:**
-   - Base (default, L2 with low fees)
-   - Ethereum Mainnet
-   - Arbitrum
-   - Polygon
-   - Optimism
-   - BSC
-
-3. **API Key Validation:** The wizard validates your API keys before proceeding
-
-4. **Package Manager:** Choose between pnpm, npm, or yarn
-
-**Option 3: Full Custom Configuration**
-
-```bash
-npx sam init my-agent \
-  --template custom \
-  --plugins tokendata,walletdata,swap,ai \
-  --typescript \
-  --pm pnpm \
-  --skip-install
-```
-
-Available CLI options:
-- `--template <name>` - Use a predefined template
-- `--typescript / --no-typescript` - Enable/disable TypeScript
-- `--plugins <list>` - Comma-separated plugin list
-- `--skip-install` - Don't run package installation
-- `--pm <manager>` - Package manager (pnpm/npm/yarn)
-- `--wizard` - Interactive setup mode
+Supported chains:
+- Base (default, L2 with low fees)
+- Ethereum Mainnet
+- Arbitrum
+- Polygon
+- Optimism
+- BSC
 
 ## Project Structure
 
-After running `sam init`, you'll get a project structure like this:
+After cloning, your project structure looks like this:
 
 ```
-my-trading-agent/
+samterminal/
 ├── samterminal.config.json  # Main configuration file
 ├── .env                     # Environment variables
 ├── .env.example            # Template for required env vars
@@ -294,7 +254,7 @@ docker compose down -v
 ### Development Mode (Recommended)
 
 ```bash
-npx sam dev
+pnpm sam dev
 ```
 
 This runs your agent with:
@@ -305,23 +265,23 @@ This runs your agent with:
 ### Production Mode
 
 ```bash
-npx sam run
+pnpm sam run
 ```
 
 **Advanced run options:**
 
 ```bash
 # Use a custom config file
-npx sam run --config ./config/production.json
+pnpm sam run --config ./config/production.json
 
 # Use a different environment file
-npx sam run --env .env.production
+pnpm sam run --env .env.production
 
 # Enable watch mode manually
-npx sam run --watch
+pnpm sam run --watch
 
 # Run on a specific port
-npx sam run --port 3001
+pnpm sam run --port 3001
 ```
 
 **Monitoring your agent:**
@@ -397,22 +357,22 @@ SAM Terminal's plugin system provides modular functionality.
 
 ```bash
 # Install a single plugin
-npx sam plugin install tokendata
+pnpm sam plugin install tokendata
 
 # Install multiple plugins at once
-npx sam plugin install tokendata walletdata swap
+pnpm sam plugin install tokendata walletdata swap
 
 # List installed plugins
-npx sam plugin list
+pnpm sam plugin list
 
 # Remove a plugin
-npx sam plugin remove ai
+pnpm sam plugin remove ai
 
 # Enable a disabled plugin
-npx sam plugin enable telegram
+pnpm sam plugin enable telegram
 
 # Disable a plugin without removing it
-npx sam plugin disable telegram
+pnpm sam plugin disable telegram
 ```
 
 ### Installing Plugins via Config
@@ -502,7 +462,7 @@ The 0x Protocol powers DEX aggregation.
 SAM Terminal includes a diagnostic tool to verify your setup:
 
 ```bash
-npx sam doctor
+pnpm sam doctor
 ```
 
 This command checks:
@@ -566,29 +526,29 @@ SAM Terminal supports creating and managing automated trading orders:
 
 ```bash
 # Create a new order from a template
-npx sam order create --template dca
+pnpm sam order create --template dca
 
 # List all active orders
-npx sam order list
+pnpm sam order list
 
 # Get details for a specific order
-npx sam order get <order-id>
+pnpm sam order get <order-id>
 
 # Cancel an order
-npx sam order cancel <order-id>
+pnpm sam order cancel <order-id>
 
 # Pause an order temporarily
-npx sam order pause <order-id>
+pnpm sam order pause <order-id>
 
 # Resume a paused order
-npx sam order resume <order-id>
+pnpm sam order resume <order-id>
 ```
 
 ### Environment Information
 
 ```bash
 # Display current environment configuration
-npx sam info
+pnpm sam info
 ```
 
 This shows:
@@ -611,12 +571,12 @@ Congratulations! You now have SAM Terminal up and running.
 
 **Community:**
 
-- [GitHub Repository](https://github.com/samterminal/samterminal) - Star, fork, contribute
+- [GitHub Repository](https://github.com/0xtinylabs/samterminal) - Star, fork, contribute
 - [X (Twitter)](https://x.com/samterminalcom) - Follow for updates
 
 **Need help?**
 
-- Run `npx sam doctor` to diagnose issues
+- Run `pnpm sam doctor` to diagnose issues
 - Check the logs: `docker compose logs -f`
 - Review `.env` for missing API keys
 - Check the [MCP Setup Guide](/docs/mcp-setup-guide) for integration details

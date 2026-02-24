@@ -4,19 +4,13 @@
 
 ## CLI Commands
 
-### Project Management
+### Setup
 ```bash
-sam init <project-name>        # Scaffold a new agent project
-sam run                        # Start agent in production mode
-sam dev                        # Start agent in dev mode (hot reload)
-sam order                      # Generate flow from natural language
-```
-
-### Plugin Management
-```bash
-sam plugin install <name>      # Install a plugin
-sam plugin remove <name>       # Remove a plugin
-sam plugin list                # List installed plugins
+# Clone and setup
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal && cp .env.example .env
+pnpm install && pnpm build
+pnpm dev                       # Start in dev mode (hot reload)
 ```
 
 ## Configuration
@@ -141,8 +135,8 @@ Add to `claude_desktop_config.json`:
 {
   "mcpServers": {
     "sam-terminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "SAM_GRPC_HOST": "localhost",
         "SAM_MAIN_PORT": "50060",
@@ -185,20 +179,21 @@ samterminal/
 ## Common Workflows
 
 ### New Agent Setup
-1. `sam init my-agent`
-2. Edit `samterminal.config.json` — add plugins
-3. Set environment variables in `.env`
-4. `sam dev` — start in development mode
+1. `git clone https://github.com/0xtinylabs/samterminal.git`
+2. `cd samterminal && cp .env.example .env`
+3. Edit `.env` with your API keys
+4. `pnpm install && pnpm build`
+5. `pnpm dev` — start in development mode
 
 ### Adding a Plugin
-1. `sam plugin install @samterminal/plugin-tokendata`
+1. Add plugin to `samterminal.config.json`
 2. Add config in `samterminal.config.json`
 3. Set required env vars
 4. Restart agent
 
 ### Running with Docker
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal && cp .env.example .env
 docker compose up -d
 ```

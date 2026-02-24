@@ -96,7 +96,7 @@ Database in Docker, services on host with hot-reload. This is the recommended ap
 
 ```bash
 # Clone and setup
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 # Edit .env with your API keys (Alchemy, Moralis, etc.)
@@ -134,7 +134,7 @@ Services will be running at:
 ### Option 2: Make Commands
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 
@@ -156,7 +156,7 @@ make dev          # Start database + all services
 All services run in containers. Requires `POSTGRES_PASSWORD` env var.
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 # Edit .env with your API keys
@@ -174,7 +174,7 @@ For those who prefer a local PostgreSQL installation without Docker:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 
 # 2. Install dependencies
@@ -293,7 +293,7 @@ make clean        # Clean everything
 
 ```bash
 # Clone the repository
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 
 # Navigate to the project directory
 cd samterminal

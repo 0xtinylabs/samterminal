@@ -93,8 +93,8 @@ grpc://api.samterminal.io:50059  # Swap
 # Node.js
 npm install @grpc/grpc-js @grpc/proto-loader
 
-# Or use generated clients
-npm install @samterminal/grpc-client
+# Or use the generated clients from the samterminal repo
+# See packages/ directory after building
 ```
 
 ### 2. Generate Client from Proto

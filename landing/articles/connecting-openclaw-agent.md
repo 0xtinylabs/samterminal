@@ -50,7 +50,7 @@ Your AI agent needs a running backend to connect to. SAM Terminal uses a microse
 ### Step 1: Clone and Install
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 pnpm install
@@ -168,7 +168,7 @@ nc -zv localhost 50061
 nc -zv localhost 50062
 ```
 
-> **Tip:** Run `sam doctor` for a comprehensive health check of all services, API keys, and database connections.
+> **Tip:** Run `pnpm sam doctor` for a comprehensive health check of all services, API keys, and database connections.
 
 ---
 
@@ -218,8 +218,8 @@ The MCP (Model Context Protocol) server is the bridge between your AI agent and 
 {
   "mcpServers": {
     "sam-terminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "MICROSERVICES_HOST": "localhost",
         "SAM_TOKEN_PORT": "50061",
@@ -232,6 +232,8 @@ The MCP (Model Context Protocol) server is the bridge between your AI agent and 
   }
 }
 ```
+
+> **Note:** Replace `path/to/samterminal` with the absolute path to your cloned SAM Terminal repository.
 
 **3. Restart Claude Desktop** completely (Cmd+Q on macOS, then relaunch).
 
@@ -251,8 +253,8 @@ mkdir -p ~/.claude
 {
   "mcpServers": {
     "sam-terminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "MICROSERVICES_HOST": "localhost",
         "SAM_TOKEN_PORT": "50061",
@@ -281,7 +283,7 @@ mkdir -p ~/.claude
 Any client that supports the MCP protocol can connect. Point it to:
 
 ```bash
-npx -y @samterminal/mcp-server
+node path/to/samterminal/packages/mcp-server/dist/index.js
 ```
 
 Set the environment variables for gRPC service ports. The server auto-discovers and registers all 40 tools on startup.
@@ -592,7 +594,7 @@ Agent responds:
 
 - **Never expose private keys** in skill files, MCP configs, or conversation history
 - **Use environment variables** for all secrets
-- **Run `sam doctor`** periodically to validate API key health
+- **Run `pnpm sam doctor`** periodically to validate API key health
 - **Use a dedicated hot wallet** with limited funds for automated trading
 - **Review swap quotes** before confirming -- never auto-execute large trades
 

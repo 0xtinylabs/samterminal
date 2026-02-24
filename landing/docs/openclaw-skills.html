@@ -193,7 +193,7 @@
         <a href="/skill" class="nav-link">Skills</a>
         <a href="/docs/manifesto" class="nav-link">Manifesto</a>
         <span class="nav-divider"></span>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
@@ -228,7 +228,7 @@
 </ol>
 <p>For SAM Terminal, skills are particularly powerful because they bridge three layers of functionality:</p>
 <ul>
-<li>CLI commands (<code>sam init</code>, <code>sam run</code>, etc.)</li>
+<li>CLI commands (<code>pnpm sam init</code>, <code>pnpm sam run</code>, etc.)</li>
 <li>MCP tools (40+ tools for token, wallet, workflow operations)</li>
 <li>Plugin configurations and order templates</li>
 </ul>
@@ -245,21 +245,22 @@ Networks: Base, Ethereum, Arbitrum, Polygon, Optimism, BSC
 <p><strong>2. Tool Reference</strong></p>
 <pre><code class="language-markdown">## CLI Commands
 
-### sam init [path]
+### pnpm sam init [path]
 Initialize new agent project
 Options: --template, --plugins
 
-### sam run &lt;agent&gt;
+### pnpm sam run &lt;agent&gt;
 Execute agent with live plugins
 </code></pre>
 <p><strong>3. Workflow Patterns</strong></p>
 <pre><code class="language-markdown">## Common Workflows
 
 ### Setting Up Trading Agent
-1. Run sam init my-agent --template trading
-2. Configure .env with RPC_URL, PRIVATE_KEY
-3. Install plugins: sam plugin install @samterminal/plugin-swap
-4. Test: sam dev my-agent
+1. Clone: git clone https://github.com/0xtinylabs/samterminal.git
+2. Install: cd samterminal &amp;&amp; pnpm install &amp;&amp; pnpm build
+3. Configure .env with RPC_URL, PRIVATE_KEY
+4. Add plugins to samterminal.config.json
+5. Test: pnpm sam dev my-agent
 </code></pre>
 <p><strong>4. Configuration Reference</strong></p>
 <pre><code class="language-markdown">## Required Environment Variables
@@ -272,7 +273,7 @@ TELEGRAM_BOT_TOKEN - For notifications (optional)
 <pre><code class="language-markdown">## Common Issues
 
 Error: &quot;Plugin not found&quot;
-Solution: Run sam plugin install &lt;name&gt;
+Solution: Add plugin to samterminal.config.json and run pnpm install
 
 Error: &quot;Insufficient gas&quot;
 Solution: Check wallet balance with sam_get_wallet
@@ -283,23 +284,23 @@ Solution: Check wallet balance with sam_get_wallet
 <h3>CLI Command Reference</h3>
 <p>Complete documentation of all SAM Terminal CLI commands:</p>
 <pre><code class="language-bash"># Project Management
-sam init [path]               # Initialize new agent
-sam dev &lt;agent&gt;               # Development mode with hot reload
-sam run &lt;agent&gt;               # Production execution
-sam setup                     # Interactive configuration wizard
-sam doctor                    # Diagnose installation issues
+pnpm sam init [path]          # Initialize new agent
+pnpm sam dev &lt;agent&gt;          # Development mode with hot reload
+pnpm sam run &lt;agent&gt;          # Production execution
+pnpm sam setup                # Interactive configuration wizard
+pnpm sam doctor               # Diagnose installation issues
 
 # Plugin Management
-sam plugin list               # Show installed plugins
-sam plugin install &lt;name&gt;     # Install plugin from npm
-sam plugin remove &lt;name&gt;      # Uninstall plugin
-sam plugin search &lt;query&gt;     # Search plugin registry
+pnpm sam plugin list          # Show installed plugins
+pnpm sam plugin install &lt;name&gt; # Install plugin
+pnpm sam plugin remove &lt;name&gt; # Uninstall plugin
+pnpm sam plugin search &lt;query&gt; # Search plugin registry
 
 # Order Management
-sam order create &lt;type&gt;       # Create trading order
-sam order list                # List active orders
-sam order cancel &lt;id&gt;         # Cancel order
-sam order status &lt;id&gt;         # Check order status
+pnpm sam order create &lt;type&gt;  # Create trading order
+pnpm sam order list           # List active orders
+pnpm sam order cancel &lt;id&gt;    # Cancel order
+pnpm sam order status &lt;id&gt;    # Check order status
 </code></pre>
 <h3>MCP Tools Catalog</h3>
 <p>All 40 MCP tools organized by category:</p>
@@ -448,7 +449,7 @@ Error: &quot;Transaction reverted&quot;
 Fix: Check token approval with sam_swap_approve first
 
 Error: &quot;Plugin initialization failed&quot;
-Fix: Verify plugin config in samterminal.config.json
+Fix: Verify plugin config in samterminal.config.json, run pnpm install
 </code></pre>
 <h2>Setting Up Skills</h2>
 <p>Different AI assistants require different setup approaches. Here&#39;s how to configure skills for popular platforms:</p>
@@ -500,8 +501,8 @@ Fix: Verify plugin config in samterminal.config.json
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;samterminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;context&quot;: [&quot;skill.md&quot;]
     }
   }
@@ -638,14 +639,14 @@ Goal: [what user wants to achieve]
 <li>Better focus on relevant information</li>
 </ul>
 <p><strong>Good:</strong></p>
-<pre><code class="language-markdown">### sam init [path]
+<pre><code class="language-markdown">### pnpm sam init [path]
 Initialize new agent project
 Options: --template (trading|basic), --plugins (comma-separated)
-Example: sam init my-agent --template trading
+Example: pnpm sam init my-agent --template trading
 </code></pre>
 <p><strong>Too Verbose:</strong></p>
-<pre><code class="language-markdown">### sam init
-The sam init command is used to initialize a new agent project. You can optionally provide a path where the project should be created. If no path is provided, the current directory is used. There are several options available...
+<pre><code class="language-markdown">### pnpm sam init
+The pnpm sam init command is used to initialize a new agent project. You can optionally provide a path where the project should be created. If no path is provided, the current directory is used. There are several options available...
 [continues for 10 more lines]
 </code></pre>
 <h3>Include Example Commands With Expected Outputs</h3>
@@ -716,7 +717,7 @@ Compatible with: SAM Terminal &gt;= 1.0.0
 
 1. Check logs: ~/.sam/logs/plugin-[name].log
 2. Verify plugin config in samterminal.config.json
-3. Try: sam plugin remove [name] &amp;&amp; sam plugin install [name]
+3. Try removing plugin from samterminal.config.json, run pnpm install, re-add and reinstall
 4. If persistent, report issue with log excerpt
 </code></pre>
 <h2>Real-World Examples</h2>
@@ -726,13 +727,14 @@ Compatible with: SAM Terminal &gt;= 1.0.0
 <p><strong>AI with Skills:</strong></p>
 <pre><code>I&#39;ll help you set up a trading agent with stop-loss capabilities.
 
-Step 1: Initializing project
-&gt; sam init eth-trader --template trading
+Step 1: Clone and setup
+&gt; git clone https://github.com/0xtinylabs/samterminal.git
+&gt; cd samterminal &amp;&amp; pnpm install &amp;&amp; pnpm build
 
-Step 2: Installing required plugins
-&gt; sam plugin install @samterminal/plugin-swap
-&gt; sam plugin install @samterminal/plugin-tokendata
-&gt; sam plugin install @samterminal/plugin-telegram
+Step 2: Add required plugins to samterminal.config.json
+  - @samterminal/plugin-swap
+  - @samterminal/plugin-tokendata
+  - @samterminal/plugin-telegram
 
 Step 3: Configuration needed
 I need some information to complete the setup:
@@ -827,7 +829,7 @@ Would you like me to create this rebalancing order?
 <p><strong>AI with Skills:</strong></p>
 <pre><code>I&#39;ll create a DCA (Dollar Cost Average) order for ETH.
 
-&gt; sam order create dca \
+&gt; pnpm sam order create dca \
   --token ETH \
   --amount 100 \
   --interval 1w \
@@ -847,10 +849,10 @@ Details:
 The order will execute automatically every week. You&#39;ll receive notifications
 before each purchase and can cancel anytime with:
 
-&gt; sam order cancel order_dca_eth_001
+&gt; pnpm sam order cancel order_dca_eth_001
 
 Track status with:
-&gt; sam order status order_dca_eth_001
+&gt; pnpm sam order status order_dca_eth_001
 </code></pre>
 <p>The AI:</p>
 <ul>
@@ -868,13 +870,13 @@ Track status with:
 
 1. Ensure tests pass: `npm test`
 2. Build: `npm run build`
-3. Deploy: `sam deploy staging --approve`
+3. Deploy: `pnpm sam deploy staging --approve`
 4. Run smoke tests: `npm run test:smoke staging`
 5. Notify in #deployments Slack channel
 
 ### Creating New Plugin
 
-1. Generate scaffold: `sam plugin create &lt;name&gt;`
+1. Generate scaffold: `pnpm sam plugin create &lt;name&gt;`
 2. Implement IPlugin interface
 3. Add tests in `src/__tests__/`
 4. Document in `README.md`
@@ -893,14 +895,14 @@ Track status with:
 - All PRs require 2 approvals
 - Include test coverage report
 - Update CHANGELOG.md
-- Run `sam doctor` before submitting
+- Run `pnpm sam doctor` before submitting
 </code></pre>
 <h3>Internal Tool Integration</h3>
 <pre><code class="language-markdown">## Internal Tools
 
 ### Deployment Dashboard
 URL: https://dashboard.internal/sam
-Use `sam deploy` command, then verify in dashboard
+Use `pnpm sam deploy` command, then verify in dashboard
 
 ### Monitoring
 All agents automatically report to DataDog
@@ -908,7 +910,7 @@ View: https://datadog.internal/sam-terminal
 
 ### Cost Tracking
 RPC and gas costs tracked in finance.internal
-Run `sam cost-report` for monthly summary
+Run `pnpm sam cost-report` for monthly summary
 </code></pre>
 <h2>Skills + MCP Integration</h2>
 <p>Skills and MCP are complementary technologies:</p>
@@ -997,7 +999,7 @@ AI: [reads skill, knows sam_token_track exists and parameter format]
 </ul>
 <p><strong>Community:</strong></p>
 <ul>
-<li><a href="https://github.com/samterminal/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
+<li><a href="https://github.com/0xtinylabs/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
 <li><a href="https://x.com/samterminalcom">X (Twitter)</a> - Follow for updates</li>
 </ul>
 <p>Start by downloading SAM Terminal&#39;s official skill file, loading it into your AI assistant, and trying the examples from this guide. As you become comfortable, create custom skill files for your specific use cases and share them with the community.</p>
@@ -1016,7 +1018,7 @@ AI: [reads skill, knows sam_token_track exists and parameter format]
         <a href="/docs/api-reference">API</a>
         <a href="/skill">Skills</a>
         <a href="/docs/manifesto">Manifesto</a>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
       </div>
       <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>

@@ -193,7 +193,7 @@
         <a href="/skill" class="nav-link">Skills</a>
         <a href="/docs/manifesto" class="nav-link">Manifesto</a>
         <span class="nav-divider"></span>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
@@ -240,7 +240,7 @@ git --version
 </code></pre>
 <h2>Installation</h2>
 <h3>1. Clone the Repository</h3>
-<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+<pre><code class="language-bash">git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 </code></pre>
 <h3>2. Install Dependencies</h3>
@@ -272,7 +272,7 @@ REDIS_URL=redis://localhost:6379
 </code></pre>
 <h3>4. Setup Development Environment</h3>
 <p>SAM Terminal provides a convenient command to setup everything:</p>
-<pre><code class="language-bash">npx sam setup
+<pre><code class="language-bash">pnpm sam setup
 </code></pre>
 <p>This command will:</p>
 <ul>
@@ -290,31 +290,20 @@ pnpm db:migrate
 <h2>Quick Start with CLI</h2>
 <p>SAM Terminal includes a powerful CLI that streamlines agent creation and management.</p>
 <h3>Creating Your First Agent</h3>
-<p><strong>Option 1: Using a Template</strong></p>
-<pre><code class="language-bash">npx sam init my-trading-agent --template web3-agent
+<p>Clone the repository and configure your agent:</p>
+<pre><code class="language-bash">git clone https://github.com/0xtinylabs/samterminal.git my-trading-agent
+cd my-trading-agent
+cp .env.example .env
+pnpm install &amp;&amp; pnpm build
 </code></pre>
-<p>Available templates:</p>
-<ul>
-<li><code>basic</code> - Minimal setup with core functionality</li>
-<li><code>telegram-bot</code> - Agent with Telegram notification support</li>
-<li><code>web3-agent</code> - Full-featured trading agent with swap capabilities</li>
-<li><code>custom</code> - Start from scratch</li>
-</ul>
-<p><strong>Option 2: Interactive Wizard Mode (Recommended for beginners)</strong></p>
-<pre><code class="language-bash">npx sam init my-agent --wizard
-</code></pre>
-<p>The wizard will guide you through:</p>
-<ol>
-<li><p><strong>Profile Selection:</strong></p>
+<p>Then edit <code>samterminal.config.json</code> to select your plugins and chains. Available plugin profiles:</p>
 <ul>
 <li><code>minimal</code> - Core functionality only</li>
 <li><code>trader</code> - Token tracking + swap capabilities</li>
 <li><code>notifier</code> - Token tracking + Telegram notifications</li>
 <li><code>full</code> - All plugins enabled</li>
-<li><code>custom</code> - Pick and choose</li>
 </ul>
-</li>
-<li><p><strong>Chain Selection:</strong></p>
+<p>Supported chains:</p>
 <ul>
 <li>Base (default, L2 with low fees)</li>
 <li>Ethereum Mainnet</li>
@@ -323,32 +312,9 @@ pnpm db:migrate
 <li>Optimism</li>
 <li>BSC</li>
 </ul>
-</li>
-<li><p><strong>API Key Validation:</strong> The wizard validates your API keys before proceeding</p>
-</li>
-<li><p><strong>Package Manager:</strong> Choose between pnpm, npm, or yarn</p>
-</li>
-</ol>
-<p><strong>Option 3: Full Custom Configuration</strong></p>
-<pre><code class="language-bash">npx sam init my-agent \
-  --template custom \
-  --plugins tokendata,walletdata,swap,ai \
-  --typescript \
-  --pm pnpm \
-  --skip-install
-</code></pre>
-<p>Available CLI options:</p>
-<ul>
-<li><code>--template &lt;name&gt;</code> - Use a predefined template</li>
-<li><code>--typescript / --no-typescript</code> - Enable/disable TypeScript</li>
-<li><code>--plugins &lt;list&gt;</code> - Comma-separated plugin list</li>
-<li><code>--skip-install</code> - Don&#39;t run package installation</li>
-<li><code>--pm &lt;manager&gt;</code> - Package manager (pnpm/npm/yarn)</li>
-<li><code>--wizard</code> - Interactive setup mode</li>
-</ul>
 <h2>Project Structure</h2>
-<p>After running <code>sam init</code>, you&#39;ll get a project structure like this:</p>
-<pre><code>my-trading-agent/
+<p>After cloning, your project structure looks like this:</p>
+<pre><code>samterminal/
 ├── samterminal.config.json  # Main configuration file
 ├── .env                     # Environment variables
 ├── .env.example            # Template for required env vars
@@ -450,7 +416,7 @@ docker compose down -v
 </code></pre>
 <h2>Running Your Agent</h2>
 <h3>Development Mode (Recommended)</h3>
-<pre><code class="language-bash">npx sam dev
+<pre><code class="language-bash">pnpm sam dev
 </code></pre>
 <p>This runs your agent with:</p>
 <ul>
@@ -459,20 +425,20 @@ docker compose down -v
 <li>Auto-restart on crashes</li>
 </ul>
 <h3>Production Mode</h3>
-<pre><code class="language-bash">npx sam run
+<pre><code class="language-bash">pnpm sam run
 </code></pre>
 <p><strong>Advanced run options:</strong></p>
 <pre><code class="language-bash"># Use a custom config file
-npx sam run --config ./config/production.json
+pnpm sam run --config ./config/production.json
 
 # Use a different environment file
-npx sam run --env .env.production
+pnpm sam run --env .env.production
 
 # Enable watch mode manually
-npx sam run --watch
+pnpm sam run --watch
 
 # Run on a specific port
-npx sam run --port 3001
+pnpm sam run --port 3001
 </code></pre>
 <p><strong>Monitoring your agent:</strong></p>
 <p>Your agent will log to console. Look for:</p>
@@ -546,22 +512,22 @@ npx sam run --port 3001
 </ul>
 <h3>Installing Plugins via CLI</h3>
 <pre><code class="language-bash"># Install a single plugin
-npx sam plugin install tokendata
+pnpm sam plugin install tokendata
 
 # Install multiple plugins at once
-npx sam plugin install tokendata walletdata swap
+pnpm sam plugin install tokendata walletdata swap
 
 # List installed plugins
-npx sam plugin list
+pnpm sam plugin list
 
 # Remove a plugin
-npx sam plugin remove ai
+pnpm sam plugin remove ai
 
 # Enable a disabled plugin
-npx sam plugin enable telegram
+pnpm sam plugin enable telegram
 
 # Disable a plugin without removing it
-npx sam plugin disable telegram
+pnpm sam plugin disable telegram
 </code></pre>
 <h3>Installing Plugins via Config</h3>
 <p>Edit <code>samterminal.config.json</code>:</p>
@@ -630,7 +596,7 @@ npx sam plugin disable telegram
 <p><strong>Used by:</strong> telegram plugin</p>
 <h2>Verifying Setup</h2>
 <p>SAM Terminal includes a diagnostic tool to verify your setup:</p>
-<pre><code class="language-bash">npx sam doctor
+<pre><code class="language-bash">pnpm sam doctor
 </code></pre>
 <p>This command checks:</p>
 <ol>
@@ -695,26 +661,26 @@ Status: Ready with warnings
 <h3>Order Management</h3>
 <p>SAM Terminal supports creating and managing automated trading orders:</p>
 <pre><code class="language-bash"># Create a new order from a template
-npx sam order create --template dca
+pnpm sam order create --template dca
 
 # List all active orders
-npx sam order list
+pnpm sam order list
 
 # Get details for a specific order
-npx sam order get &lt;order-id&gt;
+pnpm sam order get &lt;order-id&gt;
 
 # Cancel an order
-npx sam order cancel &lt;order-id&gt;
+pnpm sam order cancel &lt;order-id&gt;
 
 # Pause an order temporarily
-npx sam order pause &lt;order-id&gt;
+pnpm sam order pause &lt;order-id&gt;
 
 # Resume a paused order
-npx sam order resume &lt;order-id&gt;
+pnpm sam order resume &lt;order-id&gt;
 </code></pre>
 <h3>Environment Information</h3>
 <pre><code class="language-bash"># Display current environment configuration
-npx sam info
+pnpm sam info
 </code></pre>
 <p>This shows:</p>
 <ul>
@@ -735,12 +701,12 @@ npx sam info
 </ul>
 <p><strong>Community:</strong></p>
 <ul>
-<li><a href="https://github.com/samterminal/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
+<li><a href="https://github.com/0xtinylabs/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
 <li><a href="https://x.com/samterminalcom">X (Twitter)</a> - Follow for updates</li>
 </ul>
 <p><strong>Need help?</strong></p>
 <ul>
-<li>Run <code>npx sam doctor</code> to diagnose issues</li>
+<li>Run <code>pnpm sam doctor</code> to diagnose issues</li>
 <li>Check the logs: <code>docker compose logs -f</code></li>
 <li>Review <code>.env</code> for missing API keys</li>
 <li>Check the <a href="/docs/mcp-setup-guide">MCP Setup Guide</a> for integration details</li>
@@ -760,7 +726,7 @@ npx sam info
         <a href="/docs/api-reference">API</a>
         <a href="/skill">Skills</a>
         <a href="/docs/manifesto">Manifesto</a>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
       </div>
       <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>

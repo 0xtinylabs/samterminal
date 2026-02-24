@@ -193,7 +193,7 @@
         <a href="/skill" class="nav-link">Skills</a>
         <a href="/docs/manifesto" class="nav-link">Manifesto</a>
         <span class="nav-divider"></span>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
@@ -240,14 +240,14 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
 </code></pre>
 <p>All tools communicate via gRPC with backend microservices, ensuring high performance and type safety.</p>
 <h2>Installation</h2>
-<h3>Using npx (Recommended)</h3>
-<p>No installation required. The MCP server runs on-demand:</p>
-<pre><code class="language-bash">npx -y @samterminal/mcp-server
+<h3>Build from Source</h3>
+<p>Clone the repository and build the MCP server locally:</p>
+<pre><code class="language-bash">git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal
+pnpm install
+pnpm build
 </code></pre>
-<h3>Local Installation</h3>
-<p>For development or custom setups:</p>
-<pre><code class="language-bash">pnpm add -g @samterminal/mcp-server
-</code></pre>
+<p>The MCP server binary will be available at <code>packages/mcp-server/dist/index.js</code>.</p>
 <h2>Claude Desktop Setup</h2>
 <h3>1. Locate Configuration File</h3>
 <p><strong>macOS:</strong></p>
@@ -264,8 +264,8 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;samterminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;env&quot;: {
         &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
         &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
@@ -288,6 +288,7 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
   }
 }
 </code></pre>
+<p><strong>Note:</strong> Replace <code>/path/to/samterminal</code> with the absolute path to your cloned repository.</p>
 <h3>3. Restart Claude Desktop</h3>
 <p>Quit Claude Desktop completely and relaunch. The MCP server will connect automatically.</p>
 <h3>4. Verify Connection</h3>
@@ -304,8 +305,8 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;samterminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;env&quot;: {
         &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
         &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
@@ -328,6 +329,7 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
   }
 }
 </code></pre>
+<p><strong>Note:</strong> Replace <code>/path/to/samterminal</code> with the absolute path to your cloned repository.</p>
 <h3>3. Reload Cursor</h3>
 <p>Reload the window or restart Cursor for changes to take effect.</p>
 <h3>4. Test Integration</h3>
@@ -341,8 +343,8 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;samterminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;env&quot;: {
         &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
         &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
@@ -365,6 +367,7 @@ Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
   }
 }
 </code></pre>
+<p><strong>Note:</strong> Replace <code>/path/to/samterminal</code> with the absolute path to your cloned repository.</p>
 <h3>3. Start Claude Code</h3>
 <pre><code class="language-bash">claude
 </code></pre>
@@ -990,7 +993,7 @@ Input: {
 </ul>
 <h2>Support</h2>
 <ul>
-<li><strong>GitHub Issues:</strong> <a href="https://github.com/samterminal/samterminal">github.com/samterminal/samterminal</a></li>
+<li><strong>GitHub Issues:</strong> <a href="https://github.com/0xtinylabs/samterminal">github.com/0xtinylabs/samterminal</a></li>
 <li><strong>X (Twitter):</strong> <a href="https://x.com/samterminalcom">@samterminalcom</a></li>
 </ul>
 <hr>
@@ -1009,7 +1012,7 @@ Input: {
         <a href="/docs/api-reference">API</a>
         <a href="/skill">Skills</a>
         <a href="/docs/manifesto">Manifesto</a>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
       </div>
       <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>

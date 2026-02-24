@@ -92,7 +92,7 @@
           <p class="subtitle accent-green">Automation Framework for Onchain Trading</p>
           <p class="description">A plugin-based trading framework for your AI agents. Build OpenClaw agents that fetch fresh Clanker and Bankr tokens, execute swaps, track wallet activity, manage portfolios, and automate onchain trading strategies.</p>
           <div class="command-line">
-            <span class="accent-green">$</span> sam init my-agent<span class="cursor">_</span>
+            <span class="accent-green">$</span> git clone https://github.com/0xtinylabs/samterminal.git<span class="cursor">_</span>
           </div>
           <div class="cta-group">
             <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Get Started</a>
@@ -256,74 +256,27 @@
     <section class="section fade-in" id="quick-start">
       <h2 class="section-title"><span class="comment">// quick-start</span></h2>
 
-      <div class="qs-tabs">
-        <button class="qs-tab active" data-tab="npx">npx</button>
-        <button class="qs-tab" data-tab="npm">npm</button>
-        <button class="qs-tab" data-tab="source">source</button>
-      </div>
-
-      <!-- npx tab -->
-      <div class="qs-panel active" id="qs-npx">
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-title">terminal</span>
-            <button class="copy-btn" data-copy="npx @samterminal/cli init my-agent
-cd my-agent
-pnpm dev" aria-label="Copy to clipboard">copy</button>
-          </div>
-          <div class="code-body">
-            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> npx @samterminal/cli init my-agent</div>
-            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> cd my-agent</div>
-            <div class="code-line"><span class="line-num">03</span><span class="accent-green">$</span> pnpm dev</div>
-          </div>
-        </div>
-        <p class="qs-note">The interactive wizard will guide you through template selection, plugin configuration, and API key setup.</p>
-      </div>
-
-      <!-- npm tab -->
-      <div class="qs-panel" id="qs-npm">
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-title">terminal</span>
-            <button class="copy-btn" data-copy="npm install -g @samterminal/cli
-sam init my-agent --wizard
-cd my-agent
-sam dev" aria-label="Copy to clipboard">copy</button>
-          </div>
-          <div class="code-body">
-            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> npm install -g @samterminal/cli</div>
-            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> sam init my-agent --wizard</div>
-            <div class="code-line"><span class="line-num">03</span><span class="accent-green">$</span> cd my-agent</div>
-            <div class="code-line"><span class="line-num">04</span><span class="accent-green">$</span> sam dev</div>
-          </div>
-        </div>
-        <p class="qs-note">Global install gives you the <code>sam</code> command everywhere. Use <code>--wizard</code> for guided setup with profile presets and API key validation.</p>
-      </div>
-
-      <!-- source tab -->
-      <div class="qs-panel" id="qs-source">
-        <div class="code-block">
-          <div class="code-header">
-            <span class="code-title">terminal</span>
-            <button class="copy-btn" data-copy="git clone https://github.com/samterminal/samterminal.git
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-title">terminal</span>
+          <button class="copy-btn" data-copy="git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal && cp .env.example .env
 docker compose -f docker-compose.dev.yml up -d
 pnpm install && pnpm proto:gen && pnpm build
 make db-migrate
 pnpm dev" aria-label="Copy to clipboard">copy</button>
-          </div>
-          <div class="code-body">
-            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> git clone https://github.com/samterminal/samterminal.git</div>
-            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> cd samterminal && cp .env.example .env</div>
-            <div class="code-line"><span class="line-num">03</span><span class="comment"># Edit .env with your API keys (Alchemy, Moralis, etc.)</span></div>
-            <div class="code-line"><span class="line-num">04</span><span class="accent-green">$</span> docker compose -f docker-compose.dev.yml up -d</div>
-            <div class="code-line"><span class="line-num">05</span><span class="accent-green">$</span> pnpm install && pnpm proto:gen && pnpm build</div>
-            <div class="code-line"><span class="line-num">06</span><span class="accent-green">$</span> make db-migrate</div>
-            <div class="code-line"><span class="line-num">07</span><span class="accent-green">$</span> pnpm dev</div>
-          </div>
         </div>
-        <p class="qs-note">Full monorepo with gRPC services, Docker, and database. For contributors and self-hosted deployments.</p>
+        <div class="code-body">
+          <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> git clone https://github.com/0xtinylabs/samterminal.git</div>
+          <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> cd samterminal && cp .env.example .env</div>
+          <div class="code-line"><span class="line-num">03</span><span class="comment"># Edit .env with your API keys (Alchemy, Moralis, etc.)</span></div>
+          <div class="code-line"><span class="line-num">04</span><span class="accent-green">$</span> docker compose -f docker-compose.dev.yml up -d</div>
+          <div class="code-line"><span class="line-num">05</span><span class="accent-green">$</span> pnpm install && pnpm proto:gen && pnpm build</div>
+          <div class="code-line"><span class="line-num">06</span><span class="accent-green">$</span> make db-migrate</div>
+          <div class="code-line"><span class="line-num">07</span><span class="accent-green">$</span> pnpm dev</div>
+        </div>
       </div>
+      <p class="qs-note">Full monorepo with gRPC services, Docker, and database. For contributors and self-hosted deployments.</p>
 
     </section>
 

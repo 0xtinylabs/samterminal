@@ -5,16 +5,20 @@ Command-line interface for SamTerminal - Create and manage SamTerminal agents.
 ## Installation
 
 ```bash
-# Global installation
-npm install -g @samterminal/cli
+# Build from source
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal
+pnpm install && pnpm build
 
-# Or use with npx
-npx @samterminal/cli init my-agent
+# Link CLI globally (optional)
+cd packages/cli && pnpm link --global
 ```
 
 ## Quick Start
 
 ```bash
+# After building from source (see Installation above)
+
 # Create a new project
 sam init my-agent
 

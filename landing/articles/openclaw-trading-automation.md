@@ -82,7 +82,7 @@ The MCP server is the bridge. It translates natural language tool calls from you
 ### Step 1: Clone and Configure
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 ```

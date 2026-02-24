@@ -44,20 +44,21 @@ All tools communicate via gRPC with backend microservices, ensuring high perform
 
 ## Installation
 
-### Using npx (Recommended)
+### Building from Source
 
-No installation required. The MCP server runs on-demand:
+Clone the repository and build the MCP server:
 
 ```bash
-npx -y @samterminal/mcp-server
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal
+pnpm install
+pnpm build
 ```
 
-### Local Installation
-
-For development or custom setups:
+The MCP server binary will be available at `packages/mcp-server/dist/index.js`. You can run it directly:
 
 ```bash
-pnpm add -g @samterminal/mcp-server
+node packages/mcp-server/dist/index.js
 ```
 
 ## Claude Desktop Setup
@@ -87,8 +88,8 @@ Edit the configuration file and add the SAM Terminal MCP server:
 {
   "mcpServers": {
     "samterminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "SAM_GRPC_HOST": "localhost",
         "SAM_MAIN_PORT": "50060",
@@ -111,6 +112,8 @@ Edit the configuration file and add the SAM Terminal MCP server:
   }
 }
 ```
+
+> **Note:** Replace `path/to/samterminal` with the absolute path to your cloned SAM Terminal repository.
 
 ### 3. Restart Claude Desktop
 
@@ -136,8 +139,8 @@ Add the SAM Terminal MCP server to your settings:
 {
   "mcpServers": {
     "samterminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "SAM_GRPC_HOST": "localhost",
         "SAM_MAIN_PORT": "50060",
@@ -185,8 +188,8 @@ Create or edit `~/.claude/mcp_config.json`:
 {
   "mcpServers": {
     "samterminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "env": {
         "SAM_GRPC_HOST": "localhost",
         "SAM_MAIN_PORT": "50060",
@@ -637,7 +640,7 @@ Response includes execution state, current node, output, and error details if an
 - **Workflow Automation:** Build advanced workflows - see [Trading Agents Guide](/docs/building-trading-agents)
 ## Support
 
-- **GitHub Issues:** [github.com/samterminal/samterminal](https://github.com/samterminal/samterminal)
+- **GitHub Issues:** [github.com/0xtinylabs/samterminal](https://github.com/0xtinylabs/samterminal)
 - **X (Twitter):** [@samterminalcom](https://x.com/samterminalcom)
 
 ---

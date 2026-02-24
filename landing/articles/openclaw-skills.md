@@ -23,7 +23,7 @@ Unlike traditional documentation written for human developers, skill files are o
 5. **Safety** - Documents destructive operations and required approval steps
 
 For SAM Terminal, skills are particularly powerful because they bridge three layers of functionality:
-- CLI commands (`sam init`, `sam run`, etc.)
+- CLI commands (`pnpm sam run`, `pnpm sam dev`, etc.)
 - MCP tools (40+ tools for token, wallet, workflow operations)
 - Plugin configurations and order templates
 
@@ -46,12 +46,11 @@ Networks: Base, Ethereum, Arbitrum, Polygon, Optimism, BSC
 ```markdown
 ## CLI Commands
 
-### sam init [path]
-Initialize new agent project
-Options: --template, --plugins
-
-### sam run <agent>
+### pnpm sam run <agent>
 Execute agent with live plugins
+
+### pnpm sam dev <agent>
+Development mode with hot reload
 ```
 
 **3. Workflow Patterns**
@@ -59,10 +58,11 @@ Execute agent with live plugins
 ## Common Workflows
 
 ### Setting Up Trading Agent
-1. Run sam init my-agent --template trading
-2. Configure .env with RPC_URL, PRIVATE_KEY
-3. Install plugins: sam plugin install @samterminal/plugin-swap
-4. Test: sam dev my-agent
+1. Clone: git clone https://github.com/0xtinylabs/samterminal.git && cd samterminal
+2. Configure: cp .env.example .env and add RPC_URL, PRIVATE_KEY
+3. Install and build: pnpm install && pnpm build
+4. Edit samterminal.config.json to enable swap plugin
+5. Test: pnpm sam dev
 ```
 
 **4. Configuration Reference**
@@ -79,7 +79,7 @@ TELEGRAM_BOT_TOKEN - For notifications (optional)
 ## Common Issues
 
 Error: "Plugin not found"
-Solution: Run sam plugin install <name>
+Solution: Run pnpm sam plugin install <name>
 
 Error: "Insufficient gas"
 Solution: Check wallet balance with sam_get_wallet
@@ -97,23 +97,20 @@ Complete documentation of all SAM Terminal CLI commands:
 
 ```bash
 # Project Management
-sam init [path]               # Initialize new agent
-sam dev <agent>               # Development mode with hot reload
-sam run <agent>               # Production execution
-sam setup                     # Interactive configuration wizard
-sam doctor                    # Diagnose installation issues
+pnpm sam dev <agent>               # Development mode with hot reload
+pnpm sam run <agent>               # Production execution
+pnpm sam doctor                    # Diagnose installation issues
 
 # Plugin Management
-sam plugin list               # Show installed plugins
-sam plugin install <name>     # Install plugin from npm
-sam plugin remove <name>      # Uninstall plugin
-sam plugin search <query>     # Search plugin registry
+pnpm sam plugin list               # Show installed plugins
+pnpm sam plugin install <name>     # Install plugin
+pnpm sam plugin remove <name>      # Uninstall plugin
 
 # Order Management
-sam order create <type>       # Create trading order
-sam order list                # List active orders
-sam order cancel <id>         # Cancel order
-sam order status <id>         # Check order status
+pnpm sam order create <type>       # Create trading order
+pnpm sam order list                # List active orders
+pnpm sam order cancel <id>         # Cancel order
+pnpm sam order status <id>         # Check order status
 ```
 
 ### MCP Tools Catalog
@@ -330,8 +327,8 @@ Some MCP clients allow adding context via server configuration:
 {
   "mcpServers": {
     "samterminal": {
-      "command": "npx",
-      "args": ["-y", "@samterminal/mcp-server"],
+      "command": "node",
+      "args": ["path/to/samterminal/packages/mcp-server/dist/index.js"],
       "context": ["skill.md"]
     }
   }
@@ -497,16 +494,16 @@ AI assistants have context windows, but shorter is better for:
 
 **Good:**
 ```markdown
-### sam init [path]
-Initialize new agent project
-Options: --template (trading|basic), --plugins (comma-separated)
-Example: sam init my-agent --template trading
+### pnpm sam dev <agent>
+Development mode with hot reload
+Options: --port (number), --watch (boolean)
+Example: pnpm sam dev my-agent
 ```
 
 **Too Verbose:**
 ```markdown
-### sam init
-The sam init command is used to initialize a new agent project. You can optionally provide a path where the project should be created. If no path is provided, the current directory is used. There are several options available...
+### pnpm sam dev
+The pnpm sam dev command is used to start an agent in development mode. You can optionally provide an agent name to run. If no name is provided, the default agent is used. There are several options available...
 [continues for 10 more lines]
 ```
 
@@ -595,7 +592,7 @@ Teach AI how to handle failures:
 
 1. Check logs: ~/.sam/logs/plugin-[name].log
 2. Verify plugin config in samterminal.config.json
-3. Try: sam plugin remove [name] && sam plugin install [name]
+3. Try: pnpm sam plugin remove [name] && pnpm sam plugin install [name]
 4. If persistent, report issue with log excerpt
 ```
 
@@ -612,13 +609,14 @@ Let's see how skills enable AI to complete complex tasks autonomously.
 ```
 I'll help you set up a trading agent with stop-loss capabilities.
 
-Step 1: Initializing project
-> sam init eth-trader --template trading
+Step 1: Clone and setup project
+> git clone https://github.com/0xtinylabs/samterminal.git eth-trader
+> cd eth-trader
+> cp .env.example .env
+> pnpm install && pnpm build
 
-Step 2: Installing required plugins
-> sam plugin install @samterminal/plugin-swap
-> sam plugin install @samterminal/plugin-tokendata
-> sam plugin install @samterminal/plugin-telegram
+Step 2: Enable required plugins in samterminal.config.json
+Add to plugins array: @samterminal/plugin-swap, @samterminal/plugin-tokendata, @samterminal/plugin-telegram
 
 Step 3: Configuration needed
 I need some information to complete the setup:
@@ -725,7 +723,7 @@ The AI:
 ```
 I'll create a DCA (Dollar Cost Average) order for ETH.
 
-> sam order create dca \
+> pnpm sam order create dca \
   --token ETH \
   --amount 100 \
   --interval 1w \
@@ -745,10 +743,10 @@ Details:
 The order will execute automatically every week. You'll receive notifications
 before each purchase and can cancel anytime with:
 
-> sam order cancel order_dca_eth_001
+> pnpm sam order cancel order_dca_eth_001
 
 Track status with:
-> sam order status order_dca_eth_001
+> pnpm sam order status order_dca_eth_001
 ```
 
 The AI:
@@ -770,13 +768,13 @@ Organizations can create specialized skill files for internal tools and conventi
 
 1. Ensure tests pass: `npm test`
 2. Build: `npm run build`
-3. Deploy: `sam deploy staging --approve`
+3. Deploy: `pnpm sam deploy staging --approve`
 4. Run smoke tests: `npm run test:smoke staging`
 5. Notify in #deployments Slack channel
 
 ### Creating New Plugin
 
-1. Generate scaffold: `sam plugin create <name>`
+1. Generate scaffold: `pnpm sam plugin create <name>`
 2. Implement IPlugin interface
 3. Add tests in `src/__tests__/`
 4. Document in `README.md`
@@ -798,7 +796,7 @@ Organizations can create specialized skill files for internal tools and conventi
 - All PRs require 2 approvals
 - Include test coverage report
 - Update CHANGELOG.md
-- Run `sam doctor` before submitting
+- Run `pnpm sam doctor` before submitting
 ```
 
 ### Internal Tool Integration
@@ -808,7 +806,7 @@ Organizations can create specialized skill files for internal tools and conventi
 
 ### Deployment Dashboard
 URL: https://dashboard.internal/sam
-Use `sam deploy` command, then verify in dashboard
+Use `pnpm sam deploy` command, then verify in dashboard
 
 ### Monitoring
 All agents automatically report to DataDog
@@ -816,7 +814,7 @@ View: https://datadog.internal/sam-terminal
 
 ### Cost Tracking
 RPC and gas costs tracked in finance.internal
-Run `sam cost-report` for monthly summary
+Run `pnpm sam cost-report` for monthly summary
 ```
 
 ## Skills + MCP Integration
@@ -909,7 +907,7 @@ Now that you understand OpenClaw Skills, here are resources to explore:
 - [Plugin Development](/docs/plugin-development) - Create custom plugins
 
 **Community:**
-- [GitHub Repository](https://github.com/samterminal/samterminal) - Star, fork, contribute
+- [GitHub Repository](https://github.com/0xtinylabs/samterminal) - Star, fork, contribute
 - [X (Twitter)](https://x.com/samterminalcom) - Follow for updates
 
 Start by downloading SAM Terminal's official skill file, loading it into your AI assistant, and trying the examples from this guide. As you become comfortable, create custom skill files for your specific use cases and share them with the community.

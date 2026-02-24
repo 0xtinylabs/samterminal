@@ -45,9 +45,10 @@ SAM Terminal is a plugin-based trading framework for AI agents. Build agents tha
 ## Quick Start
 
 ```bash
-npx @samterminal/cli init my-agent
-cd my-agent
-pnpm install
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal
+cp .env.example .env
+pnpm install && pnpm build
 pnpm dev
 ```
 

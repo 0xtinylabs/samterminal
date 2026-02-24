@@ -25,7 +25,7 @@ Thank you for your interest in contributing to SamTerminal! This guide will help
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/samterminal/samterminal.git
+   git clone https://github.com/0xtinylabs/samterminal.git
    cd samterminal
    ```
 

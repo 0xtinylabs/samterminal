@@ -193,7 +193,7 @@
         <a href="/skill" class="nav-link">Skills</a>
         <a href="/docs/manifesto" class="nav-link">Manifesto</a>
         <span class="nav-divider"></span>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         </a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
@@ -243,7 +243,7 @@ Agent: [calls sam_flow_create with condition nodes]
 <h2>Part 1: Setting Up SAM Terminal Backend</h2>
 <p>Your AI agent needs a running backend to connect to. SAM Terminal uses a microservices architecture where each service handles a specific domain.</p>
 <h3>Step 1: Clone and Install</h3>
-<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+<pre><code class="language-bash">git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 pnpm install
@@ -406,7 +406,7 @@ nc -zv localhost 50061
 nc -zv localhost 50062
 </code></pre>
 <blockquote>
-<p><strong>Tip:</strong> Run <code>sam doctor</code> for a comprehensive health check of all services, API keys, and database connections.</p>
+<p><strong>Tip:</strong> Run <code>pnpm sam doctor</code> for a comprehensive health check of all services, API keys, and database connections.</p>
 </blockquote>
 <hr>
 <h2>Part 2: Connecting Your AI Agent via MCP</h2>
@@ -460,8 +460,8 @@ nc -zv localhost 50062
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;sam-terminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;env&quot;: {
         &quot;MICROSERVICES_HOST&quot;: &quot;localhost&quot;,
         &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
@@ -474,6 +474,7 @@ nc -zv localhost 50062
   }
 }
 </code></pre>
+<p><strong>Note:</strong> Replace <code>/path/to/samterminal</code> with the absolute path to your cloned repository.</p>
 <p><strong>3. Restart Claude Desktop</strong> completely (Cmd+Q on macOS, then relaunch).</p>
 <p><strong>4. Verify:</strong> Look for the tools icon in the chat interface. You should see 40 SAM Terminal tools.</p>
 <h3>Option B: Claude Code</h3>
@@ -484,8 +485,8 @@ nc -zv localhost 50062
 <pre><code class="language-json">{
   &quot;mcpServers&quot;: {
     &quot;sam-terminal&quot;: {
-      &quot;command&quot;: &quot;npx&quot;,
-      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;/path/to/samterminal/packages/mcp-server/dist/index.js&quot;],
       &quot;env&quot;: {
         &quot;MICROSERVICES_HOST&quot;: &quot;localhost&quot;,
         &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
@@ -498,14 +499,15 @@ nc -zv localhost 50062
   }
 }
 </code></pre>
+<p><strong>Note:</strong> Replace <code>/path/to/samterminal</code> with the absolute path to your cloned repository.</p>
 <p><strong>3. Start Claude Code</strong> -- the MCP server connects automatically on startup.</p>
 <h3>Option C: Cursor</h3>
 <p><strong>1. Open MCP settings:</strong> Press <code>Cmd+Shift+P</code> (macOS) or <code>Ctrl+Shift+P</code> (Windows/Linux), search &quot;MCP Settings&quot;.</p>
 <p><strong>2. Add the same configuration</strong> as Claude Desktop above.</p>
 <p><strong>3. Reload Cursor</strong> for changes to take effect.</p>
 <h3>Option D: Any MCP-Compatible Client</h3>
-<p>Any client that supports the MCP protocol can connect. Point it to:</p>
-<pre><code class="language-bash">npx -y @samterminal/mcp-server
+<p>Any client that supports the MCP protocol can connect. Point it to the locally built MCP server:</p>
+<pre><code class="language-bash">node /path/to/samterminal/packages/mcp-server/dist/index.js
 </code></pre>
 <p>Set the environment variables for gRPC service ports. The server auto-discovers and registers all 40 tools on startup.</p>
 <h3>Loading the Skill File</h3>
@@ -984,7 +986,7 @@ grpcurl -plaintext localhost:50061 list  # Token service gRPC
 <ul>
 <li><strong>Never expose private keys</strong> in skill files, MCP configs, or conversation history</li>
 <li><strong>Use environment variables</strong> for all secrets</li>
-<li><strong>Run <code>sam doctor</code></strong> periodically to validate API key health</li>
+<li><strong>Run <code>pnpm sam doctor</code></strong> periodically to validate API key health</li>
 <li><strong>Use a dedicated hot wallet</strong> with limited funds for automated trading</li>
 <li><strong>Review swap quotes</strong> before confirming -- never auto-execute large trades</li>
 </ul>
@@ -1037,7 +1039,7 @@ grpcurl -plaintext localhost:50061 list  # Token service gRPC
         <a href="/docs/api-reference">API</a>
         <a href="/skill">Skills</a>
         <a href="/docs/manifesto">Manifesto</a>
-        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/0xtinylabs/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
       </div>
       <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>

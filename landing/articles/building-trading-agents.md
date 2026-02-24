@@ -23,9 +23,10 @@ The runtime engine orchestrates plugin interactions, while the workflow engine e
 Start by installing SAM Terminal and creating a basic agent:
 
 ```bash
-npm install -g @samterminal/cli
-sam init my-trading-agent
-cd my-trading-agent
+git clone https://github.com/0xtinylabs/samterminal.git
+cd samterminal
+cp .env.example .env
+pnpm install && pnpm build
 ```
 
 Create a TypeScript agent with all necessary plugins:
@@ -932,4 +933,4 @@ Now that you understand how to build trading agents, explore these advanced topi
 - [OpenClaw Skills](/docs/openclaw-skills) - Teach AI assistants to operate your agent
 - [Getting Started](/docs/getting-started) - Complete setup guide for SAM Terminal
 
-For more examples, check the [playground examples](https://github.com/samterminal/samterminal/tree/main/apps/playground/src/examples) in the repository.
+For more examples, check the [playground examples](https://github.com/0xtinylabs/samterminal/tree/main/apps/playground/src/examples) in the repository.

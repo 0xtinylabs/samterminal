@@ -117,7 +117,7 @@ Database in Docker, services on host with hot-reload.
 
 ```bash
 # Clone and setup
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 # Edit .env with your API keys (Alchemy, Moralis, etc.)
@@ -149,7 +149,7 @@ Services will be running at:
 ### Option 2: Make Commands
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 
@@ -165,7 +165,7 @@ make dev
 All services run in containers. Requires `POSTGRES_PASSWORD` env var.
 
 ```bash
-git clone https://github.com/samterminal/samterminal.git
+git clone https://github.com/0xtinylabs/samterminal.git
 cd samterminal
 cp .env.example .env
 # Edit .env with your API keys
