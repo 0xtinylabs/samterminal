@@ -1,0 +1,27 @@
+{
+  "name": "sam-terminal",
+  "version": "1.0.0",
+  "description": "Full onchain trading infrastructure -- swap, track tokens/wallets, build workflows, get alerts, manage portfolios across EVM",
+  "homepage": "https://samterminal.com",
+  "mcp": {
+    "command": "npx",
+    "args": ["@samterminal/mcp-server"],
+    "env": {
+      "SAM_GRPC_HOST": "localhost",
+      "SAM_TOKEN_PORT": "50061",
+      "SAM_WALLET_PORT": "50062",
+      "SAM_SWAP_PORT": "50059",
+      "SAM_MAIN_PORT": "50060",
+      "SAM_NOTIFICATION_PORT": "50056",
+      "SAM_AI_PORT": "50057"
+    }
+  },
+  "metadata": {
+    "openclaw": {
+      "requires": {
+        "env": ["SAM_GRPC_HOST"]
+      },
+      "primaryEnv": "SAM_GRPC_HOST"
+    }
+  }
+}

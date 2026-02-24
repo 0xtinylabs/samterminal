@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plugin Development Guide — SAM Terminal</title>
+  <meta name="description" content="Build custom plugins with actions, providers, and lifecycle hooks.">
+  <link rel="canonical" href="https://samterminal.com/docs/plugin-development">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Plugin Development Guide">
+  <meta property="og:description" content="Build custom plugins with actions, providers, and lifecycle hooks.">
+  <meta property="og:url" content="https://samterminal.com/docs/plugin-development">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Plugin Development Guide">
+  <meta name="twitter:description" content="Build custom plugins with actions, providers, and lifecycle hooks.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Plugin Development Guide",
+    "description": "Build custom plugins with actions, providers, and lifecycle hooks.",
+    "url": "https://samterminal.com/docs/plugin-development",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/plugin-development",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Plugin Development Guide</h1>
+<h2>Introduction</h2>
+<p>SAM Terminal&#39;s plugin architecture enables developers to extend the framework with custom functionality while maintaining clean separation of concerns. Plugins can provide blockchain data, execute transactions, integrate AI services, manage workflows, and more.</p>
+<p>This modular design allows you to:</p>
+<ul>
+<li>Build reusable components that work across different projects</li>
+<li>Share functionality with the community through npm packages</li>
+<li>Compose complex agent behaviors from simple, focused plugins</li>
+<li>Maintain clear boundaries between different parts of your system</li>
+</ul>
+<h2>Core Plugin Concepts</h2>
+<p>Every SAM Terminal plugin can expose four types of capabilities:</p>
+<h3>Actions</h3>
+<p>Actions are executable operations that perform work and return results. They represent the &quot;verbs&quot; of your system - things your agent can do.</p>
+<pre><code class="language-typescript">{
+  name: &#39;swap-tokens&#39;,
+  description: &#39;Execute a token swap on a DEX&#39;,
+  params: z.object({
+    fromToken: z.string(),
+    toToken: z.string(),
+    amount: z.string()
+  }),
+  execute: async (params, context) =&gt; {
+    // Implementation
+    return { txHash: &#39;0x...&#39; };
+  }
+}
+</code></pre>
+<h3>Providers</h3>
+<p>Providers fetch and return data without modifying state. They represent the &quot;sensors&quot; of your system - ways to read information.</p>
+<pre><code class="language-typescript">{
+  name: &#39;token-price&#39;,
+  description: &#39;Get current token price&#39;,
+  query: z.object({
+    address: z.string(),
+    chain: z.string()
+  }),
+  fetch: async (query, context) =&gt; {
+    // Implementation
+    return { price: 1.23, priceUSD: 1.23 };
+  }
+}
+</code></pre>
+<h3>Evaluators</h3>
+<p>Evaluators assess conditions and return boolean results. They enable dynamic control in the workflow engine.</p>
+<pre><code class="language-typescript">{
+  name: &#39;price-above-threshold&#39;,
+  description: &#39;Check if token price exceeds threshold&#39;,
+  params: z.object({
+    tokenAddress: z.string(),
+    threshold: z.number()
+  }),
+  evaluate: async (params, context) =&gt; {
+    // Implementation
+    return price &gt; params.threshold;
+  }
+}
+</code></pre>
+<h3>Hooks</h3>
+<p>Hooks respond to lifecycle events and enable inter-plugin communication through the event system.</p>
+<pre><code class="language-typescript">{
+  event: &#39;plugin:initialized&#39;,
+  handler: async (data, context) =&gt; {
+    // React to system events
+  }
+}
+</code></pre>
+<h2>Scaffolding a New Plugin</h2>
+<p>Create a new plugin using the CLI:</p>
+<pre><code class="language-bash">sam plugin create my-plugin
+cd my-plugin
+pnpm install
+</code></pre>
+<p>This generates a basic structure:</p>
+<pre><code>my-plugin/
+├── src/
+│   ├── actions/
+│   │   └── index.ts
+│   ├── providers/
+│   │   └── index.ts
+│   ├── plugin.ts
+│   └── index.ts
+├── package.json
+├── tsconfig.json
+└── tsup.config.ts
+</code></pre>
+<h2>Creating a Plugin Class</h2>
+<p>For complex plugins with initialization logic and state management, extend <code>BasePlugin</code>:</p>
+<pre><code class="language-typescript">import { BasePlugin, type SamTerminalCore } from &#39;@samterminal/core&#39;;
+import { z } from &#39;zod&#39;;
+
+export class MyPlugin extends BasePlugin {
+  readonly name = &#39;my-plugin&#39;;
+  readonly version = &#39;1.0.0&#39;;
+  readonly description = &#39;My custom plugin&#39;;
+  readonly author = &#39;Your Name&#39;;
+
+  // Plugin state
+  private apiClient: ApiClient | null = null;
+
+  protected async onInit(): Promise&lt;void&gt; {
+    // Initialize resources
+    const config = this.getCore().getConfig();
+    this.apiClient = new ApiClient(config.apiKey);
+
+    // Register actions
+    this.registerAction({
+      name: &#39;fetch-data&#39;,
+      description: &#39;Fetch data from API&#39;,
+      params: z.object({
+        query: z.string()
+      }),
+      execute: async (params, context) =&gt; {
+        if (!this.apiClient) {
+          throw new Error(&#39;Plugin not initialized&#39;);
+        }
+        return await this.apiClient.fetchData(params.query);
+      }
+    });
+
+    // Register providers
+    this.registerProvider({
+      name: &#39;data-status&#39;,
+      description: &#39;Get API status&#39;,
+      query: z.object({}),
+      fetch: async (query, context) =&gt; {
+        return { status: &#39;ready&#39;, timestamp: Date.now() };
+      }
+    });
+
+    this.logger.info(&#39;Plugin initialized&#39;);
+  }
+
+  protected async onDestroy(): Promise&lt;void&gt; {
+    // Cleanup resources
+    if (this.apiClient) {
+      await this.apiClient.close();
+      this.apiClient = null;
+    }
+    this.logger.info(&#39;Plugin destroyed&#39;);
+  }
+}
+
+export default new MyPlugin();
+</code></pre>
+<h2>Using the createPlugin() Factory</h2>
+<p>For simpler plugins without complex state, use the factory function:</p>
+<pre><code class="language-typescript">import { createPlugin } from &#39;@samterminal/core&#39;;
+import { z } from &#39;zod&#39;;
+
+export default createPlugin({
+  name: &#39;simple-plugin&#39;,
+  version: &#39;1.0.0&#39;,
+  description: &#39;A simple plugin&#39;,
+
+  actions: [
+    {
+      name: &#39;hello&#39;,
+      description: &#39;Say hello&#39;,
+      params: z.object({
+        name: z.string()
+      }),
+      execute: async (params, context) =&gt; {
+        return { message: `Hello, ${params.name}!` };
+      }
+    }
+  ],
+
+  providers: [
+    {
+      name: &#39;greeting&#39;,
+      description: &#39;Get greeting template&#39;,
+      query: z.object({
+        language: z.string().optional()
+      }),
+      fetch: async (query, context) =&gt; {
+        const greetings = { en: &#39;Hello&#39;, es: &#39;Hola&#39;, fr: &#39;Bonjour&#39; };
+        return { template: greetings[query.language || &#39;en&#39;] };
+      }
+    }
+  ]
+});
+</code></pre>
+<h2>Defining Actions</h2>
+<p>Actions should validate inputs, handle errors, and return strongly-typed results:</p>
+<pre><code class="language-typescript">import { z } from &#39;zod&#39;;
+
+const swapAction = {
+  name: &#39;swap-tokens&#39;,
+  description: &#39;Execute a DEX token swap&#39;,
+
+  // Schema validation with zod
+  params: z.object({
+    fromToken: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    toToken: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+    amount: z.string(),
+    slippage: z.number().min(0).max(50).optional()
+  }),
+
+  execute: async (params, context) =&gt; {
+    const { fromToken, toToken, amount, slippage = 1 } = params;
+
+    try {
+      // Get quote
+      const quote = await context.getData(&#39;quote-provider&#39;, {
+        fromToken,
+        toToken,
+        amount
+      });
+
+      // Check allowance
+      const allowance = await context.getData(&#39;allowance-provider&#39;, {
+        token: fromToken,
+        spender: quote.router
+      });
+
+      // Approve if needed
+      if (BigInt(allowance) &lt; BigInt(amount)) {
+        await context.executeAction(&#39;approve-token&#39;, {
+          token: fromToken,
+          spender: quote.router,
+          amount
+        });
+      }
+
+      // Execute swap
+      const tx = await executeSwap(quote, slippage);
+
+      return {
+        success: true,
+        txHash: tx.hash,
+        fromAmount: amount,
+        toAmount: quote.toAmount
+      };
+    } catch (error) {
+      context.logger.error(&#39;Swap failed&#39;, { error });
+      throw error;
+    }
+  }
+};
+</code></pre>
+<h2>Defining Providers</h2>
+<p>Providers fetch data from external sources or compute derived values:</p>
+<pre><code class="language-typescript">const tokenPriceProvider = {
+  name: &#39;token-price&#39;,
+  description: &#39;Fetch current token price from multiple sources&#39;,
+
+  query: z.object({
+    address: z.string(),
+    chain: z.enum([&#39;ethereum&#39;, &#39;base&#39;, &#39;arbitrum&#39;, &#39;polygon&#39;]),
+    currency: z.string().default(&#39;usd&#39;)
+  }),
+
+  fetch: async (query, context) =&gt; {
+    const { address, chain, currency } = query;
+
+    // Fetch from multiple sources
+    const [coingeckoPrice, dexscreenerPrice] = await Promise.allSettled([
+      fetchCoingeckoPrice(address, chain, currency),
+      fetchDexscreenerPrice(address, chain)
+    ]);
+
+    // Use fallback logic
+    const price =
+      coingeckoPrice.status === &#39;fulfilled&#39; ? coingeckoPrice.value :
+      dexscreenerPrice.status === &#39;fulfilled&#39; ? dexscreenerPrice.value :
+      null;
+
+    if (!price) {
+      throw new Error(&#39;Failed to fetch price from all sources&#39;);
+    }
+
+    return {
+      price: price.value,
+      currency: price.currency,
+      source: price.source,
+      timestamp: Date.now(),
+      confidence: price.confidence || &#39;high&#39;
+    };
+  }
+};
+</code></pre>
+<h2>Defining Evaluators</h2>
+<p>Evaluators enable conditional logic in flows:</p>
+<pre><code class="language-typescript">const priceThresholdEvaluator = {
+  name: &#39;price-above-threshold&#39;,
+  description: &#39;Check if token price exceeds threshold&#39;,
+
+  params: z.object({
+    tokenAddress: z.string(),
+    chain: z.string(),
+    threshold: z.number(),
+    comparison: z.enum([&#39;gt&#39;, &#39;gte&#39;, &#39;lt&#39;, &#39;lte&#39;]).default(&#39;gt&#39;)
+  }),
+
+  evaluate: async (params, context) =&gt; {
+    const { tokenAddress, chain, threshold, comparison } = params;
+
+    // Fetch current price
+    const priceData = await context.getData(&#39;token-price&#39;, {
+      address: tokenAddress,
+      chain
+    });
+
+    const price = priceData.price;
+
+    // Evaluate condition
+    switch (comparison) {
+      case &#39;gt&#39;: return price &gt; threshold;
+      case &#39;gte&#39;: return price &gt;= threshold;
+      case &#39;lt&#39;: return price &lt; threshold;
+      case &#39;lte&#39;: return price &lt;= threshold;
+    }
+  }
+};
+</code></pre>
+<h2>Lifecycle Hooks</h2>
+<p>Plugins can hook into system events:</p>
+<pre><code class="language-typescript">export class MyPlugin extends BasePlugin {
+  readonly name = &#39;event-listener-plugin&#39;;
+  readonly version = &#39;1.0.0&#39;;
+
+  protected async onInit(): Promise&lt;void&gt; {
+    // Register hooks for system events
+    this.registerHook({
+      event: &#39;action:executed&#39;,
+      handler: async (data, context) =&gt; {
+        context.logger.info(&#39;Action executed&#39;, {
+          action: data.actionName,
+          result: data.result
+        });
+      }
+    });
+
+    this.registerHook({
+      event: &#39;transaction:confirmed&#39;,
+      handler: async (data, context) =&gt; {
+        // Send notification
+        await context.executeAction(&#39;send-telegram-message&#39;, {
+          message: `Transaction confirmed: ${data.txHash}`
+        });
+      }
+    });
+
+    this.registerHook({
+      event: &#39;error:occurred&#39;,
+      handler: async (data, context) =&gt; {
+        // Log to external service
+        await this.reportError(data.error);
+      }
+    });
+  }
+
+  private async reportError(error: Error): Promise&lt;void&gt; {
+    // Implementation
+  }
+}
+</code></pre>
+<h2>Cross-Plugin Communication</h2>
+<p>Plugins can interact with each other through the core:</p>
+<pre><code class="language-typescript">export class DeFiPlugin extends BasePlugin {
+  readonly name = &#39;defi-plugin&#39;;
+  readonly version = &#39;1.0.0&#39;;
+
+  protected async onInit(): Promise&lt;void&gt; {
+    this.registerAction({
+      name: &#39;auto-compound&#39;,
+      description: &#39;Auto-compound yield farming rewards&#39;,
+      params: z.object({
+        farmAddress: z.string()
+      }),
+      execute: async (params, context) =&gt; {
+        // Get pending rewards (from another plugin&#39;s provider)
+        const rewards = await this.getData(&#39;farm-rewards&#39;, {
+          farm: params.farmAddress
+        });
+
+        if (rewards.amount &lt; MIN_COMPOUND_AMOUNT) {
+          return { skipped: true, reason: &#39;Insufficient rewards&#39; };
+        }
+
+        // Execute harvest (from another plugin&#39;s action)
+        const harvestResult = await this.executeAction(&#39;harvest-rewards&#39;, {
+          farm: params.farmAddress
+        });
+
+        // Get optimal swap route (from swap plugin)
+        const route = await this.getData(&#39;swap-route&#39;, {
+          fromToken: rewards.token,
+          toToken: FARM_TOKEN,
+          amount: rewards.amount
+        });
+
+        // Execute swap (from swap plugin)
+        const swapResult = await this.executeAction(&#39;swap-tokens&#39;, {
+          fromToken: rewards.token,
+          toToken: FARM_TOKEN,
+          amount: rewards.amount,
+          slippage: 2
+        });
+
+        // Emit event for other plugins
+        await this.emit(&#39;compound:completed&#39;, {
+          farm: params.farmAddress,
+          amount: swapResult.toAmount,
+          txHash: swapResult.txHash
+        });
+
+        return {
+          success: true,
+          compounded: swapResult.toAmount
+        };
+      }
+    });
+  }
+}
+</code></pre>
+<h2>Dependencies</h2>
+<p>Declare plugin dependencies to ensure proper load order:</p>
+<pre><code class="language-typescript">export class AdvancedPlugin extends BasePlugin {
+  readonly name = &#39;advanced-plugin&#39;;
+  readonly version = &#39;1.0.0&#39;;
+
+  // Required dependencies (must be present)
+  readonly dependencies = [
+    &#39;@samterminal/plugin-walletdata&#39;,
+    &#39;@samterminal/plugin-tokendata&#39;
+  ];
+
+  // Optional dependencies (enhanced features if available)
+  readonly optionalDependencies = [
+    &#39;@samterminal/plugin-telegram&#39;,
+    &#39;@samterminal/plugin-ai&#39;
+  ];
+
+  protected async onInit(): Promise&lt;void&gt; {
+    // Check if optional dependency is available
+    const hasTelegram = await this.checkPluginAvailable(&#39;telegram&#39;);
+
+    if (hasTelegram) {
+      this.logger.info(&#39;Telegram notifications enabled&#39;);
+      // Enable telegram features
+    }
+  }
+
+  private async checkPluginAvailable(name: string): Promise&lt;boolean&gt; {
+    try {
+      const plugins = this.getCore().getPluginRegistry();
+      return plugins.has(name);
+    } catch {
+      return false;
+    }
+  }
+}
+</code></pre>
+<h2>Multi-Chain Support</h2>
+<p>Plugins can support multiple blockchain networks:</p>
+<pre><code class="language-typescript">import { defineChain } from &#39;@samterminal/core&#39;;
+
+export class MultiChainPlugin extends BasePlugin {
+  readonly name = &#39;multichain-plugin&#39;;
+  readonly version = &#39;1.0.0&#39;;
+
+  readonly chains = [
+    defineChain({
+      id: 1,
+      name: &#39;ethereum&#39;,
+      rpcUrl: process.env.ETHEREUM_RPC_URL!
+    }),
+    defineChain({
+      id: 8453,
+      name: &#39;base&#39;,
+      rpcUrl: process.env.BASE_RPC_URL!
+    })
+  ];
+
+  readonly chainConfig = {
+    supportedChains: [&#39;ethereum&#39;, &#39;base&#39;, &#39;arbitrum&#39;, &#39;polygon&#39;],
+    defaultChain: &#39;base&#39;,
+    requireChainParam: true
+  };
+
+  protected async onInit(): Promise&lt;void&gt; {
+    this.registerAction({
+      name: &#39;cross-chain-transfer&#39;,
+      description: &#39;Bridge tokens across chains&#39;,
+      params: z.object({
+        fromChain: z.string(),
+        toChain: z.string(),
+        token: z.string(),
+        amount: z.string()
+      }),
+      execute: async (params, context) =&gt; {
+        // Validate chains are supported
+        if (!this.chainConfig.supportedChains.includes(params.fromChain)) {
+          throw new Error(`Unsupported chain: ${params.fromChain}`);
+        }
+
+        // Get chain-specific provider
+        const provider = this.getChainProvider(params.fromChain);
+
+        // Implementation
+        return { txHash: &#39;0x...&#39; };
+      }
+    });
+  }
+
+  private getChainProvider(chain: string) {
+    const chainData = this.chains?.find(c =&gt; c.name === chain);
+    if (!chainData) {
+      throw new Error(`Chain not configured: ${chain}`);
+    }
+    return createProvider(chainData.rpcUrl);
+  }
+}
+</code></pre>
+<h2>Testing Plugins</h2>
+<p>Write comprehensive tests using vitest and testing utilities:</p>
+<pre><code class="language-typescript">import { describe, it, expect, beforeEach } from &#39;vitest&#39;;
+import { createMockContext } from &#39;@samterminal/testing-utils&#39;;
+import { MyPlugin } from &#39;../src/plugin&#39;;
+
+describe(&#39;MyPlugin&#39;, () =&gt; {
+  let plugin: MyPlugin;
+  let mockCore: any;
+
+  beforeEach(async () =&gt; {
+    mockCore = createMockContext();
+    plugin = new MyPlugin();
+    await plugin.init(mockCore);
+  });
+
+  describe(&#39;fetch-data action&#39;, () =&gt; {
+    it(&#39;should fetch data successfully&#39;, async () =&gt; {
+      const result = await plugin[&#39;executeAction&#39;](&#39;fetch-data&#39;, {
+        query: &#39;test-query&#39;
+      });
+
+      expect(result).toHaveProperty(&#39;data&#39;);
+      expect(result.success).toBe(true);
+    });
+
+    it(&#39;should handle errors gracefully&#39;, async () =&gt; {
+      await expect(
+        plugin[&#39;executeAction&#39;](&#39;fetch-data&#39;, { query: &#39;&#39; })
+      ).rejects.toThrow(&#39;Query cannot be empty&#39;);
+    });
+
+    it(&#39;should validate parameters&#39;, async () =&gt; {
+      await expect(
+        plugin[&#39;executeAction&#39;](&#39;fetch-data&#39;, { invalid: true })
+      ).rejects.toThrow();
+    });
+  });
+
+  describe(&#39;data-status provider&#39;, () =&gt; {
+    it(&#39;should return current status&#39;, async () =&gt; {
+      const result = await plugin[&#39;getData&#39;](&#39;data-status&#39;, {});
+
+      expect(result).toHaveProperty(&#39;status&#39;);
+      expect(result).toHaveProperty(&#39;timestamp&#39;);
+      expect(result.status).toBe(&#39;ready&#39;);
+    });
+  });
+
+  describe(&#39;lifecycle&#39;, () =&gt; {
+    it(&#39;should initialize correctly&#39;, () =&gt; {
+      expect(plugin[&#39;isInitialized&#39;]()).toBe(true);
+    });
+
+    it(&#39;should cleanup on destroy&#39;, async () =&gt; {
+      await plugin.destroy();
+      expect(plugin[&#39;isInitialized&#39;]()).toBe(false);
+    });
+  });
+});
+</code></pre>
+<h2>Building and Packaging</h2>
+<p>Configure tsup for optimal bundling:</p>
+<pre><code class="language-typescript">// tsup.config.ts
+import { defineConfig } from &#39;tsup&#39;;
+
+export default defineConfig({
+  entry: [&#39;src/index.ts&#39;],
+  format: [&#39;cjs&#39;, &#39;esm&#39;],
+  dts: true,
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  external: [&#39;@samterminal/core&#39;],
+  treeshake: true
+});
+</code></pre>
+<p>Configure package.json:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;@my-org/sam-plugin-custom&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Custom SAM Terminal plugin&quot;,
+  &quot;main&quot;: &quot;./dist/index.js&quot;,
+  &quot;module&quot;: &quot;./dist/index.mjs&quot;,
+  &quot;types&quot;: &quot;./dist/index.d.ts&quot;,
+  &quot;exports&quot;: {
+    &quot;.&quot;: {
+      &quot;require&quot;: &quot;./dist/index.js&quot;,
+      &quot;import&quot;: &quot;./dist/index.mjs&quot;,
+      &quot;types&quot;: &quot;./dist/index.d.ts&quot;
+    }
+  },
+  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsup&quot;,
+    &quot;dev&quot;: &quot;tsup --watch&quot;,
+    &quot;test&quot;: &quot;vitest&quot;,
+    &quot;test:coverage&quot;: &quot;vitest --coverage&quot;
+  },
+  &quot;peerDependencies&quot;: {
+    &quot;@samterminal/core&quot;: &quot;^1.0.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@samterminal/core&quot;: &quot;^1.0.0&quot;,
+    &quot;@samterminal/testing-utils&quot;: &quot;^1.0.0&quot;,
+    &quot;tsup&quot;: &quot;^8.0.0&quot;,
+    &quot;typescript&quot;: &quot;^5.0.0&quot;,
+    &quot;vitest&quot;: &quot;^1.0.0&quot;
+  },
+  &quot;keywords&quot;: [&quot;samterminal&quot;, &quot;plugin&quot;, &quot;web3&quot;],
+  &quot;license&quot;: &quot;MIT&quot;
+}
+</code></pre>
+<h2>Installation and Registration</h2>
+<p>Install via CLI:</p>
+<pre><code class="language-bash"># Install from npm
+sam plugin install @my-org/sam-plugin-custom
+
+# Install specific version
+sam plugin install @my-org/sam-plugin-custom@1.2.3
+
+# Install from local path
+sam plugin install ./path/to/plugin
+
+# List installed plugins
+sam plugin list
+</code></pre>
+<p>Or configure in <code>samterminal.config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [
+    {
+      &quot;name&quot;: &quot;@my-org/sam-plugin-custom&quot;,
+      &quot;enabled&quot;: true,
+      &quot;config&quot;: {
+        &quot;apiKey&quot;: &quot;${CUSTOM_API_KEY}&quot;,
+        &quot;timeout&quot;: 5000
+      }
+    }
+  ]
+}
+</code></pre>
+<h2>Real-World Examples</h2>
+<h3>Token Price Tracking (from plugin-tokendata)</h3>
+<pre><code class="language-typescript">this.registerAction({
+  name: &#39;track-token&#39;,
+  description: &#39;Monitor token price and trigger alerts&#39;,
+  params: z.object({
+    address: z.string(),
+    chain: z.string(),
+    interval: z.number().default(60000)
+  }),
+  execute: async (params, context) =&gt; {
+    const tracker = setInterval(async () =&gt; {
+      const price = await context.getData(&#39;token-price&#39;, {
+        address: params.address,
+        chain: params.chain
+      });
+
+      await context.emit(&#39;price:updated&#39;, {
+        token: params.address,
+        price: price.price
+      });
+    }, params.interval);
+
+    return { trackerId: tracker[Symbol.toPrimitive]() };
+  }
+});
+</code></pre>
+<h3>Swap with Quote (from plugin-swap)</h3>
+<pre><code class="language-typescript">this.registerAction({
+  name: &#39;swap&#39;,
+  description: &#39;Execute token swap with best quote&#39;,
+  params: z.object({
+    fromToken: z.string(),
+    toToken: z.string(),
+    amount: z.string(),
+    slippage: z.number().optional()
+  }),
+  execute: async (params, context) =&gt; {
+    // Get quote from provider
+    const quote = await context.getData(&#39;swap-quote&#39;, {
+      sellToken: params.fromToken,
+      buyToken: params.toToken,
+      sellAmount: params.amount
+    });
+
+    // Check and approve if needed
+    const allowance = await context.getData(&#39;token-allowance&#39;, {
+      token: params.fromToken,
+      spender: quote.to
+    });
+
+    if (BigInt(allowance) &lt; BigInt(params.amount)) {
+      await context.executeAction(&#39;approve&#39;, {
+        token: params.fromToken,
+        spender: quote.to,
+        amount: params.amount
+      });
+    }
+
+    // Execute swap
+    const tx = await sendTransaction(quote);
+    return { txHash: tx.hash, quote };
+  }
+});
+</code></pre>
+<h2>Best Practices</h2>
+<h3>Type Safety</h3>
+<p>Always use TypeScript strict mode and define explicit types:</p>
+<pre><code class="language-typescript">// Good
+interface SwapResult {
+  txHash: string;
+  fromAmount: string;
+  toAmount: string;
+  gasUsed: bigint;
+}
+
+const execute = async (params: SwapParams): Promise&lt;SwapResult&gt; =&gt; {
+  // Implementation
+};
+
+// Bad
+const execute = async (params: any): Promise&lt;any&gt; =&gt; {
+  // Implementation
+};
+</code></pre>
+<h3>Error Handling</h3>
+<p>Provide meaningful error messages and handle edge cases:</p>
+<pre><code class="language-typescript">try {
+  const result = await externalApiCall();
+  if (!result.data) {
+    throw new Error(&#39;No data returned from API&#39;);
+  }
+  return result.data;
+} catch (error) {
+  if (error instanceof NetworkError) {
+    throw new Error(&#39;Network request failed. Please check connectivity.&#39;);
+  }
+  throw new Error(`Unexpected error: ${error.message}`);
+}
+</code></pre>
+<h3>Logging</h3>
+<p>Use structured logging with appropriate levels:</p>
+<pre><code class="language-typescript">this.logger.debug(&#39;Fetching token price&#39;, { token, chain });
+this.logger.info(&#39;Price fetched successfully&#39;, { price, source });
+this.logger.warn(&#39;Fallback to secondary source&#39;, { reason });
+this.logger.error(&#39;Failed to fetch price&#39;, { error, token });
+</code></pre>
+<h3>Configuration</h3>
+<p>Use environment variables for sensitive data:</p>
+<pre><code class="language-typescript">protected async onInit(): Promise&lt;void&gt; {
+  const apiKey = process.env.MY_PLUGIN_API_KEY;
+  if (!apiKey) {
+    throw new Error(&#39;MY_PLUGIN_API_KEY environment variable required&#39;);
+  }
+  this.apiClient = new ApiClient(apiKey);
+}
+</code></pre>
+<h3>Resource Cleanup</h3>
+<p>Always cleanup resources in onDestroy:</p>
+<pre><code class="language-typescript">protected async onDestroy(): Promise&lt;void&gt; {
+  // Clear intervals/timeouts
+  if (this.priceTracker) {
+    clearInterval(this.priceTracker);
+  }
+
+  // Close connections
+  if (this.wsConnection) {
+    await this.wsConnection.close();
+  }
+
+  // Clear caches
+  this.cache.clear();
+}
+</code></pre>
+<h3>Testing Coverage</h3>
+<p>Aim for high test coverage including edge cases:</p>
+<pre><code class="language-typescript">describe(&#39;edge cases&#39;, () =&gt; {
+  it(&#39;handles empty response&#39;, async () =&gt; {
+    mockApi.mockResolvedValue({ data: null });
+    await expect(action.execute(params)).rejects.toThrow();
+  });
+
+  it(&#39;handles timeout&#39;, async () =&gt; {
+    mockApi.mockRejectedValue(new TimeoutError());
+    await expect(action.execute(params)).rejects.toThrow(&#39;timeout&#39;);
+  });
+
+  it(&#39;handles rate limiting&#39;, async () =&gt; {
+    mockApi.mockRejectedValue(new RateLimitError());
+    const result = await action.execute(params);
+    expect(result.retryAfter).toBeDefined();
+  });
+});
+</code></pre>
+<h2>Next Steps</h2>
+<ul>
+<li>Review existing plugins in the <a href="https://github.com/samterminal/samterminal">GitHub repository</a></li>
+<li>Read the <a href="/docs/building-trading-agents">Building Trading Agents</a> guide for workflow engine and order templates</li>
+<li>Check out <a href="/docs/openclaw-skills">OpenClaw Skills</a> to teach AI assistants to use your plugins</li>
+</ul>
+<p>Start building your first plugin and extend SAM Terminal with custom capabilities tailored to your needs.</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

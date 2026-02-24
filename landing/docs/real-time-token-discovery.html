@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Token Discovery — SAM Terminal</title>
+  <meta name="description" content="Auto-discover Clanker and Bankr tokens on Base. Build condition-based strategies from detection to execution.">
+  <link rel="canonical" href="https://samterminal.com/docs/real-time-token-discovery">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Real-Time Token Discovery">
+  <meta property="og:description" content="Auto-discover Clanker and Bankr tokens on Base. Build condition-based strategies from detection to execution.">
+  <meta property="og:url" content="https://samterminal.com/docs/real-time-token-discovery">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Real-Time Token Discovery">
+  <meta name="twitter:description" content="Auto-discover Clanker and Bankr tokens on Base. Build condition-based strategies from detection to execution.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Real-Time Token Discovery",
+    "description": "Auto-discover Clanker and Bankr tokens on Base. Build condition-based strategies from detection to execution.",
+    "url": "https://samterminal.com/docs/real-time-token-discovery",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/real-time-token-discovery",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Real-Time Token Discovery: Catch New Tokens Before Everyone Else</h1>
+<p>Every day, hundreds of new tokens launch on Base through platforms like Clanker and Bankr. By the time they show up on aggregator sites, early opportunities are already gone. SAM Terminal now discovers these tokens the moment they&#39;re deployed -- automatically tracking prices, pool activity, and market data in real time.</p>
+<p>This guide covers how real-time token discovery works, how to build condition-based strategies around newly launched tokens, and how to automate the entire workflow from detection to execution.</p>
+<hr>
+<h2>What Changed</h2>
+<p>Previously, SAM Terminal only tracked tokens that users manually added. You had to know a token&#39;s contract address, search for it, and start tracking it yourself. That worked for established tokens, but missed the window on new launches entirely.</p>
+<p>Now, the system runs two parallel discovery pipelines:</p>
+<p><strong>Clanker Discovery</strong> -- Polls the Clanker API every 5 seconds for newly deployed tokens on Base. Each poll returns the latest 20 tokens with metadata: name, symbol, image, pool address, and pair type.</p>
+<p><strong>Bankr Discovery</strong> -- Listens directly to the Bankr factory contract via WebSocket. Every time a new token is created on-chain, SAM Terminal receives the event within seconds -- no polling delay.</p>
+<p>Both pipelines feed into the same tracking infrastructure: DexScreener for price and volume data, Uniswap pool watching for real-time swap events, and the full gRPC pipeline that powers MCP tools.</p>
+<pre><code>Clanker API (5s poll)     Bankr Factory (WebSocket)
+        │                         │
+        ▼                         ▼
+   Filter &amp; Dedup            Event Decode
+        │                         │
+        └────────┬────────────────┘
+                 │
+                 ▼
+        DexScreener Batch
+        (price, volume, pool)
+                 │
+                 ▼
+        DB Insert + Pool Watch
+        (real-time swap events)
+                 │
+                 ▼
+        gRPC → MCP Tools
+        (available to your agent)
+</code></pre>
+<p>The moment a token enters the system, it becomes queryable through all SAM Terminal tools -- <code>sam_get_token_price</code>, <code>sam_get_token_info</code>, <code>sam_token_search</code>, and the condition engine.</p>
+<hr>
+<h2>How Discovery Works Under the Hood</h2>
+<h3>Clanker Pipeline</h3>
+<p>Clanker tokens come with rich metadata from the API -- name, symbol, image URL, pool address, and whether it&#39;s a V3 or V4 pool. SAM Terminal uses this directly instead of making additional API calls.</p>
+<p>For market data (price, volume, liquidity), a single batch request goes to DexScreener for all new tokens in that poll cycle. One HTTP call for 20 tokens instead of 20 individual calls.</p>
+<p>Tokens that DexScreener doesn&#39;t have data for yet (common for very fresh launches) are saved with price &quot;0&quot; and picked up by a background job that retries every 10 minutes.</p>
+<h3>Bankr Pipeline</h3>
+<p>Bankr is more active -- roughly 6 new tokens per minute. Instead of polling an API, the system subscribes directly to the Bankr factory contract&#39;s <code>Create</code> event via WebSocket.</p>
+<p>Since on-chain events don&#39;t include token metadata (just the contract address and pair), SAM Terminal reads <code>name()</code> and <code>symbol()</code> directly from the token contract via RPC. These calls run in parallel across all tokens in a batch for speed.</p>
+<p>The WebSocket connection auto-reconnects with exponential backoff if the RPC provider drops the connection. No manual intervention needed.</p>
+<h3>Shared Infrastructure</h3>
+<p>Both pipelines share:</p>
+<ul>
+<li><strong>Deduplication</strong> -- In-memory cache (10-minute TTL) + database check prevents duplicate processing</li>
+<li><strong>DexScreener batching</strong> -- Addresses are chunked into groups of 20 to stay within URL limits</li>
+<li><strong>Pool watching</strong> -- Each new token gets a WebSocket subscription to its Uniswap pool for real-time swap events</li>
+<li><strong>Automatic cleanup</strong> -- Tokens with no activity for 30 minutes are removed from active tracking, freeing up resources</li>
+</ul>
+<hr>
+<h2>Building Strategies Around New Tokens</h2>
+<p>This is where it gets interesting. New token discovery becomes powerful when combined with SAM Terminal&#39;s condition engine and workflow system. Instead of manually checking every new launch, you define conditions -- and only get alerted (or execute trades) when those conditions are met.</p>
+<h3>Strategy 1: New Launch Alert with Safety Filter</h3>
+<p>The simplest and most useful setup. Get notified about new tokens, but only the ones that pass basic safety checks.</p>
+<pre><code>User: &quot;Alert me on Telegram when a new Clanker token launches
+       with liquidity above $50K and more than 100 holders&quot;
+</code></pre>
+<p>What the agent builds:</p>
+<pre><code>[Schedule: 30s]
+      │
+      ▼
+[Get Recently Added Tokens (reason: &quot;clanker&quot;)]
+      │
+      ▼
+[For Each Token]
+      │
+      ▼
+[Liquidity ≥ $50K AND Holders ≥ 100?]
+      │                    │
+     YES                   NO
+      │                    │
+      ▼                 [skip]
+[Telegram: &quot;New token: {name} ({symbol})
+ Price: ${price} | Liquidity: ${liquidity}
+ Address: {address}&quot;]
+</code></pre>
+<p>Why this matters: Most new tokens have near-zero liquidity and are untradeable. Filtering by liquidity and holder count eliminates 90% of noise.</p>
+<h3>Strategy 2: Momentum Sniper</h3>
+<p>Buy tokens that show early momentum signals -- price increase with volume to back it up.</p>
+<pre><code>User: &quot;When a new Bankr token gains 50% in the first hour
+       with volume above $100K, buy $200 worth&quot;
+</code></pre>
+<pre><code>[Schedule: 60s]
+      │
+      ▼
+[Get Recently Added Tokens (reason: &quot;bankr&quot;, age &lt; 1 hour)]
+      │
+      ▼
+[For Each Token]
+      │
+      ▼
+[PriceChange1h ≥ 50% AND Volume24h ≥ $100K AND Liquidity ≥ $25K?]
+      │                    │
+     YES                   NO
+      │                    │
+      ▼                 [skip]
+[Swap $200 USDC → Token]
+      │
+      ▼
+[Set Trailing Stop: 20%]
+      │
+      ▼
+[Telegram: &quot;Sniped {symbol} at ${price}. Trailing stop set.&quot;]
+</code></pre>
+<p>The trailing stop is critical here. New tokens are volatile -- a 20% trailing stop locks in gains while giving room for upward movement.</p>
+<h3>Strategy 3: Liquidity Growth Detector</h3>
+<p>Some tokens start small but grow steadily. This strategy watches for tokens where liquidity is consistently increasing -- a sign of organic growth rather than a pump.</p>
+<pre><code>User: &quot;Track new Clanker tokens. If a token&#39;s liquidity doubles
+       within the first 2 hours, alert me with full market data&quot;
+</code></pre>
+<pre><code>[Schedule: 5m]
+      │
+      ▼
+[Get Tokens (reason: &quot;clanker&quot;, age: 30min-2hr)]
+      │
+      ▼
+[For Each Token]
+      │
+      ▼
+[Current Liquidity ≥ 2x Initial Liquidity?]
+      │                    │
+     YES                   NO
+      │                    │
+      ▼                 [skip]
+[Get Full Market Data]
+      │
+      ▼
+[AI Analyze: &quot;Is this organic growth or manipulation?&quot;]
+      │
+      ▼
+[Telegram: Formatted report with AI analysis]
+</code></pre>
+<p>Adding AI analysis helps filter out wash trading and artificial liquidity inflation.</p>
+<h3>Strategy 4: Multi-Source Cross-Reference</h3>
+<p>The most sophisticated setup. A token launching on both Clanker and Bankr simultaneously (or being traded across both ecosystems) can signal legitimate demand.</p>
+<pre><code>User: &quot;If a token appears on both Clanker and Bankr within 10 minutes,
+       and has volume above $50K, buy $500 and notify me&quot;
+</code></pre>
+<p>This uses the <code>reason</code> field in the database. Tokens discovered via Clanker are tagged <code>reason: &quot;clanker&quot;</code>, and Bankr tokens are tagged <code>reason: &quot;bankr&quot;</code>. Cross-referencing is a database query away.</p>
+<h3>Strategy 5: Smart DCA on New Launches</h3>
+<p>Instead of buying once, spread your entry across multiple buys as the token proves itself.</p>
+<pre><code>User: &quot;When a new token with $100K+ liquidity appears,
+       buy $50 every 10 minutes for the next hour.
+       Stop if price drops 30% from first buy.&quot;
+</code></pre>
+<pre><code>[New Token Detected (liquidity ≥ $100K)]
+      │
+      ▼
+[Buy $50 (1st entry)]
+      │
+      ▼
+[Loop: every 10min, 5 more times]
+      │
+      ▼
+[Price ≥ 70% of first buy price?]
+      │                    │
+     YES                   NO
+      │                    │
+      ▼                    ▼
+[Buy $50]           [Stop DCA + Alert]
+      │
+      ▼
+[After 6 buys: Set trailing stop 25%]
+</code></pre>
+<p>This limits downside while building a position in tokens that maintain momentum.</p>
+<hr>
+<h2>Condition Fields for New Tokens</h2>
+<p>When building strategies around newly discovered tokens, these fields are available:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Useful For</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>price</code></td>
+<td>Current USD price</td>
+<td>Entry/exit triggers</td>
+</tr>
+<tr>
+<td><code>priceChange1h</code></td>
+<td>1-hour change (%)</td>
+<td>Momentum detection</td>
+</tr>
+<tr>
+<td><code>volume24h</code></td>
+<td>Trading volume</td>
+<td>Confirming interest</td>
+</tr>
+<tr>
+<td><code>liquidity</code></td>
+<td>Pool liquidity ($)</td>
+<td>Safety filtering</td>
+</tr>
+<tr>
+<td><code>holders</code></td>
+<td>Holder count</td>
+<td>Legitimacy check</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>Discovery source</td>
+<td>Cross-referencing (&quot;clanker&quot;, &quot;bankr&quot;)</td>
+</tr>
+<tr>
+<td><code>age</code></td>
+<td>Time since deployment</td>
+<td>Freshness filtering</td>
+</tr>
+<tr>
+<td><code>poolType</code></td>
+<td>V3 or V4</td>
+<td>Technical filtering</td>
+</tr>
+</tbody></table>
+<h3>Recommended Safety Conditions</h3>
+<p>Always include at minimum:</p>
+<pre><code>Liquidity ≥ $10K
+AND Volume24h ≥ $5K
+AND TokenAge ≥ 5 minutes
+</code></pre>
+<p>The 5-minute age filter avoids buying into the initial deployment chaos where prices are extremely volatile and sandwich attacks are most common.</p>
+<p>For larger positions ($500+), tighten the filters:</p>
+<pre><code>Liquidity ≥ $100K
+AND Holders ≥ 500
+AND Volume24h ≥ $50K
+AND TokenAge ≥ 30 minutes
+</code></pre>
+<hr>
+<h2>Natural Language Examples</h2>
+<p>Here are ready-to-use prompts for your SAM Terminal agent:</p>
+<p><strong>Alert only:</strong></p>
+<pre><code>&quot;Notify me on Telegram when any new Clanker token reaches $100K market cap
+ within its first hour&quot;
+</code></pre>
+<p><strong>Alert + Analysis:</strong></p>
+<pre><code>&quot;When a new Base token launches with more than $50K liquidity,
+ analyze it with AI and send me a buy/skip recommendation on Telegram&quot;
+</code></pre>
+<p><strong>Automated trading:</strong></p>
+<pre><code>&quot;Automatically buy $100 of any new Bankr token that has:
+ - More than $75K liquidity
+ - More than 200 holders
+ - Positive price movement in first 10 minutes
+ Set a 25% trailing stop on every purchase&quot;
+</code></pre>
+<p><strong>Portfolio-aware:</strong></p>
+<pre><code>&quot;Track all new Clanker launches. If any token I already hold drops 40%
+ from its peak, sell everything and alert me&quot;
+</code></pre>
+<p><strong>Scheduled report:</strong></p>
+<pre><code>&quot;Every evening at 8pm, send me a summary of all new tokens discovered today
+ with their current price, volume, and price change since launch&quot;
+</code></pre>
+<hr>
+<h2>Risk Considerations</h2>
+<p>New token trading carries significant risk. The discovery system gives you speed, but speed without discipline is dangerous.</p>
+<p><strong>What SAM Terminal does to help:</strong></p>
+<ul>
+<li>Tokens with no activity are automatically cleaned up after 30 minutes</li>
+<li>DexScreener data provides liquidity and volume validation before trades</li>
+<li>The condition engine lets you enforce minimum safety thresholds</li>
+<li>Trailing stops and budget limits prevent unbounded losses</li>
+<li>All swaps require explicit confirmation unless overridden in a workflow</li>
+</ul>
+<p><strong>What you should do:</strong></p>
+<ul>
+<li>Start with alerts only. Watch the patterns for a week before enabling auto-trading</li>
+<li>Never allocate more than 1-2% of your portfolio to any single new token</li>
+<li>Use trailing stops on every position. New tokens can drop 80% in minutes</li>
+<li>Set daily budget limits. Even with good filters, some trades will lose</li>
+<li>Diversify across multiple small positions rather than concentrating</li>
+</ul>
+<p><strong>What the system won&#39;t protect you from:</strong></p>
+<ul>
+<li>Rug pulls where the deployer removes liquidity</li>
+<li>Tokens that pass all filters but have no real utility</li>
+<li>Smart contract vulnerabilities in the token itself</li>
+<li>Market-wide crashes that affect all tokens simultaneously</li>
+</ul>
+<hr>
+<h2>Getting Started</h2>
+<p>If you already have SAM Terminal running:</p>
+<ol>
+<li><p><strong>The discovery pipelines start automatically.</strong> No configuration needed. When the token data service starts, Clanker polling and Bankr listening begin immediately.</p>
+</li>
+<li><p><strong>Check that tokens are being discovered:</strong></p>
+<pre><code>&quot;Show me the most recently tracked tokens&quot;
+</code></pre>
+</li>
+<li><p><strong>Start with a simple alert:</strong></p>
+<pre><code>&quot;Alert me when any new token launches with more than $50K liquidity&quot;
+</code></pre>
+</li>
+<li><p><strong>Layer in conditions over time</strong> as you learn what patterns work for your trading style.</p>
+</li>
+<li><p><strong>Graduate to automated strategies</strong> only after you&#39;re confident in your condition design.</p>
+</li>
+</ol>
+<p>The infrastructure is running. The tokens are flowing in. What you build on top of it is up to you.</p>
+<hr>
+<p><strong>Related Guides:</strong></p>
+<ul>
+<li><a href="/docs/building-trading-agents">Building Trading Agents</a> -- Order templates, workflow engine, and strategy patterns</li>
+<li><a href="/docs/openclaw-trading-automation">OpenClaw Trading Automation</a> -- Natural language trading workflows</li>
+<li><a href="/docs/getting-started">Getting Started</a> -- First-time SAM Terminal setup</li>
+</ul>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package notification;
+
+enum NotificationType {
+    TELEGRAM = 0;
+    FARCASTER = 1;
+}
+
+enum TelegramBotTypes {
+    MAIN = 0;
+    USER = 1;
+}
+
+enum NotificationButtonType {
+    LINK = 0;
+    FUNCTION = 1;
+}
+
+enum SyncBotToUserStatus {
+    CODE_NOT_CORRECT = 0;
+    USER_NOT_FOUND = 1;
+    SYNCED = 2;
+}
+
+message NotificationButton {
+    string label = 1;
+    optional string data = 2;
+    NotificationButtonType type = 3;
+}
+
+
+
+message BotState {
+    NotificationType type = 1;
+    bool isActive = 2;
+}
+
+message NotificationExtrasType {
+    repeated  NotificationButton buttons = 1;
+}
+
+message SendNotificationRequest {
+    string message = 1;
+    NotificationType type = 2;
+    TelegramBotTypes botName = 3;
+    optional NotificationExtrasType extras = 4;
+    string to = 5;
+    optional bool bypass = 6;
+}
+
+message SendNotificationResponse {
+    bool success = 1;
+}
+
+message GetUserBotURLRequest {
+    string userId = 1;
+}
+
+message UserBotData {
+    string code = 1;
+    string url = 2;
+    NotificationType type = 3;
+}
+
+message GetUserBotURLResponse {
+   repeated UserBotData urls = 1; 
+}
+
+message GetUserBotStatesRequest {
+    string userId = 1;
+}
+
+message GetUserBotStatesResponse {
+    bool success = 1;
+    repeated BotState botStates = 2;
+}
+
+message ToggleBotStateRequest {
+    string userId = 1;
+    NotificationType type = 2;
+}
+
+message ToggleBotStateResponse {
+    bool success = 1;
+    repeated BotState botStates = 2;
+}
+
+service NotificationService {
+    rpc send (SendNotificationRequest) returns (SendNotificationResponse);
+    rpc getUserBotURL (GetUserBotURLRequest) returns (GetUserBotURLResponse);
+    rpc getUserBotStates (GetUserBotStatesRequest) returns (GetUserBotStatesResponse);
+    rpc toggleBotState (ToggleBotStateRequest) returns (ToggleBotStateResponse);
+}

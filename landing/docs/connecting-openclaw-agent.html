@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecting Your OpenClaw Agent to SAM Terminal — SAM Terminal</title>
+  <meta name="description" content="Step-by-step integration guide. Connect your AI agent to 40 blockchain tools via MCP.">
+  <link rel="canonical" href="https://samterminal.com/docs/connecting-openclaw-agent">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Connecting Your OpenClaw Agent to SAM Terminal">
+  <meta property="og:description" content="Step-by-step integration guide. Connect your AI agent to 40 blockchain tools via MCP.">
+  <meta property="og:url" content="https://samterminal.com/docs/connecting-openclaw-agent">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Connecting Your OpenClaw Agent to SAM Terminal">
+  <meta name="twitter:description" content="Step-by-step integration guide. Connect your AI agent to 40 blockchain tools via MCP.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Connecting Your OpenClaw Agent to SAM Terminal",
+    "description": "Step-by-step integration guide. Connect your AI agent to 40 blockchain tools via MCP.",
+    "url": "https://samterminal.com/docs/connecting-openclaw-agent",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/connecting-openclaw-agent",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Connecting Your OpenClaw Agent to SAM Terminal</h1>
+<p>A complete, step-by-step integration guide. By the end of this walkthrough, your OpenClaw-powered AI agent will have access to 40 blockchain tools -- token tracking, wallet monitoring, swap execution, workflow automation, notifications, and more -- all through natural language.</p>
+<hr>
+<h2>What You&#39;ll Achieve</h2>
+<p>After following this guide, your AI agent will be able to handle conversations like this:</p>
+<pre><code>User: &quot;What tokens am I holding on Base?&quot;
+
+Agent: [calls sam_get_wallet_details]
+       &quot;You have 5 tokens worth $12,340:
+        - 2.1 ETH ($6,930)
+        - 3,000 USDC ($3,000)
+        - 50,000 DEGEN ($1,250)
+        - 800 BRETT ($960)
+        - 10,000 TOSHI ($200)&quot;
+
+User: &quot;Set a stop-loss on BRETT at $0.80&quot;
+
+Agent: [calls sam_flow_create with condition nodes]
+       &quot;Done. Monitoring BRETT every 30 seconds.
+        If price drops to $0.80, I&#39;ll sell your full position
+        and notify you on Telegram.&quot;
+</code></pre>
+<p>No dashboards. No code. Just a conversation with an agent that has real onchain capabilities.</p>
+<hr>
+<h2>Prerequisites</h2>
+<p>Before you begin, make sure you have:</p>
+<ul>
+<li><strong>Node.js 18+</strong> and <strong>pnpm</strong> installed</li>
+<li><strong>Docker</strong> running (for PostgreSQL and Redis)</li>
+<li><strong>Go 1.21+</strong> (for tokendata and walletdata services)</li>
+<li>API keys from at least one provider (see <a href="#step-2-configure-api-keys">API Keys</a> below)</li>
+<li>An MCP-compatible AI client (Claude Desktop, Cursor, Claude Code, or any OpenClaw-compatible agent)</li>
+</ul>
+<hr>
+<h2>Part 1: Setting Up SAM Terminal Backend</h2>
+<p>Your AI agent needs a running backend to connect to. SAM Terminal uses a microservices architecture where each service handles a specific domain.</p>
+<h3>Step 1: Clone and Install</h3>
+<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+cd samterminal
+cp .env.example .env
+pnpm install
+</code></pre>
+<h3>Step 2: Configure API Keys</h3>
+<p>Edit the <code>.env</code> file with your API keys. Here&#39;s what each key enables:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Provider</th>
+<th>Enables</th>
+<th>Required?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ALCHEMY_API_KEY</code></td>
+<td><a href="https://www.alchemy.com">alchemy.com</a></td>
+<td>RPC access, blockchain reads</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>MORALIS_API_KEY</code></td>
+<td><a href="https://moralis.io">moralis.io</a></td>
+<td>Wallet data, token metadata, security checks</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>COINGECKO_API_KEY</code></td>
+<td><a href="https://www.coingecko.com">coingecko.com</a></td>
+<td>Token market data</td>
+<td>Optional</td>
+</tr>
+<tr>
+<td><code>MATCHA_API_KEY</code></td>
+<td><a href="https://0x.org">0x.org</a></td>
+<td>DEX swap execution</td>
+<td>For swaps</td>
+</tr>
+<tr>
+<td><code>MAIN_BOT_TOKEN</code></td>
+<td><a href="https://t.me/BotFather">Telegram @BotFather</a></td>
+<td>Telegram notifications</td>
+<td>For alerts</td>
+</tr>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td><a href="https://platform.openai.com">openai.com</a></td>
+<td>AI-powered analysis</td>
+<td>For AI tools</td>
+</tr>
+<tr>
+<td><code>ANTHROPIC_API_KEY</code></td>
+<td><a href="https://console.anthropic.com">anthropic.com</a></td>
+<td>AI-powered analysis</td>
+<td>For AI tools</td>
+</tr>
+</tbody></table>
+<p>Minimum viable setup (token + wallet tracking only):</p>
+<pre><code class="language-env"># Blockchain RPC (Base Mainnet)
+RPC_URL_BASE=https://base-mainnet.g.alchemy.com/v2/YOUR_KEY
+ALCHEMY_API_KEY=YOUR_KEY
+
+# Wallet and token data
+MORALIS_API_KEY=YOUR_KEY
+</code></pre>
+<p>Full setup (all features):</p>
+<pre><code class="language-env"># Blockchain RPC
+RPC_URL_BASE=https://base-mainnet.g.alchemy.com/v2/YOUR_KEY
+RPC_WS_URL_BASE=wss://base-mainnet.g.alchemy.com/v2/YOUR_KEY
+ALCHEMY_API_KEY=YOUR_KEY
+
+# Data providers
+MORALIS_API_KEY=YOUR_KEY
+COINGECKO_API_KEY=YOUR_KEY
+
+# Swap aggregator
+MATCHA_API_KEY=YOUR_KEY
+
+# Telegram notifications
+MAIN_BOT_TOKEN=YOUR_TELEGRAM_BOT_TOKEN
+
+# AI features
+OPENAI_API_KEY=YOUR_KEY
+</code></pre>
+<h3>Step 3: Start Infrastructure</h3>
+<pre><code class="language-bash"># Start PostgreSQL and Redis containers
+docker compose up -d
+</code></pre>
+<p>Verify they&#39;re running:</p>
+<pre><code class="language-bash">docker compose ps
+</code></pre>
+<p>You should see <code>postgres</code> and <code>redis</code> containers with status <code>Up</code>.</p>
+<h3>Step 4: Start Backend Services</h3>
+<p>SAM Terminal runs 6 microservices. Start them all:</p>
+<pre><code class="language-bash"># Build everything first
+pnpm build
+
+# Start all services (development mode)
+pnpm dev
+</code></pre>
+<p>Or start services individually for more control:</p>
+<pre><code class="language-bash"># Go services (token and wallet data)
+cd services/go/tokendata &amp;&amp; go run . &amp;
+cd services/go/walletdata &amp;&amp; go run . &amp;
+
+# NestJS services
+cd services/nestjs/main &amp;&amp; pnpm start:dev &amp;
+cd services/nestjs/swap &amp;&amp; pnpm start:dev &amp;
+cd services/nestjs/notification &amp;&amp; pnpm start:dev &amp;
+cd services/nestjs/transactions &amp;&amp; pnpm start:dev &amp;
+</code></pre>
+<h3>Step 5: Verify Services</h3>
+<p>Each service runs on a specific port:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Token Data (Go)</td>
+<td>50061</td>
+<td>Token prices, metadata, pool watching, security checks</td>
+</tr>
+<tr>
+<td>Wallet Data (Go)</td>
+<td>50062</td>
+<td>Wallet balances, token holdings, transaction history</td>
+</tr>
+<tr>
+<td>Swap (NestJS)</td>
+<td>50059</td>
+<td>DEX swap quotes and execution via 0x/Matcha</td>
+</tr>
+<tr>
+<td>Main Gateway (NestJS)</td>
+<td>50060</td>
+<td>API orchestration and routing</td>
+</tr>
+<tr>
+<td>Notification (NestJS)</td>
+<td>50056</td>
+<td>Telegram and Farcaster notifications</td>
+</tr>
+<tr>
+<td>Transactions (NestJS)</td>
+<td>50054</td>
+<td>Transaction tracking and history</td>
+</tr>
+</tbody></table>
+<p>Quick health check:</p>
+<pre><code class="language-bash"># Check if token service is responding
+curl -s http://localhost:8081/health
+
+# Check if a gRPC port is open
+nc -zv localhost 50061
+nc -zv localhost 50062
+</code></pre>
+<blockquote>
+<p><strong>Tip:</strong> Run <code>sam doctor</code> for a comprehensive health check of all services, API keys, and database connections.</p>
+</blockquote>
+<hr>
+<h2>Part 2: Connecting Your AI Agent via MCP</h2>
+<p>The MCP (Model Context Protocol) server is the bridge between your AI agent and SAM Terminal&#39;s backend. It exposes all 40 tools through the standardized MCP protocol.</p>
+<h3>Architecture</h3>
+<pre><code>┌─────────────────────────────────┐
+│  Your AI Agent (OpenClaw)       │
+│  Claude Desktop / Cursor / etc. │
+└──────────────┬──────────────────┘
+               │ MCP Protocol (stdio)
+               v
+┌─────────────────────────────────┐
+│  @samterminal/mcp-server        │
+│  40 tools · 9 categories        │
+└──────────────┬──────────────────┘
+               │ gRPC
+               v
+┌─────────────────────────────────┐
+│  Backend Microservices          │
+│  Token · Wallet · Swap · Notif  │
+│  AI · Transactions              │
+└──────────────┬──────────────────┘
+               │
+               v
+     Base · Ethereum · Arbitrum
+     Polygon · Optimism · BSC
+</code></pre>
+<h3>Option A: Claude Desktop</h3>
+<p><strong>1. Find the config file:</strong></p>
+<table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>macOS</td>
+<td><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%APPDATA%\Claude\claude_desktop_config.json</code></td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>~/.config/Claude/claude_desktop_config.json</code></td>
+</tr>
+</tbody></table>
+<p><strong>2. Add SAM Terminal MCP server:</strong></p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;sam-terminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;env&quot;: {
+        &quot;MICROSERVICES_HOST&quot;: &quot;localhost&quot;,
+        &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+        &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+        &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;,
+        &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
+        &quot;SAM_NOTIFICATION_PORT&quot;: &quot;50056&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p><strong>3. Restart Claude Desktop</strong> completely (Cmd+Q on macOS, then relaunch).</p>
+<p><strong>4. Verify:</strong> Look for the tools icon in the chat interface. You should see 40 SAM Terminal tools.</p>
+<h3>Option B: Claude Code</h3>
+<p><strong>1. Create MCP config:</strong></p>
+<pre><code class="language-bash">mkdir -p ~/.claude
+</code></pre>
+<p><strong>2. Edit <code>~/.claude/mcp_config.json</code>:</strong></p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;sam-terminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;env&quot;: {
+        &quot;MICROSERVICES_HOST&quot;: &quot;localhost&quot;,
+        &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+        &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+        &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;,
+        &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
+        &quot;SAM_NOTIFICATION_PORT&quot;: &quot;50056&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p><strong>3. Start Claude Code</strong> -- the MCP server connects automatically on startup.</p>
+<h3>Option C: Cursor</h3>
+<p><strong>1. Open MCP settings:</strong> Press <code>Cmd+Shift+P</code> (macOS) or <code>Ctrl+Shift+P</code> (Windows/Linux), search &quot;MCP Settings&quot;.</p>
+<p><strong>2. Add the same configuration</strong> as Claude Desktop above.</p>
+<p><strong>3. Reload Cursor</strong> for changes to take effect.</p>
+<h3>Option D: Any MCP-Compatible Client</h3>
+<p>Any client that supports the MCP protocol can connect. Point it to:</p>
+<pre><code class="language-bash">npx -y @samterminal/mcp-server
+</code></pre>
+<p>Set the environment variables for gRPC service ports. The server auto-discovers and registers all 40 tools on startup.</p>
+<h3>Loading the Skill File</h3>
+<p>For best results, load SAM Terminal&#39;s skill file (<code>skill.md</code>) into your AI agent&#39;s context. This teaches the agent:</p>
+<ul>
+<li>What each tool does and when to use it</li>
+<li>Correct parameter formats and expected responses</li>
+<li>Safety rules for swap execution</li>
+<li>Workflow patterns and condition syntax</li>
+</ul>
+<p><strong>Claude Desktop:</strong> Attach <code>skill.md</code> to your conversation or add it to the system prompt in Developer settings.</p>
+<p><strong>Claude Code:</strong> Place <code>CLAUDE.md</code> (or <code>skill.md</code> renamed) in the project root -- it loads automatically.</p>
+<p><strong>Cursor:</strong> Place in <code>.cursor/</code> directory or add to <code>cursor.context.files</code> in workspace settings.</p>
+<hr>
+<h2>Part 3: Complete Tool Reference</h2>
+<p>Once connected, your agent has access to 40 tools across 9 categories.</p>
+<h3>Token Tools (7)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_get_tokens</code></td>
+<td>List all tracked tokens or filter by addresses</td>
+<td><code>tokenAddresses?: string[]</code></td>
+</tr>
+<tr>
+<td><code>sam_get_token_price</code></td>
+<td>Get current price and 24h volume</td>
+<td><code>tokenAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_get_token_info</code></td>
+<td>Detailed metadata (name, symbol, supply, pool)</td>
+<td><code>tokenAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_token_track</code></td>
+<td>Start tracking a token</td>
+<td><code>tokenAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_token_untrack</code></td>
+<td>Stop tracking a token</td>
+<td><code>tokenAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_token_blacklist</code></td>
+<td>Block suspicious token addresses</td>
+<td><code>addresses: string[]</code></td>
+</tr>
+<tr>
+<td><code>sam_token_search</code></td>
+<td>Search by name, symbol, or address</td>
+<td><code>query: string</code></td>
+</tr>
+</tbody></table>
+<h3>Wallet Tools (7)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_get_wallet</code></td>
+<td>Wallet summary (balance, total value)</td>
+<td><code>address: string, chain?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_get_wallet_tokens</code></td>
+<td>All token holdings with USD values</td>
+<td><code>address: string, chain?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_get_wallet_details</code></td>
+<td>Full breakdown (native + tokens)</td>
+<td><code>address: string, chain?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_track</code></td>
+<td>Start monitoring a wallet</td>
+<td><code>address: string, label?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_update_portfolio</code></td>
+<td>Refresh cached portfolio value</td>
+<td><code>address: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_label</code></td>
+<td>Assign human-readable label</td>
+<td><code>address: string, label: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_tracked_list</code></td>
+<td>List all monitored wallets</td>
+<td><code>chain?: string</code></td>
+</tr>
+</tbody></table>
+<h3>Swap Tools (3)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_swap_quote</code></td>
+<td>Get swap quote with fees and route</td>
+<td><code>fromToken, toToken, amount: string</code></td>
+</tr>
+<tr>
+<td><code>sam_swap_execute</code></td>
+<td>Execute token swap</td>
+<td><code>fromToken, toToken, amount, slippage?: number</code></td>
+</tr>
+<tr>
+<td><code>sam_swap_approve</code></td>
+<td>Approve ERC20 token spending</td>
+<td><code>tokenAddress, spender, amount: string</code></td>
+</tr>
+</tbody></table>
+<h3>Workflow Tools (7)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_flow_list</code></td>
+<td>List all workflows</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_flow_get</code></td>
+<td>Get workflow definition and status</td>
+<td><code>flowId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_create</code></td>
+<td>Create custom DAG workflow</td>
+<td><code>name, nodes[], edges[]</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_create_from_template</code></td>
+<td>Create from predefined template</td>
+<td><code>templateName, config: object</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_execute</code></td>
+<td>Run a workflow</td>
+<td><code>flowId: string, input?: object</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_status</code></td>
+<td>Check execution progress</td>
+<td><code>executionId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_templates</code></td>
+<td>List available templates</td>
+<td>--</td>
+</tr>
+</tbody></table>
+<h3>Notification Tools (4)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_notify_send</code></td>
+<td>Send notification (Telegram/Farcaster)</td>
+<td><code>channel, message: string</code></td>
+</tr>
+<tr>
+<td><code>sam_notify_bot_url</code></td>
+<td>Get bot connection URLs</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_notify_bot_state</code></td>
+<td>Check bot connection status</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_notify_toggle</code></td>
+<td>Enable/disable notification channel</td>
+<td><code>channel: string, enabled: boolean</code></td>
+</tr>
+</tbody></table>
+<h3>AI Tools (3)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_ai_generate</code></td>
+<td>Generate text using LLM</td>
+<td><code>prompt, model?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_ai_generate_json</code></td>
+<td>Generate structured JSON output</td>
+<td><code>prompt, schema: object</code></td>
+</tr>
+<tr>
+<td><code>sam_ai_chat</code></td>
+<td>Multi-turn chat conversation</td>
+<td><code>message, context?: string</code></td>
+</tr>
+</tbody></table>
+<h3>Scheduler Tools (4)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_schedule_create</code></td>
+<td>Create scheduled task</td>
+<td><code>cronExpression, action, params</code></td>
+</tr>
+<tr>
+<td><code>sam_schedule_list</code></td>
+<td>List all scheduled tasks</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_schedule_toggle</code></td>
+<td>Enable/disable a task</td>
+<td><code>scheduleId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_schedule_delete</code></td>
+<td>Remove a scheduled task</td>
+<td><code>scheduleId: string</code></td>
+</tr>
+</tbody></table>
+<h3>Chain Tools (3)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_chain_list</code></td>
+<td>List supported blockchains</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_chain_current</code></td>
+<td>Get active chain</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_chain_switch</code></td>
+<td>Switch active chain</td>
+<td><code>chainId: string</code></td>
+</tr>
+</tbody></table>
+<h3>Plugin Tools (2)</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_plugin_list</code></td>
+<td>List installed plugins</td>
+<td>--</td>
+</tr>
+<tr>
+<td><code>sam_plugin_actions</code></td>
+<td>List available actions across plugins</td>
+<td>--</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Part 4: End-to-End Examples</h2>
+<h3>Example 1: Token Research</h3>
+<pre><code>User: &quot;Tell me about this token: 0x532f27101965dd16442E59d40670FaF5eBB142E4&quot;
+
+Agent thinks:
+  1. Get token info → sam_get_token_info
+  2. Get price data → sam_get_token_price
+  3. Combine and present
+
+Agent calls:
+  sam_get_token_info({ tokenAddress: &quot;0x532f...&quot; })
+  sam_get_token_price({ tokenAddress: &quot;0x532f...&quot; })
+
+Agent responds:
+  &quot;BRETT (Based Brett)
+   Price: $0.12 | 24h Volume: $4.2M
+   Market Cap: $156M | Liquidity: $8.3M
+   Pool: 0xa8b2... on Uniswap V3&quot;
+</code></pre>
+<h3>Example 2: Portfolio Check</h3>
+<pre><code>User: &quot;Show my wallet on Base&quot;
+
+Agent calls:
+  sam_get_wallet_details({ address: &quot;0xMyWallet...&quot;, chain: &quot;BASE&quot; })
+
+Agent responds:
+  &quot;Your Base wallet (0xMyW...):
+   Native: 2.1 ETH ($6,930)
+   Tokens:
+    - 3,000 USDC ($3,000)
+    - 50,000 DEGEN ($1,250)
+    - 800 BRETT ($960)
+   Total: $12,140&quot;
+</code></pre>
+<h3>Example 3: Swap Execution</h3>
+<pre><code>User: &quot;Swap 100 USDC to ETH&quot;
+
+Agent calls:
+  sam_swap_quote({
+    fromToken: &quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+    toToken: &quot;0x4200000000000000000000000000000000000006&quot;,
+    amount: &quot;100000000&quot;
+  })
+
+Agent responds:
+  &quot;Quote: 100 USDC → 0.0303 ETH
+   Rate: 1 ETH = $3,300
+   Estimated gas: $0.12
+   Slippage: 0.5%
+
+   Shall I execute this swap?&quot;
+
+User: &quot;Yes&quot;
+
+Agent calls:
+  sam_swap_execute({ fromToken: &quot;...&quot;, toToken: &quot;...&quot;, amount: &quot;100000000&quot;, slippage: 50 })
+
+Agent responds:
+  &quot;Swap executed! TX: 0xabc123...
+   Received: 0.0303 ETH&quot;
+</code></pre>
+<h3>Example 4: Price Alert Workflow</h3>
+<pre><code>User: &quot;Alert me on Telegram if DEGEN drops below $0.01&quot;
+
+Agent calls:
+  sam_token_search({ query: &quot;DEGEN&quot; })
+  sam_flow_create({
+    name: &quot;DEGEN Price Alert&quot;,
+    nodes: [
+      { id: &quot;t1&quot;, type: &quot;trigger&quot;, config: { triggerType: &quot;schedule&quot;, interval: 30000 } },
+      { id: &quot;a1&quot;, type: &quot;action&quot;, config: { plugin: &quot;tokendata&quot;, action: &quot;getPrice&quot;, params: { address: &quot;0x4ed4...&quot; } } },
+      { id: &quot;c1&quot;, type: &quot;condition&quot;, config: { conditions: [{ field: &quot;price&quot;, operator: &quot;lt&quot;, value: 0.01 }] } },
+      { id: &quot;a2&quot;, type: &quot;action&quot;, config: { plugin: &quot;telegram&quot;, action: &quot;send&quot;, params: { message: &quot;DEGEN dropped below $0.01!&quot; } } },
+      { id: &quot;o1&quot;, type: &quot;output&quot;, config: { outputType: &quot;return&quot; } }
+    ],
+    edges: [
+      { from: &quot;t1&quot;, to: &quot;a1&quot; },
+      { from: &quot;a1&quot;, to: &quot;c1&quot; },
+      { from: &quot;c1&quot;, to: &quot;a2&quot;, type: &quot;success&quot; },
+      { from: &quot;c1&quot;, to: &quot;o1&quot;, type: &quot;failure&quot; }
+    ]
+  })
+
+Agent responds:
+  &quot;Done. Monitoring DEGEN every 30 seconds.
+   You&#39;ll get a Telegram alert if price drops below $0.01.&quot;
+</code></pre>
+<h3>Example 5: DCA Strategy</h3>
+<pre><code>User: &quot;Buy $50 of ETH every day for 2 weeks&quot;
+
+Agent calls:
+  sam_flow_create_from_template({
+    templateName: &quot;scheduled&quot;,
+    config: {
+      schedule: { cron: &quot;0 9 * * *&quot; },
+      action: {
+        plugin: &quot;swap&quot;,
+        action: &quot;execute&quot;,
+        params: {
+          fromToken: &quot;USDC&quot;,
+          toToken: &quot;ETH&quot;,
+          amount: &quot;50000000&quot;
+        }
+      },
+      maxExecutions: 14
+    }
+  })
+
+Agent responds:
+  &quot;DCA strategy created. Buying $50 of ETH every day at 9:00 AM.
+   Duration: 14 days | Total budget: $700
+   You&#39;ll receive a Telegram notification after each purchase.&quot;
+</code></pre>
+<hr>
+<h2>Part 5: Troubleshooting</h2>
+<h3>MCP Server Won&#39;t Connect</h3>
+<p><strong>Symptom:</strong> AI client shows &quot;Connection failed&quot; or tools don&#39;t appear.</p>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Are backend services running?<pre><code class="language-bash">nc -zv localhost 50061  # Token service
+nc -zv localhost 50062  # Wallet service
+</code></pre>
+</li>
+<li>Is the MCP config JSON valid? Use a JSON validator.</li>
+<li>Did you restart the AI client after config changes?</li>
+<li>Check Claude Desktop logs: <code>~/Library/Logs/Claude/</code> (macOS)</li>
+</ol>
+<h3>Tools Appear But Return Errors</h3>
+<p><strong>Symptom:</strong> Tools show in the list but fail when called.</p>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Verify the specific backend service is running for the failing tool category</li>
+<li>Check environment variables are set correctly</li>
+<li>Test the service directly:<pre><code class="language-bash">curl http://localhost:8081/health      # Token service HTTP
+grpcurl -plaintext localhost:50061 list  # Token service gRPC
+</code></pre>
+</li>
+</ol>
+<h3>&quot;Connection Refused&quot; on gRPC</h3>
+<p><strong>Symptom:</strong> <code>UNAVAILABLE: Connection refused</code></p>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Service port matches MCP config port</li>
+<li>No firewall blocking localhost ports</li>
+<li>Docker containers are up: <code>docker compose ps</code></li>
+<li>Database is accessible: <code>psql $USER_DATABASE_URL -c &quot;SELECT 1&quot;</code></li>
+</ol>
+<h3>Swap Failures</h3>
+<p><strong>Symptom:</strong> Swap quote works but execution fails.</p>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Wallet has sufficient native token (ETH on Base) for gas</li>
+<li>Token is approved for spending: use <code>sam_swap_approve</code> first</li>
+<li><code>MATCHA_API_KEY</code> is set and valid</li>
+<li>Slippage is reasonable (default 0.5%, increase for volatile tokens)</li>
+</ol>
+<h3>Missing Token Data</h3>
+<p><strong>Symptom:</strong> <code>sam_get_token_price</code> returns empty or zero.</p>
+<p><strong>Check:</strong></p>
+<ol>
+<li>Token is being tracked: <code>sam_token_track</code> first</li>
+<li>Token exists on the configured chain (default: Base)</li>
+<li>Moralis/DexScreener APIs are reachable</li>
+<li>Token has active trading pairs (new tokens may lack data)</li>
+</ol>
+<hr>
+<h2>Part 6: Best Practices</h2>
+<h3>Security</h3>
+<ul>
+<li><strong>Never expose private keys</strong> in skill files, MCP configs, or conversation history</li>
+<li><strong>Use environment variables</strong> for all secrets</li>
+<li><strong>Run <code>sam doctor</code></strong> periodically to validate API key health</li>
+<li><strong>Use a dedicated hot wallet</strong> with limited funds for automated trading</li>
+<li><strong>Review swap quotes</strong> before confirming -- never auto-execute large trades</li>
+</ul>
+<h3>Performance</h3>
+<ul>
+<li><strong>Limit concurrent workflows</strong> -- each active workflow makes periodic API calls. 50 workflows at 30s intervals = 100 calls/minute</li>
+<li><strong>Clean up stale orders</strong> with <code>sam_flow_list</code> and delete unused ones</li>
+<li><strong>Use appropriate check intervals</strong> -- 30s for price alerts, daily for DCA, weekly for portfolio reports</li>
+<li><strong>Cache wallet data</strong> -- use <code>sam_wallet_update_portfolio</code> instead of fetching from chain every time</li>
+</ul>
+<h3>Multi-Chain Usage</h3>
+<ul>
+<li><strong>Always verify the active chain</strong> before transactions: <code>sam_chain_current</code></li>
+<li><strong>Switch explicitly</strong> when needed: <code>sam_chain_switch</code></li>
+<li><strong>Remember token addresses differ across chains</strong> -- USDC on Base is not USDC on Ethereum</li>
+<li>Supported chains: Base (8453), Ethereum (1), Arbitrum (42161), Polygon (137), Optimism (10), BSC (56)</li>
+</ul>
+<h3>Workflow Design</h3>
+<ul>
+<li><strong>Start with templates</strong> (<code>sam_flow_create_from_template</code>) before building custom workflows</li>
+<li><strong>Always add notification nodes</strong> at the end of critical workflows -- silent failures are dangerous</li>
+<li><strong>Set budget limits</strong> on DCA and smart-entry strategies to prevent wallet drainage</li>
+<li><strong>Test with small amounts</strong> ($1-5) before scaling up</li>
+<li><strong>Use cooldowns</strong> to prevent rapid-fire trades during volatile periods</li>
+</ul>
+<hr>
+<h2>What&#39;s Next</h2>
+<p>Now that your agent is connected, explore these resources:</p>
+<ul>
+<li><strong><a href="/docs/getting-started">Getting Started</a></strong> -- Full installation walkthrough</li>
+<li><strong><a href="/docs/mcp-setup-guide">MCP Setup Guide</a></strong> -- Advanced MCP configuration and troubleshooting</li>
+<li><strong><a href="/docs/openclaw-skills">OpenClaw Skills</a></strong> -- How skill files make your agent smarter</li>
+<li><strong><a href="/docs/openclaw-trading-automation">Trading Automation</a></strong> -- Build advanced trading workflows</li>
+<li><strong><a href="/docs/plugin-development">Plugin Development</a></strong> -- Create custom plugins for your agent</li>
+<li><strong><a href="/docs/architecture">Architecture Deep Dive</a></strong> -- Understand every layer of the system</li>
+</ul>
+<hr>
+<p><strong>Last Updated:</strong> February 18, 2026</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

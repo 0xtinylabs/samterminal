@@ -1,0 +1,36 @@
+// Transactions Service Prisma Schema
+// Part of unified user database with multi-schema support
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("USER_DATABASE_URL")
+  schemas  = ["transactions"]
+}
+
+model TransactionLog {
+  id                      String            @id @default(uuid())
+  txHash                  String            @unique
+  connectionKey           String
+  connectionValue         String
+  transactionParams       Json?
+  transactionResultParams Json?
+  errorMessage            String?
+  transactionStatus       TransactionStatus
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @default(now()) @updatedAt
+
+  @@schema("transactions")
+}
+
+enum TransactionStatus {
+  SUCCESS
+  FAIL
+  WAITING
+
+  @@schema("transactions")
+}

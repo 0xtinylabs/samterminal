@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package scanner_wallet;
+
+option go_package = "walletdata/proto/wallet";
+
+import "wallet/messages.proto";
+
+service ScannerWallet {
+    rpc addWallet (wallet.AddWalletRequest) returns (wallet.AddWalletResponse);
+    rpc getWallet (wallet.GetWalletRequest) returns (wallet.GetWalletResponse);
+    rpc getWalletTokens (wallet.GetWalletTokensRequest) returns (wallet.GetWalletTokensResponse);
+    rpc getWalletDetails (wallet.GetWalletDetailsRequest) returns (wallet.GetWalletDetailsResponse);
+    rpc updateWalletPortfolio (wallet.UpdateWalletPortfolioRequest) returns (wallet.UpdateWalletPortfolioResponse);
+}

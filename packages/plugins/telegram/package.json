@@ -1,0 +1,83 @@
+{
+  "name": "@samterminal/plugin-telegram",
+  "version": "1.0.0",
+  "description": "Telegram notification and bot integration for SamTerminal",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./actions": {
+      "import": "./dist/actions/index.js",
+      "types": "./dist/actions/index.d.ts"
+    },
+    "./providers": {
+      "import": "./dist/providers/index.js",
+      "types": "./dist/providers/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist node_modules",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:cov": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "keywords": [
+    "samterminal",
+    "telegram",
+    "bot",
+    "notification",
+    "plugin"
+  ],
+  "author": "SamTerminal Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/samterminal/samterminal/tree/main/packages/plugins/telegram",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samterminal/samterminal.git",
+    "directory": "packages/plugins/telegram"
+  },
+  "bugs": {
+    "url": "https://github.com/samterminal/samterminal/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0"
+  },
+  "devDependencies": {
+    "@samterminal/core": "*",
+    "@samterminal/tsconfig": "*",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.10.7",
+    "@types/node-telegram-bot-api": "^0.64.7",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.2.5",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "@samterminal/core": "*"
+  }
+}

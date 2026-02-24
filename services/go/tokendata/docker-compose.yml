@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: tokendata-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tokendata
+    ports:
+      - "5436:5432"
+    volumes:
+      - tokendata-local-db:/var/lib/postgresql/data
+volumes:
+  tokendata-local-db:

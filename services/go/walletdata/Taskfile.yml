@@ -1,0 +1,22 @@
+# https://taskfile.dev
+
+version: "3"
+
+
+tasks:
+  db:connect:
+    cmds:
+      - go run database/db.go
+    silent: true
+  start:
+    cmds:
+      - go run main.go
+    silent: true
+  test-all:
+    cmds:
+      - go test ./...
+    silent: true
+  proto:gen:
+    cmds:
+      - protoc --go_out=proto/ --go_opt=paths=source_relative --go-grpc_out=proto/ --go-grpc_opt=paths=source_relative --proto_path ../../proto common/common.proto token/token.proto token/messages.proto wallet/wallet.proto wallet/messages.proto
+    silent: true

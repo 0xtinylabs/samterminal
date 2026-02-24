@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture Deep Dive — SAM Terminal</title>
+  <meta name="description" content="Runtime engine, plugin system, workflow engine, gRPC layer — every layer explained.">
+  <link rel="canonical" href="https://samterminal.com/docs/architecture">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Architecture Deep Dive">
+  <meta property="og:description" content="Runtime engine, plugin system, workflow engine, gRPC layer — every layer explained.">
+  <meta property="og:url" content="https://samterminal.com/docs/architecture">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Architecture Deep Dive">
+  <meta name="twitter:description" content="Runtime engine, plugin system, workflow engine, gRPC layer — every layer explained.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Architecture Deep Dive",
+    "description": "Runtime engine, plugin system, workflow engine, gRPC layer — every layer explained.",
+    "url": "https://samterminal.com/docs/architecture",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/architecture",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Architecture Deep Dive</h1>
+<p>SAM Terminal is a plugin-based, workflow-driven automation platform for Web3 trading and agent orchestration. This guide walks through every layer of the system — from the runtime engine that orchestrates execution, to the plugin system that extends capabilities, to the workflow engine that powers autonomous trading strategies.</p>
+<hr>
+<h2>System Overview</h2>
+<pre><code>┌──────────────────────────────────────────────────┐
+│           User Applications (Agents)             │
+├──────────────────────────────────────────────────┤
+│ Workflow Engine │  Order Templates  │  Hooks      │
+├──────────────────────────────────────────────────┤
+│        Runtime Engine (Orchestration)            │
+├──────────────────────────────────────────────────┤
+│  Plugin System  │  Service Registry  │  Chains   │
+├──────────────────────────────────────────────────┤
+│         gRPC Layer (MCP Server)                  │
+├──────────────────────────────────────────────────┤
+│        Go / NestJS Microservices                 │
+└──────────────────────────────────────────────────┘
+</code></pre>
+<p><strong>Bottom-up:</strong> Microservices handle blockchain data and swap execution. The gRPC layer exposes them as RPC calls. The plugin system wraps these into actions, providers, and evaluators. The runtime engine orchestrates plugin lifecycle and execution. The workflow engine chains operations into DAG workflows. User applications (agents) sit on top and define intent.</p>
+<hr>
+<h2>Runtime Engine</h2>
+<p>The runtime engine is the core orchestrator. It manages every subsystem and enforces valid state transitions through a state machine.</p>
+<h3>State Machine</h3>
+<pre><code>uninitialized → initializing → loading_plugins → ready ⟷ running → shutdown
+                      │                                        │
+                      └──────────── error ─────────────────────┘
+</code></pre>
+<p><strong>Transitions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>From</th>
+<th>To</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>uninitialized</code></td>
+<td><code>initializing</code></td>
+<td><code>initialize(config)</code> called</td>
+</tr>
+<tr>
+<td><code>initializing</code></td>
+<td><code>loading_plugins</code></td>
+<td>Config validated, subsystems created</td>
+</tr>
+<tr>
+<td><code>loading_plugins</code></td>
+<td><code>ready</code></td>
+<td>All plugins loaded and initialized</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td><code>running</code></td>
+<td><code>start()</code> called, scheduler activated</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td><code>ready</code></td>
+<td><code>pause()</code> — scheduler paused</td>
+</tr>
+<tr>
+<td><code>running</code></td>
+<td><code>shutdown</code></td>
+<td><code>stop()</code> called</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td><code>shutdown</code></td>
+<td><code>stop()</code> called before start</td>
+</tr>
+<tr>
+<td>any</td>
+<td><code>error</code></td>
+<td>Unrecoverable failure</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td><code>shutdown</code></td>
+<td>Cleanup after failure</td>
+</tr>
+<tr>
+<td><code>shutdown</code></td>
+<td><code>uninitialized</code></td>
+<td>Full reset complete</td>
+</tr>
+</tbody></table>
+<p>Each transition is logged with a timestamp. The state machine rejects invalid transitions and throws, preventing the system from entering an inconsistent state.</p>
+<h3>Managed Subsystems</h3>
+<p>The runtime creates and coordinates these components:</p>
+<ul>
+<li><strong>StateMachine</strong> — enforces valid state transitions</li>
+<li><strong>ServiceRegistry</strong> — maps action/provider/evaluator names to implementations</li>
+<li><strong>PluginLifecycle</strong> — loads, initializes, destroys plugins in dependency order</li>
+<li><strong>FlowEngine</strong> — executes DAG-based workflows</li>
+<li><strong>TaskManager</strong> — queue system with configurable concurrency (default: 10)</li>
+<li><strong>Scheduler</strong> — runs interval and cron-based tasks</li>
+<li><strong>ChainManager</strong> — manages blockchain configurations and active chain</li>
+<li><strong>HooksService</strong> — event system for plugin communication</li>
+<li><strong>EventEmitter</strong> — typed system events</li>
+</ul>
+<h3>Execution Interface</h3>
+<pre><code class="language-typescript">// Execute a plugin action
+runtime.executeAction(&#39;swap:execute&#39;, {
+  fromToken: &#39;0x...&#39;,
+  toToken: &#39;0x...&#39;,
+  amount: &#39;1000000&#39;
+})
+
+// Fetch data from a provider
+runtime.getData(&#39;tokendata:price&#39;, { symbol: &#39;ETH&#39; })
+
+// Evaluate a condition
+runtime.evaluate(&#39;tokendata:priceAbove&#39;, {
+  symbol: &#39;ETH&#39;,
+  threshold: 3000
+})
+</code></pre>
+<p>All calls go through the service registry, which resolves the <code>pluginName:serviceName</code> key to the registered implementation.</p>
+<hr>
+<h2>Plugin System</h2>
+<p>Everything in SAM Terminal is a plugin. The core is an orchestrator — all business logic lives in plugins.</p>
+<h3>Plugin Contract</h3>
+<p>Every plugin implements this interface:</p>
+<pre><code class="language-typescript">interface SamTerminalPlugin {
+  name: string                      // Unique identifier
+  version: string                   // SemVer
+
+  init(core: SamTerminalCore): Promise&lt;void&gt;   // Required
+  destroy?(): Promise&lt;void&gt;                     // Optional
+
+  actions?: Action[]                // Executable operations
+  providers?: Provider[]            // Data sources
+  evaluators?: Evaluator[]          // Condition checkers
+  hooks?: Hook[]                    // Event subscriptions
+  chains?: Chain[]                  // Blockchain configs
+
+  dependencies?: string[]           // Required plugins
+  optionalDependencies?: string[]   // Nice-to-have plugins
+}
+</code></pre>
+<h3>Plugin Lifecycle</h3>
+<p>Plugins go through four stages:</p>
+<pre><code>Load → Register → Initialize → Destroy
+</code></pre>
+<p><strong>1. Load</strong> (<code>PluginLoader</code>)</p>
+<p>The loader supports four source types:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>instance</code></td>
+<td>Direct plugin object</td>
+</tr>
+<tr>
+<td><code>factory</code></td>
+<td>Function that returns a plugin</td>
+</tr>
+<tr>
+<td><code>module</code></td>
+<td>ES module with default export</td>
+</tr>
+<tr>
+<td><code>package</code></td>
+<td>npm package name</td>
+</tr>
+</tbody></table>
+<p>Loaded plugins are cached by path/package name to prevent duplicate imports.</p>
+<p><strong>2. Register</strong> (<code>PluginRegistry</code>)</p>
+<p>The registry validates the plugin structure, stores metadata, and calculates load order using <strong>topological sort</strong> on the dependency graph. Circular dependencies are detected and rejected at this stage.</p>
+<p>Plugin states in the registry:</p>
+<pre><code>registered → initializing → active
+                  │
+                error
+                  │
+              destroyed
+</code></pre>
+<p><strong>3. Initialize</strong> (<code>PluginLifecycle</code>)</p>
+<p>Initialization follows dependency order (depth-first). For each plugin:</p>
+<ol>
+<li>Check all <code>dependencies</code> are already active</li>
+<li>Call <code>plugin.init(core)</code> — the plugin receives the full core API</li>
+<li>Register all actions, providers, evaluators with the service registry</li>
+<li>Register hooks with the hook service</li>
+<li>Register chains with the chain manager</li>
+<li>Mark status as <code>active</code></li>
+</ol>
+<p>If initialization fails, the plugin enters <code>error</code> state but other plugins continue loading.</p>
+<p><strong>4. Destroy</strong></p>
+<p>Destruction runs in <strong>reverse dependency order</strong> — dependents are destroyed before their dependencies. Each plugin&#39;s <code>destroy()</code> method is called, resources are cleaned up, and services are unregistered.</p>
+<h3>Actions, Providers, Evaluators</h3>
+<p>These are the three building blocks every plugin can register:</p>
+<p><strong>Actions</strong> — operations that change state or trigger side effects:</p>
+<pre><code class="language-typescript">{
+  name: &#39;execute&#39;,
+  description: &#39;Execute a token swap&#39;,
+  schema: z.object({
+    fromToken: z.string(),
+    toToken: z.string(),
+    amount: z.string()
+  }),
+  handler: async (input, context) =&gt; {
+    // Execute swap logic
+    return { txHash: &#39;0x...&#39; }
+  }
+}
+</code></pre>
+<p><strong>Providers</strong> — read-only data sources:</p>
+<pre><code class="language-typescript">{
+  name: &#39;price&#39;,
+  description: &#39;Get token price&#39;,
+  handler: async (input, context) =&gt; {
+    return { price: 3245.67, symbol: &#39;ETH&#39; }
+  }
+}
+</code></pre>
+<p><strong>Evaluators</strong> — boolean condition checkers used by the workflow engine:</p>
+<pre><code class="language-typescript">{
+  name: &#39;priceAbove&#39;,
+  description: &#39;Check if price exceeds threshold&#39;,
+  handler: async (input, context) =&gt; {
+    const price = await getPrice(input.symbol)
+    return price &gt; input.threshold
+  }
+}
+</code></pre>
+<p>All three are accessed via the <code>pluginName:serviceName</code> convention: <code>swap:execute</code>, <code>tokendata:price</code>, <code>tokendata:priceAbove</code>.</p>
+<h3>Cross-Plugin Communication</h3>
+<p>Plugins interact through the core API, never directly:</p>
+<pre><code class="language-typescript">// Plugin A calls Plugin B&#39;s action
+const result = await core.runtime.executeAction(&#39;pluginB:someAction&#39;, data)
+
+// Plugin A reads Plugin B&#39;s data
+const info = await core.runtime.getData(&#39;pluginB:someProvider&#39;, query)
+
+// Plugin A emits event, Plugin B listens
+core.hooks.emit(&#39;custom:priceAlert&#39;, { symbol: &#39;ETH&#39;, price: 4000 })
+</code></pre>
+<p>This keeps plugins decoupled. A plugin only knows about action/provider names, not implementations.</p>
+<hr>
+<h2>Workflow Engine</h2>
+<p>The workflow engine executes workflows as Directed Acyclic Graphs (DAGs). Each workflow is a graph of nodes connected by edges.</p>
+<h3>Node Types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>trigger</code></td>
+<td>Entry point — schedule, manual, event, or webhook</td>
+</tr>
+<tr>
+<td><code>action</code></td>
+<td>Execute a plugin action</td>
+</tr>
+<tr>
+<td><code>condition</code></td>
+<td>Boolean evaluation with branching</td>
+</tr>
+<tr>
+<td><code>delay</code></td>
+<td>Wait for fixed or random duration</td>
+</tr>
+<tr>
+<td><code>loop</code></td>
+<td>Iterate by count, forEach, or while</td>
+</tr>
+<tr>
+<td><code>subflow</code></td>
+<td>Execute another workflow</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>Route results — return, log, notify, or store</td>
+</tr>
+</tbody></table>
+<h3>Execution Workflow</h3>
+<pre><code>Start
+  │
+  ▼
+Find trigger node
+  │
+  ▼
+Execute trigger → populate initial variables
+  │
+  ▼
+Follow outgoing edges
+  │
+  ▼
+For each target node:
+  ├── Resolve parameters (variable substitution)
+  ├── Execute by node type
+  ├── Store result in context.nodeResults[nodeId]
+  ├── On error → follow error edges (if defined)
+  └── Continue to next nodes based on edges
+  │
+  ▼
+All nodes complete → return execution context
+</code></pre>
+<h3>Execution Context</h3>
+<p>Every workflow execution creates a context that carries state between nodes:</p>
+<pre><code class="language-typescript">{
+  flowId: &#39;uuid&#39;,
+  executionId: &#39;uuid&#39;,
+  status: &#39;running&#39; | &#39;completed&#39; | &#39;failed&#39; | &#39;cancelled&#39;,
+  variables: Record&lt;string, unknown&gt;,
+  nodeResults: Record&lt;string, { output, duration, status }&gt;,
+  startedAt: Date,
+  completedAt: Date
+}
+</code></pre>
+<h3>Variable Substitution</h3>
+<p>Nodes reference data from previous nodes using <code>{{ path.to.value }}</code> syntax:</p>
+<pre><code>Node A (action: tokendata:price) → output: { price: 3245.67 }
+Node B params: { amount: &quot;{{ nodeA.price }}&quot; }
+                  ↓ resolved to
+                { amount: 3245.67 }
+</code></pre>
+<p>The engine navigates nested paths safely — missing keys resolve to <code>undefined</code> without throwing.</p>
+<h3>Condition System</h3>
+<p>Condition nodes evaluate expressions and branch the workflow:</p>
+<p><strong>Operators:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>eq</code> / <code>neq</code></td>
+<td>Equal / not equal</td>
+</tr>
+<tr>
+<td><code>gt</code> / <code>gte</code></td>
+<td>Greater than / greater or equal</td>
+</tr>
+<tr>
+<td><code>lt</code> / <code>lte</code></td>
+<td>Less than / less or equal</td>
+</tr>
+<tr>
+<td><code>contains</code></td>
+<td>String/array contains value</td>
+</tr>
+<tr>
+<td><code>startsWith</code> / <code>endsWith</code></td>
+<td>String prefix/suffix</td>
+</tr>
+<tr>
+<td><code>in</code> / <code>notIn</code></td>
+<td>Value in array</td>
+</tr>
+<tr>
+<td><code>isNull</code> / <code>isNotNull</code></td>
+<td>Null check</td>
+</tr>
+</tbody></table>
+<p><strong>Grouping:</strong> Conditions can be grouped with <code>AND</code> / <code>OR</code> logic for complex expressions.</p>
+<p><strong>Branching:</strong> Condition nodes have two outgoing paths — <code>true</code> and <code>false</code>. The workflow follows the matching path.</p>
+<h3>Edge Routing</h3>
+<p>Edges define the graph connections:</p>
+<pre><code class="language-typescript">{
+  id: &#39;edge-1&#39;,
+  source: &#39;nodeA&#39;,
+  target: &#39;nodeB&#39;,
+  sourceHandle: &#39;default&#39;  // or &#39;true&#39;, &#39;false&#39;, &#39;error&#39;
+}
+</code></pre>
+<ul>
+<li><strong>Default edges</strong> — normal execution path</li>
+<li><strong>Conditional edges</strong> — <code>true</code> / <code>false</code> from condition nodes</li>
+<li><strong>Error edges</strong> — <code>sourceHandle: &#39;error&#39;</code> routes to error handler nodes</li>
+</ul>
+<p>When an error edge exists, the workflow doesn&#39;t fail — it follows the error path instead. The error details are available as <code>{{ _error.message }}</code> and <code>{{ _error.nodeId }}</code>.</p>
+<h3>Loop Patterns</h3>
+<p>Loop nodes support three iteration modes:</p>
+<ul>
+<li><strong>count</strong> — execute N times: <code>{ type: &#39;count&#39;, count: 10 }</code></li>
+<li><strong>forEach</strong> — iterate over array: <code>{ type: &#39;forEach&#39;, items: &#39;{{ data.tokens }}&#39; }</code></li>
+<li><strong>while</strong> — repeat while condition true: <code>{ type: &#39;while&#39;, condition: { ... } }</code></li>
+</ul>
+<hr>
+<h2>Order Templates</h2>
+<p>Order templates provide a high-level API for common trading strategies. They abstract the complexity of workflow creation into simple parameter objects.</p>
+<h3>Available Templates</h3>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Strategy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>stop-loss</code></td>
+<td>Sell when price drops below trigger</td>
+</tr>
+<tr>
+<td><code>take-profit</code></td>
+<td>Sell when price reaches target</td>
+</tr>
+<tr>
+<td><code>conditional-buy</code></td>
+<td>Buy when conditions are met</td>
+</tr>
+<tr>
+<td><code>conditional-sell</code></td>
+<td>Sell when conditions are met</td>
+</tr>
+<tr>
+<td><code>dca</code></td>
+<td>Dollar-cost averaging on schedule</td>
+</tr>
+<tr>
+<td><code>smart-entry</code></td>
+<td>Budget-limited buys with cooldown</td>
+</tr>
+<tr>
+<td><code>trailing-stop</code></td>
+<td>Dynamic stop that follows price up</td>
+</tr>
+<tr>
+<td><code>dual-protection</code></td>
+<td>Combined stop-loss + take-profit</td>
+</tr>
+<tr>
+<td><code>twap</code></td>
+<td>Time-weighted average price execution</td>
+</tr>
+<tr>
+<td><code>whale-copy</code></td>
+<td>Mirror whale wallet transactions</td>
+</tr>
+</tbody></table>
+<h3>From Order to Workflow</h3>
+<p>When you create an order, the system generates a complete workflow behind the scenes:</p>
+<pre><code>OrderTemplates.create(&#39;stop-loss&#39;, params)
+        │
+        ▼
+FlowGenerator.generate(template, params)
+        │
+        ▼
+Workflow DAG created:
+  trigger(30s) → getData(token) → condition(price &lt;= trigger)
+       │                                │
+       │                          true  │  false
+       │                                │
+       │                    swap → notify → output
+       │                                │
+       └────────────── loop ────────────┘
+        │
+        ▼
+core.flow.create(flow)
+core.flow.execute(flowId)
+</code></pre>
+<h3>Order Status Lifecycle</h3>
+<pre><code>created → active → triggered → completed
+              │                    │
+              ├── paused           └── failed
+              └── cancelled
+</code></pre>
+<hr>
+<h2>Event System</h2>
+<p>SAM Terminal uses a two-layer event architecture for system communication.</p>
+<h3>Layer 1: Typed Event Emitter</h3>
+<p>System-wide events with typed payloads. Every significant operation emits an event:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Events</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>System</td>
+<td><code>system:init</code>, <code>system:ready</code>, <code>system:shutdown</code></td>
+</tr>
+<tr>
+<td>Agent</td>
+<td><code>agent:start</code>, <code>agent:stop</code>, <code>agent:error</code></td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td><code>plugin:load</code>, <code>plugin:unload</code>, <code>plugin:error</code></td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td><code>flow:start</code>, <code>flow:complete</code>, <code>flow:error</code>, <code>flow:node:before</code>, <code>flow:node:after</code></td>
+</tr>
+<tr>
+<td>Action</td>
+<td><code>action:before</code>, <code>action:after</code>, <code>action:error</code></td>
+</tr>
+<tr>
+<td>Chain</td>
+<td><code>chain:switch</code>, <code>chain:transaction:sent</code>, <code>chain:transaction:confirmed</code></td>
+</tr>
+<tr>
+<td>Custom</td>
+<td><code>custom:*</code> — user-defined events</td>
+</tr>
+</tbody></table>
+<p>The emitter also supports <code>waitFor(event, timeoutMs)</code> for promise-based event waiting.</p>
+<h3>Layer 2: Hooks Service</h3>
+<p>Plugin-level event subscriptions with priority ordering:</p>
+<pre><code class="language-typescript">{
+  event: &#39;flow:complete&#39;,
+  priority: 10,           // Higher = executes first
+  once: false,            // Auto-unsubscribe after first call
+  handler: async (data) =&gt; {
+    // React to workflow completion
+  }
+}
+</code></pre>
+<p>Features:</p>
+<ul>
+<li><strong>Priority ordering</strong> — higher priority hooks execute first</li>
+<li><strong>One-time hooks</strong> — auto-unsubscribe after first trigger</li>
+<li><strong>Timeout per hook</strong> — prevents hung handlers from blocking</li>
+<li><strong>Stop on error</strong> — optionally halt remaining hooks on failure</li>
+<li><strong>Execution results</strong> — track success, duration, errors per hook</li>
+<li><strong>Bulk unregister</strong> — remove all hooks for a plugin at once</li>
+</ul>
+<hr>
+<h2>Chain Management</h2>
+<p>The chain manager abstracts blockchain interaction across multiple networks.</p>
+<h3>Supported Chains</h3>
+<table>
+<thead>
+<tr>
+<th>Chain</th>
+<th>ID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Base</td>
+<td>8453</td>
+</tr>
+<tr>
+<td>Ethereum</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Arbitrum</td>
+<td>42161</td>
+</tr>
+<tr>
+<td>Polygon</td>
+<td>137</td>
+</tr>
+<tr>
+<td>Optimism</td>
+<td>10</td>
+</tr>
+<tr>
+<td>BSC</td>
+<td>56</td>
+</tr>
+</tbody></table>
+<p>Each chain configuration includes: chain ID, RPC URL, explorer URL, native token info, and network-specific parameters.</p>
+<p>Plugins register their supported chains during initialization. The chain manager tracks which chain is currently active and handles switching.</p>
+<hr>
+<h2>gRPC / MCP Layer</h2>
+<p>The MCP (Model Context Protocol) server bridges the core engine to AI assistants and external clients via gRPC.</p>
+<h3>Service Architecture</h3>
+<pre><code>AI Assistant (Claude, Cursor)
+        │
+        ▼
+   MCP Server (40+ tools)
+        │
+        ▼ gRPC
+   ┌────┴─────────────────────────────┐
+   │  Go Services    NestJS Services  │
+   │  ┌──────────┐  ┌──────────────┐  │
+   │  │ tokendata│  │ main         │  │
+   │  │ walletdata│  │ notification│  │
+   │  └──────────┘  │ swap        │  │
+   │                │ transactions│  │
+   │                └──────────────┘  │
+   └──────────────────────────────────┘
+</code></pre>
+<h3>Service Ports</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port</th>
+<th>Stack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tokendata</td>
+<td>50061</td>
+<td>Go</td>
+</tr>
+<tr>
+<td>walletdata</td>
+<td>50062</td>
+<td>Go</td>
+</tr>
+<tr>
+<td>swap</td>
+<td>50059</td>
+<td>NestJS</td>
+</tr>
+<tr>
+<td>main</td>
+<td>50060</td>
+<td>NestJS</td>
+</tr>
+<tr>
+<td>notification</td>
+<td>50056</td>
+<td>NestJS</td>
+</tr>
+<tr>
+<td>transactions</td>
+<td>50054</td>
+<td>NestJS</td>
+</tr>
+</tbody></table>
+<h3>MCP Tool Categories</h3>
+<p>The MCP server exposes 40+ tools across 9 categories:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Tools</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Token</td>
+<td>7</td>
+<td><code>sam_get_token_price</code>, <code>sam_token_track</code></td>
+</tr>
+<tr>
+<td>Wallet</td>
+<td>7</td>
+<td><code>sam_get_wallet_details</code>, <code>sam_wallet_track</code></td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>7</td>
+<td><code>sam_flow_create</code>, <code>sam_flow_execute</code></td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>3</td>
+<td><code>sam_swap_execute</code>, <code>sam_swap_quote</code></td>
+</tr>
+<tr>
+<td>AI</td>
+<td>3</td>
+<td><code>sam_ai_chat</code>, <code>sam_ai_classify</code></td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>4</td>
+<td><code>sam_notification_send</code></td>
+</tr>
+<tr>
+<td>Scheduler</td>
+<td>4</td>
+<td><code>sam_schedule_create</code></td>
+</tr>
+<tr>
+<td>Chain</td>
+<td>3</td>
+<td><code>sam_chain_switch</code></td>
+</tr>
+<tr>
+<td>Plugin</td>
+<td>2</td>
+<td><code>sam_plugin_list</code></td>
+</tr>
+</tbody></table>
+<p>Each tool maps to a gRPC call to the appropriate microservice. The MCP server handles proto loading, client caching, and request/response marshaling.</p>
+<hr>
+<h2>Concurrency &amp; Scheduling</h2>
+<h3>Task Manager</h3>
+<p>The task manager provides a bounded queue for concurrent execution:</p>
+<ul>
+<li><strong>Concurrency limit:</strong> configurable, default 10</li>
+<li><strong>Priority support:</strong> higher priority tasks execute first</li>
+<li><strong>Timeout per task:</strong> prevents hung operations</li>
+<li><strong>Queue interface:</strong> <code>enqueue(fn, options): Promise&lt;T&gt;</code></li>
+</ul>
+<h3>Scheduler</h3>
+<p>Two scheduling modes:</p>
+<ul>
+<li><strong>Interval:</strong> <code>{ interval: 30000 }</code> — every 30 seconds</li>
+<li><strong>Cron:</strong> <code>{ cron: &#39;0 */6 * * *&#39; }</code> — every 6 hours</li>
+</ul>
+<p>Options:</p>
+<ul>
+<li><code>runOnce: true</code> — execute once and stop</li>
+<li>Tasks persist across runtime pause/resume cycles</li>
+</ul>
+<hr>
+<h2>Error Handling</h2>
+<p>Errors are isolated at each layer to prevent cascading failures:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Plugin load</td>
+<td>Logged, plugin skipped, others continue</td>
+</tr>
+<tr>
+<td>Plugin init</td>
+<td>Status → <code>error</code>, lifecycle event emitted, others continue</td>
+</tr>
+<tr>
+<td>Action/Provider</td>
+<td>Error thrown to caller (workflow or direct call)</td>
+</tr>
+<tr>
+<td>Workflow node</td>
+<td>Caught by engine, follows error edges if defined</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>State machine transitions to <code>error</code>, triggers shutdown</td>
+</tr>
+</tbody></table>
+<h3>Workflow Error Handling</h3>
+<p>When a workflow node fails:</p>
+<ol>
+<li>Engine checks for outgoing error edges (<code>sourceHandle: &#39;error&#39;</code>)</li>
+<li>If found — follows error path, sets <code>{{ _error }}</code> variable</li>
+<li>If not found — workflow status becomes <code>failed</code>, execution stops</li>
+</ol>
+<p>This enables resilient workflows where errors are handled gracefully within the workflow itself.</p>
+<hr>
+<h2>Design Patterns</h2>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Where</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>State Machine</strong></td>
+<td>Runtime engine</td>
+<td>Prevents invalid state transitions</td>
+</tr>
+<tr>
+<td><strong>Registry</strong></td>
+<td>Plugin registry, service registry</td>
+<td>Decoupled service discovery</td>
+</tr>
+<tr>
+<td><strong>Topological Sort</strong></td>
+<td>Plugin dependency resolution</td>
+<td>Correct initialization order</td>
+</tr>
+<tr>
+<td><strong>DAG Execution</strong></td>
+<td>Workflow engine</td>
+<td>Flexible, composable workflows</td>
+</tr>
+<tr>
+<td><strong>Observer</strong></td>
+<td>Event emitter, hooks service</td>
+<td>Loose coupling between plugins</td>
+</tr>
+<tr>
+<td><strong>Factory</strong></td>
+<td>Plugin loader</td>
+<td>Multiple plugin source types</td>
+</tr>
+<tr>
+<td><strong>Dependency Injection</strong></td>
+<td><code>plugin.init(core)</code></td>
+<td>Plugins receive capabilities</td>
+</tr>
+<tr>
+<td><strong>Template Method</strong></td>
+<td>BasePlugin</td>
+<td>Consistent plugin structure</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Data Workflow Example: Stop-Loss Order</h2>
+<p>End-to-end walkthrough of a stop-loss order:</p>
+<pre><code>1. User creates order
+   sam order create stop-loss --token USDT --trigger 0.99 --sell-percent 100
+
+2. OrderTemplates.create() called
+   - Validates parameters
+   - Calls FlowGenerator.generate(&#39;stop-loss&#39;, params)
+
+3. FlowGenerator creates DAG
+   ┌─────────┐    ┌───────────┐    ┌───────────┐
+   │ trigger │───▶│ get price │───▶│ condition │
+   │  (30s)  │    │           │    │ p &lt;= 0.99 │
+   └─────────┘    └───────────┘    └─────┬─────┘
+                                    true │ false
+                                         │   │
+                                   ┌─────▼┐  └── (loop back)
+                                   │ swap │
+                                   └──┬───┘
+                                      │
+                                   ┌──▼────┐
+                                   │notify │
+                                   └──┬────┘
+                                      │
+                                   ┌──▼────┐
+                                   │output │
+                                   └───────┘
+
+4. Workflow registered and executed
+   core.flow.create(flow) → core.flow.execute(flowId)
+
+5. Every 30 seconds
+   - Trigger fires
+   - tokendata:getMarket fetches price
+   - Condition evaluates: price &lt;= 0.99?
+   - If false: loop back, wait 30s
+   - If true: swap:execute sells token
+   - telegram:send notifies user
+   - Output stores result
+
+6. Events emitted at each step
+   flow:start → flow:node:before → flow:node:after → ...
+   action:before → action:after
+   flow:complete
+
+7. Hooks react
+   Plugins listening on flow:complete process workflow results
+</code></pre>
+<hr>
+<h2>Core Interface</h2>
+<p>The <code>SamTerminalCore</code> interface is the central contract binding all subsystems:</p>
+<pre><code class="language-typescript">interface SamTerminalCore {
+  runtime: RuntimeEngine      // Action/provider execution
+  flow: FlowEngine            // DAG workflow engine
+  hooks: HookManager          // Event subscriptions
+  services: ServiceRegistry   // Service discovery
+  plugins: PluginManager      // Plugin lifecycle
+  chains: ChainManager        // Blockchain management
+  events: EventEmitter        // System events
+  agent?: Agent               // Current agent instance
+
+  initialize(config): Promise&lt;void&gt;
+  start(): Promise&lt;void&gt;
+  stop(): Promise&lt;void&gt;
+  createAgent(config): Promise&lt;Agent&gt;
+}
+</code></pre>
+<p>Every plugin receives this interface during <code>init()</code>. This single entry point provides access to the entire platform.</p>
+<hr>
+<h2>Next Steps</h2>
+<ul>
+<li><a href="/docs/getting-started">Getting Started</a> — Set up your first SAM Terminal agent</li>
+<li><a href="/docs/plugin-development">Plugin Development</a> — Build custom plugins</li>
+<li><a href="/docs/building-trading-agents">Building Trading Agents</a> — Order templates and workflow strategies</li>
+<li><a href="/docs/mcp-setup-guide">MCP Setup Guide</a> — Connect to AI assistants</li>
+</ul>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAM Terminal - Automation Framework for Onchain Trading</title>
+  <meta name="description" content="A plugin-based trading framework for your AI agents. Build agents that execute swaps, track token prices, manage portfolios, and automate onchain trading strategies.">
+  <link rel="canonical" href="https://samterminal.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SAM Terminal - Automation Framework for Onchain Trading">
+  <meta property="og:description" content="A plugin-based trading framework for your AI agents. Build agents that execute swaps, track token prices, manage portfolios, and automate onchain trading strategies.">
+  <meta property="og:url" content="https://samterminal.com/">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAM Terminal - Automation Framework for Onchain Trading">
+  <meta name="twitter:description" content="A plugin-based trading framework for your AI agents. Build agents that execute swaps, track token prices, manage portfolios, and automate onchain trading strategies.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SAM Terminal",
+    "description": "A plugin-based trading framework for your AI agents. Build agents that execute swaps, track token prices, manage portfolios, and automate onchain trading strategies.",
+    "url": "https://samterminal.com",
+    "downloadUrl": "https://github.com/samterminal/samterminal",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Cross-platform",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": "https://samterminal.com/logo.png",
+      "sameAs": [
+        "https://github.com/samterminal/samterminal",
+        "https://x.com/samterminalcom"
+      ]
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="terminal-body">
+          <h1>SAM Terminal</h1>
+          <p class="subtitle accent-green">Automation Framework for Onchain Trading</p>
+          <p class="description">A plugin-based trading framework for your AI agents. Build OpenClaw agents that fetch fresh Clanker and Bankr tokens, execute swaps, track wallet activity, manage portfolios, and automate onchain trading strategies.</p>
+          <div class="command-line">
+            <span class="accent-green">$</span> sam init my-agent<span class="cursor">_</span>
+          </div>
+          <div class="cta-group">
+            <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integrations Slider -->
+    <div class="integrations-slider">
+      <div class="slider-track">
+        <a href="https://clanker.world" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/clanker.svg" alt="Clanker" class="slider-logo"></a>
+        <a href="https://bankr.bot" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/bankr.svg" alt="Bankr" class="slider-logo">Bankr</a>
+        <a href="https://0x.org" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/0x.svg" alt="0x" class="slider-logo"></a>
+        <a href="https://moralis.io" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/Moralis.svg" alt="Moralis" class="slider-logo"></a>
+        <a href="https://alchemy.com" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/alchemy.svg" alt="Alchemy" class="slider-logo"></a>
+        <a href="https://base.org" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/base.svg" alt="Base" class="slider-logo"></a>
+        <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/dex-screener-seeklogo 1.svg" alt="DEX Screener" class="slider-logo">DEX Screener</a>
+        <a href="https://anthropic.com" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/anthropic.svg" alt="Anthropic" class="slider-logo">Anthropic</a>
+        <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/OpenAI 1.svg" alt="OpenAI" class="slider-logo"></a>
+        <a href="https://arbitrum.io" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/Arbitrum.svg" alt="Arbitrum" class="slider-logo"></a>
+        <a href="https://optimism.io" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/Optimism_Logo_light_0 1.svg" alt="Optimism" class="slider-logo"></a>
+        <a href="https://polygon.technology" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/polygon.svg" alt="Polygon" class="slider-logo"></a>
+        <a href="https://ethereum.org" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/Ethereum Classic_Logo_0 1.svg" alt="Ethereum" class="slider-logo">Ethereum</a>
+        <a href="https://bnbchain.org" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/BSC.svg" alt="BNB Chain" class="slider-logo"></a>
+        <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" class="slider-item"><img src="/logos/SVG/openclaw.svg" alt="OpenClaw" class="slider-logo">OpenClaw</a>
+        <!-- duplicate for seamless loop -->
+        <a href="https://clanker.world" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/clanker.svg" alt="" class="slider-logo"></a>
+        <a href="https://bankr.bot" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/bankr.svg" alt="" class="slider-logo">Bankr</a>
+        <a href="https://0x.org" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/0x.svg" alt="" class="slider-logo"></a>
+        <a href="https://moralis.io" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/Moralis.svg" alt="" class="slider-logo"></a>
+        <a href="https://alchemy.com" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/alchemy.svg" alt="" class="slider-logo"></a>
+        <a href="https://base.org" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/base.svg" alt="" class="slider-logo"></a>
+        <a href="https://dexscreener.com" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/dex-screener-seeklogo 1.svg" alt="" class="slider-logo">DEX Screener</a>
+        <a href="https://anthropic.com" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/anthropic.svg" alt="" class="slider-logo">Anthropic</a>
+        <a href="https://openai.com" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/OpenAI 1.svg" alt="" class="slider-logo"></a>
+        <a href="https://arbitrum.io" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/Arbitrum.svg" alt="" class="slider-logo"></a>
+        <a href="https://optimism.io" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/Optimism_Logo_light_0 1.svg" alt="" class="slider-logo"></a>
+        <a href="https://polygon.technology" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/polygon.svg" alt="" class="slider-logo"></a>
+        <a href="https://ethereum.org" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/Ethereum Classic_Logo_0 1.svg" alt="" class="slider-logo">Ethereum</a>
+        <a href="https://bnbchain.org" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/BSC.svg" alt="" class="slider-logo"></a>
+        <a href="https://openclaw.ai" target="_blank" rel="noopener noreferrer" class="slider-item" aria-hidden="true" tabindex="-1"><img src="/logos/SVG/openclaw.svg" alt="" class="slider-logo">OpenClaw</a>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section class="section fade-in" id="features">
+      <h2 class="section-title"><span class="comment">// features</span></h2>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-purple">{ }</div>
+          <h3>Plugin Architecture</h3>
+          <p>Modular plugin system with lifecycle hooks and dependency injection. Compose trading strategies from swap, price feed, and wallet plugins.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-red">&#9654;</div>
+          <h3>Runtime Engine</h3>
+          <p>Scheduled trading tasks, cron-based strategies, state persistence, and graceful shutdown. Production-ready from day one.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-green">-&gt;</div>
+          <h3>Workflow Engine</h3>
+          <p>DAG-based trading workflow orchestration. Chain price checks, swap execution, and portfolio rebalancing with conditional logic.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-blue">&#9881;</div>
+          <h3>MCP Server</h3>
+          <p>40+ tools across 9 categories. Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant out of the box.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-purple">&#9889;</div>
+          <h3>Token Discovery</h3>
+          <p>Real-time Clanker polling and Bankr on-chain event listening. Auto-discover new tokens on Base, set condition-based strategies, and execute trades the moment your criteria are met.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon accent-amber">&#9998;</div>
+          <h3>OpenClaw Skills</h3>
+          <p>Teach your agent new abilities with OpenClaw skill files. AI assistants learn how to run, configure, and operate your project autonomously.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="section fade-in" id="architecture">
+      <h2 class="section-title"><span class="comment">// architecture</span></h2>
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="terminal-title">architecture.md</span>
+        </div>
+        <div class="terminal-body arch-body">
+          <div class="arch-diagram">
+            <div class="arch-layer layer-blue">
+              <div class="layer-label">Client Layer</div>
+              <div class="layer-items">
+                <span>CLI</span>
+                <span>MCP Server</span>
+                <span>OpenClaw</span>
+                <span>Playground</span>
+                <span>Your App</span>
+              </div>
+            </div>
+            <div class="arch-connector">
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+            </div>
+            <div class="arch-layer layer-green">
+              <div class="layer-label">Core Layer</div>
+              <div class="layer-items">
+                <span>Engine</span>
+                <span>Flow</span>
+                <span>Plugins</span>
+                <span>Chains</span>
+              </div>
+            </div>
+            <div class="arch-connector">
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+            </div>
+            <div class="arch-layer layer-purple">
+              <div class="layer-label">Plugin Layer</div>
+              <div class="layer-items">
+                <span>AI</span>
+                <span>Telegram</span>
+                <span>Swap</span>
+                <span>TokenData</span>
+                <span>WalletData</span>
+              </div>
+            </div>
+            <div class="arch-connector">
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+              <span class="dashed-line"></span>
+            </div>
+            <div class="arch-layer layer-amber">
+              <div class="layer-label">Services Layer</div>
+              <div class="layer-items">
+                <span>NestJS (TS)</span>
+                <span>Go Services</span>
+                <span>gRPC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tech-badges">
+        <span class="badge">TypeScript 5.7+</span>
+        <span class="badge">Go 1.24+</span>
+        <span class="badge">Node.js 18+</span>
+        <span class="badge">gRPC</span>
+        <span class="badge">PostgreSQL</span>
+        <span class="badge">Prisma</span>
+      </div>
+    </section>
+
+    <!-- Quick Start -->
+    <section class="section fade-in" id="quick-start">
+      <h2 class="section-title"><span class="comment">// quick-start</span></h2>
+
+      <div class="qs-tabs">
+        <button class="qs-tab active" data-tab="npx">npx</button>
+        <button class="qs-tab" data-tab="npm">npm</button>
+        <button class="qs-tab" data-tab="source">source</button>
+      </div>
+
+      <!-- npx tab -->
+      <div class="qs-panel active" id="qs-npx">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-title">terminal</span>
+            <button class="copy-btn" data-copy="npx @samterminal/cli init my-agent
+cd my-agent
+pnpm dev" aria-label="Copy to clipboard">copy</button>
+          </div>
+          <div class="code-body">
+            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> npx @samterminal/cli init my-agent</div>
+            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> cd my-agent</div>
+            <div class="code-line"><span class="line-num">03</span><span class="accent-green">$</span> pnpm dev</div>
+          </div>
+        </div>
+        <p class="qs-note">The interactive wizard will guide you through template selection, plugin configuration, and API key setup.</p>
+      </div>
+
+      <!-- npm tab -->
+      <div class="qs-panel" id="qs-npm">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-title">terminal</span>
+            <button class="copy-btn" data-copy="npm install -g @samterminal/cli
+sam init my-agent --wizard
+cd my-agent
+sam dev" aria-label="Copy to clipboard">copy</button>
+          </div>
+          <div class="code-body">
+            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> npm install -g @samterminal/cli</div>
+            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> sam init my-agent --wizard</div>
+            <div class="code-line"><span class="line-num">03</span><span class="accent-green">$</span> cd my-agent</div>
+            <div class="code-line"><span class="line-num">04</span><span class="accent-green">$</span> sam dev</div>
+          </div>
+        </div>
+        <p class="qs-note">Global install gives you the <code>sam</code> command everywhere. Use <code>--wizard</code> for guided setup with profile presets and API key validation.</p>
+      </div>
+
+      <!-- source tab -->
+      <div class="qs-panel" id="qs-source">
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-title">terminal</span>
+            <button class="copy-btn" data-copy="git clone https://github.com/samterminal/samterminal.git
+cd samterminal && cp .env.example .env
+docker compose -f docker-compose.dev.yml up -d
+pnpm install && pnpm proto:gen && pnpm build
+make db-migrate
+pnpm dev" aria-label="Copy to clipboard">copy</button>
+          </div>
+          <div class="code-body">
+            <div class="code-line"><span class="line-num">01</span><span class="accent-green">$</span> git clone https://github.com/samterminal/samterminal.git</div>
+            <div class="code-line"><span class="line-num">02</span><span class="accent-green">$</span> cd samterminal && cp .env.example .env</div>
+            <div class="code-line"><span class="line-num">03</span><span class="comment"># Edit .env with your API keys (Alchemy, Moralis, etc.)</span></div>
+            <div class="code-line"><span class="line-num">04</span><span class="accent-green">$</span> docker compose -f docker-compose.dev.yml up -d</div>
+            <div class="code-line"><span class="line-num">05</span><span class="accent-green">$</span> pnpm install && pnpm proto:gen && pnpm build</div>
+            <div class="code-line"><span class="line-num">06</span><span class="accent-green">$</span> make db-migrate</div>
+            <div class="code-line"><span class="line-num">07</span><span class="accent-green">$</span> pnpm dev</div>
+          </div>
+        </div>
+        <p class="qs-note">Full monorepo with gRPC services, Docker, and database. For contributors and self-hosted deployments.</p>
+      </div>
+
+    </section>
+
+    <!-- Docs -->
+    <section class="section fade-in" id="docs">
+      <h2 class="section-title"><span class="comment">// docs</span></h2>
+      <div class="docs-grid">
+        <a href="/docs/getting-started" class="doc-card fade-in">
+          <h3 class="doc-card-title">Getting Started</h3>
+          <p class="doc-card-desc">Set up your first SAM Terminal agent in minutes. Install, configure, and run.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+        <a href="/docs/mcp-setup-guide" class="doc-card fade-in">
+          <h3 class="doc-card-title">MCP Setup Guide</h3>
+          <p class="doc-card-desc">Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+        <a href="/docs/building-trading-agents" class="doc-card fade-in">
+          <h3 class="doc-card-title">Building Trading Agents</h3>
+          <p class="doc-card-desc">Create autonomous agents that execute on-chain trading strategies.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+        <a href="/docs/openclaw-skills" class="doc-card fade-in">
+          <h3 class="doc-card-title">OpenClaw Skills</h3>
+          <p class="doc-card-desc">Teach AI assistants to operate your project autonomously with skill files.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+        <a href="/docs/openclaw-trading-automation" class="doc-card fade-in">
+          <h3 class="doc-card-title">OpenClaw Trading Automation</h3>
+          <p class="doc-card-desc">Turn your AI agent into an onchain trading machine. Setup, workflows, and best practices.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+        <a href="/docs/real-time-token-discovery" class="doc-card fade-in">
+          <h3 class="doc-card-title">Real-Time Token Discovery</h3>
+          <p class="doc-card-desc">Auto-discover Clanker and Bankr tokens on Base. Build condition-based strategies from detection to execution.</p>
+          <span class="doc-card-link">read &rarr;</span>
+        </a>
+      </div>
+      <div class="docs-cta">
+        <a href="/docs" class="btn btn-primary">all docs &rarr;</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package farcaster.cast;
+
+message CastRequestEmbedCastID {
+    string hash = 1;
+    int32 fid = 2;
+}
+
+message CastRequestEmbed {
+    repeated CastRequestEmbedCastID castId = 1;   
+}
+
+message SendCastRequest {
+    string signerUuid = 1;
+    optional string text = 2;
+    optional string hash = 3;
+    optional string idem = 4;
+    optional int32 authorFid = 5;
+    int32 fid = 6;
+    string type = 7;
+    optional CastRequestEmbed embeds = 8;
+}
+
+message CastResponseCastAuthor {
+    int32 fid = 1;
+}
+
+message CastResponseCast {
+    CastResponseCastAuthor author = 1;
+    string hash = 2;
+    string text = 3;
+
+}
+
+message SendCastResponse {
+    bool success = 1;
+}
+
+message DeleteCastRequest {
+    string signerUuid = 1;
+    string hash = 2;
+}
+
+message DeleteCastResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+service CastService {
+    rpc sendCast (SendCastRequest) returns (SendCastResponse);
+    rpc deleteCast (DeleteCastRequest) returns (DeleteCastResponse);
+}

@@ -1,0 +1,11 @@
+---
+alwaysApply: true
+---
+
+Programming Language: Go
+ORM: Prisma Go
+Database: PostgreSQL
+
+Type: Test driven Coding
+
+Always Do: When changing a file, Create changed_$filename file for same directory with the file which shows the previous version of the file and why changed the related code specifically.

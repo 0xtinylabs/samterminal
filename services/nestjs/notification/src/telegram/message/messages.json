@@ -1,0 +1,8 @@
+{
+    "enter_code": "Please enter the auth code you received:",
+    "code_incorrect": "❌ The auth code is incorrect. Please enter the correct code shared with you!",
+    "code_correct": "The auth code is correct. Hang on…",
+    "activated": "✅ Your Telegram account has been linked successfully!",
+    "deactivated": "You’ve disconnected your Telegram profile from your SAM profile.",
+    "user_talking": "Hello"
+}

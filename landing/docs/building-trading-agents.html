@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Trading Agents — SAM Terminal</title>
+  <meta name="description" content="Create autonomous agents that execute on-chain trading strategies.">
+  <link rel="canonical" href="https://samterminal.com/docs/building-trading-agents">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building Trading Agents">
+  <meta property="og:description" content="Create autonomous agents that execute on-chain trading strategies.">
+  <meta property="og:url" content="https://samterminal.com/docs/building-trading-agents">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building Trading Agents">
+  <meta name="twitter:description" content="Create autonomous agents that execute on-chain trading strategies.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Building Trading Agents",
+    "description": "Create autonomous agents that execute on-chain trading strategies.",
+    "url": "https://samterminal.com/docs/building-trading-agents",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/building-trading-agents",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Building Trading Agents with SAM Terminal</h1>
+<p>Trading agents are automated systems that execute trades based on predefined strategies, market conditions, and custom logic. SAM Terminal provides a comprehensive framework for building sophisticated trading agents that can operate across multiple blockchain networks with minimal code.</p>
+<p>This guide walks through the complete process of building production-ready trading agents, from basic order templates to complex multi-chain strategies with AI-assisted decision making.</p>
+<h2>Agent Architecture</h2>
+<p>SAM Terminal&#39;s architecture consists of four core components:</p>
+<p><strong>1. Plugins</strong> - Modular capabilities for your agent (token data, swaps, wallet monitoring, AI analysis, notifications)</p>
+<p><strong>2. Runtime Engine</strong> - State machine that manages agent lifecycle, task scheduling, and execution</p>
+<p><strong>3. Workflow Engine</strong> - DAG-based workflow system for complex multi-step strategies</p>
+<p><strong>4. Order Templates</strong> - Pre-built trading patterns for common strategies (stop-loss, DCA, trailing stops, etc.)</p>
+<p>The runtime engine orchestrates plugin interactions, while the workflow engine enables custom logic workflows. Order templates provide high-level abstractions for common trading patterns.</p>
+<h2>Setting Up a Trading Agent</h2>
+<p>Start by installing SAM Terminal and creating a basic agent:</p>
+<pre><code class="language-bash">npm install -g @samterminal/cli
+sam init my-trading-agent
+cd my-trading-agent
+</code></pre>
+<p>Create a TypeScript agent with all necessary plugins:</p>
+<pre><code class="language-typescript">import { SAMTerminal } from &#39;@samterminal/core&#39;;
+import { TokenDataPlugin } from &#39;@samterminal/plugin-tokendata&#39;;
+import { SwapPlugin } from &#39;@samterminal/plugin-swap&#39;;
+import { WalletDataPlugin } from &#39;@samterminal/plugin-walletdata&#39;;
+import { AIPlugin } from &#39;@samterminal/plugin-ai&#39;;
+import { TelegramPlugin } from &#39;@samterminal/plugin-telegram&#39;;
+
+const agent = new SAMTerminal({
+  name: &#39;my-trading-agent&#39;,
+  plugins: [
+    new TokenDataPlugin({
+      providers: {
+        coingecko: { apiKey: process.env.COINGECKO_API_KEY },
+        dexscreener: {},
+        moralis: { apiKey: process.env.MORALIS_API_KEY }
+      }
+    }),
+    new SwapPlugin({
+      providers: {
+        matcha: { apiKey: process.env.MATCHA_API_KEY }
+      },
+      defaultSlippage: 0.005, // 0.5%
+      defaultDeadline: 300, // 5 minutes
+    }),
+    new WalletDataPlugin({
+      providers: {
+        moralis: { apiKey: process.env.MORALIS_API_KEY }
+      }
+    }),
+    new AIPlugin({
+      providers: {
+        anthropic: { apiKey: process.env.ANTHROPIC_API_KEY },
+        openai: { apiKey: process.env.OPENAI_API_KEY }
+      },
+      defaultProvider: &#39;anthropic&#39;,
+      defaultModel: &#39;claude-sonnet-4-6&#39;
+    }),
+    new TelegramPlugin({
+      botToken: process.env.MAIN_BOT_TOKEN,
+      chatId: process.env.TELEGRAM_CHAT_ID
+    })
+  ],
+  chains: {
+    default: &#39;base&#39;,
+    enabled: [&#39;base&#39;, &#39;ethereum&#39;, &#39;arbitrum&#39;, &#39;polygon&#39;]
+  },
+  runtime: {
+    maxConcurrentTasks: 5,
+    taskTimeout: 120000 // 2 minutes
+  }
+});
+
+await agent.start();
+console.log(&#39;Trading agent is running...&#39;);
+</code></pre>
+<p>Configure your environment variables:</p>
+<pre><code class="language-bash"># .env
+COINGECKO_API_KEY=your_key
+MORALIS_API_KEY=your_key
+MATCHA_API_KEY=your_key
+ANTHROPIC_API_KEY=your_key
+MAIN_BOT_TOKEN=your_token
+TELEGRAM_CHAT_ID=your_chat_id
+WALLET_PRIVATE_KEY=your_private_key
+</code></pre>
+<blockquote>
+<p><strong>Security Warning:</strong> Never commit your <code>.env</code> file or share your private key. Use a dedicated hot wallet with limited funds for automated trading. For production, use a secure key management system (AWS KMS, HashiCorp Vault).</p>
+</blockquote>
+<h2>Order Templates</h2>
+<p>SAM Terminal provides 10 pre-built order templates for common trading strategies. Each template can be created via CLI or TypeScript API.</p>
+<h3>Stop-Loss Orders</h3>
+<p>Automatically sell when price drops below a trigger:</p>
+<pre><code class="language-bash">sam order create stop-loss \
+  --token ETH \
+  --trigger-price 3000 \
+  --sell-percent 100 \
+  --notify telegram
+</code></pre>
+<pre><code class="language-typescript">import { OrderTemplates } from &#39;@samterminal/core&#39;;
+
+const templates = new OrderTemplates(agent.runtime);
+
+const { order } = await templates.create(&#39;stop-loss&#39;, {
+  token: &#39;ETH&#39;,
+  triggerPrice: 3000,
+  sellPercent: 100,
+  chain: &#39;base&#39;
+});
+
+// Or use convenience function
+const stopLoss = await createStopLoss(agent.runtime, {
+  token: &#39;0x4200000000000000000000000000000000000006&#39;, // WETH on Base
+  triggerPrice: 3000,
+  sellPercent: 50 // Sell 50% of holdings
+});
+</code></pre>
+<h3>Take-Profit Orders</h3>
+<p>Automatically sell when price rises above target:</p>
+<pre><code class="language-bash">sam order create take-profit \
+  --token ETH \
+  --trigger-price 4000 \
+  --sell-percent 50 \
+  --notify telegram
+</code></pre>
+<pre><code class="language-typescript">const takeProfit = await createTakeProfit(agent.runtime, {
+  token: &#39;ETH&#39;,
+  triggerPrice: 4000,
+  sellPercent: 50
+});
+</code></pre>
+<h3>DCA (Dollar-Cost Averaging)</h3>
+<p>Automatically buy fixed amounts at regular intervals:</p>
+<pre><code class="language-bash">sam order create dca \
+  --buy-token ETH \
+  --sell-token USDC \
+  --amount 100 \
+  --interval daily \
+  --notify telegram
+</code></pre>
+<pre><code class="language-typescript">const dca = await createDCA(agent.runtime, {
+  buyToken: &#39;ETH&#39;,
+  sellToken: &#39;USDC&#39;,
+  amountPerExecution: 100,
+  interval: &#39;daily&#39; // Options: hourly, daily, weekly, monthly
+});
+</code></pre>
+<h3>TWAP (Time-Weighted Average Price)</h3>
+<p>Similar to DCA but distributes execution across time for better price averaging:</p>
+<pre><code class="language-bash">sam order create twap \
+  --buy-token ETH \
+  --sell-token USDC \
+  --amount 100 \
+  --interval hourly
+</code></pre>
+<pre><code class="language-typescript">const twap = await templates.create(&#39;twap&#39;, {
+  buyToken: &#39;ETH&#39;,
+  sellToken: &#39;USDC&#39;,
+  amountPerExecution: 100,
+  interval: &#39;hourly&#39;
+});
+</code></pre>
+<h3>Conditional Buy Orders</h3>
+<p>Buy when specific conditions are met:</p>
+<pre><code class="language-bash">sam order create conditional-buy \
+  --buy-token AERO \
+  --sell-token USDC \
+  --amount 1000 \
+  --condition &quot;price &lt; 1.5&quot; \
+  --condition &quot;volume24h &gt; 1000000&quot;
+</code></pre>
+<pre><code class="language-typescript">const conditionalBuy = await templates.create(&#39;conditional-buy&#39;, {
+  buyToken: &#39;AERO&#39;,
+  sellToken: &#39;USDC&#39;,
+  amount: 1000,
+  conditions: {
+    type: &#39;and&#39;,
+    conditions: [
+      { field: &#39;price&#39;, operator: &#39;lt&#39;, value: 1.5 },
+      { field: &#39;volume24h&#39;, operator: &#39;gt&#39;, value: 1000000 }
+    ]
+  }
+});
+</code></pre>
+<h3>Conditional Sell Orders</h3>
+<p>Sell when market conditions change:</p>
+<pre><code class="language-bash">sam order create conditional-sell \
+  --token ETH \
+  --sell-percent 100 \
+  --condition &quot;rsi &gt; 70&quot; \
+  --condition &quot;priceChange24h &gt; 15&quot;
+</code></pre>
+<pre><code class="language-typescript">const conditionalSell = await createConditionalSell(agent.runtime, {
+  token: &#39;ETH&#39;,
+  sellPercent: 100,
+  conditions: {
+    type: &#39;or&#39;,
+    conditions: [
+      { field: &#39;rsi&#39;, operator: &#39;gt&#39;, value: 70 },
+      { field: &#39;priceChange24h&#39;, operator: &#39;gt&#39;, value: 15 }
+    ]
+  }
+});
+</code></pre>
+<h3>Smart Entry Orders</h3>
+<p>Buy with budget protection and cooldown to prevent overtrading:</p>
+<pre><code class="language-bash">sam order create smart-entry \
+  --buy-token ETH \
+  --sell-token USDC \
+  --budget 5000 \
+  --cooldown 3600
+</code></pre>
+<pre><code class="language-typescript">const smartEntry = await templates.create(&#39;smart-entry&#39;, {
+  buyToken: &#39;ETH&#39;,
+  sellToken: &#39;USDC&#39;,
+  budget: 5000, // Maximum to spend
+  cooldown: 3600 // Wait 1 hour between executions
+});
+</code></pre>
+<h3>Trailing Stop Orders</h3>
+<p>Dynamic stop-loss that follows price movements:</p>
+<pre><code class="language-bash">sam order create trailing-stop \
+  --token ETH \
+  --trail-percent 5
+</code></pre>
+<pre><code class="language-typescript">const trailingStop = await templates.create(&#39;trailing-stop&#39;, {
+  token: &#39;ETH&#39;,
+  trailPercent: 5 // Trigger sell if price drops 5% from peak
+});
+</code></pre>
+<h3>Dual Protection Orders</h3>
+<p>Combine stop-loss and take-profit in one order:</p>
+<pre><code class="language-bash">sam order create dual-protection \
+  --token ETH \
+  --stop-price 2800 \
+  --target-price 4200
+</code></pre>
+<pre><code class="language-typescript">const dualProtection = await templates.create(&#39;dual-protection&#39;, {
+  token: &#39;ETH&#39;,
+  stopPrice: 2800,
+  targetPrice: 4200
+});
+</code></pre>
+<h3>Whale Copy Trading</h3>
+<p>Automatically copy trades from successful wallets:</p>
+<pre><code class="language-bash">sam order create whale-copy \
+  --wallet 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb \
+  --auto-execute
+</code></pre>
+<pre><code class="language-typescript">const whaleCopy = await templates.create(&#39;whale-copy&#39;, {
+  walletAddress: &#39;0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb&#39;,
+  autoExecute: true,
+  minTradeSize: 10000 // Only copy trades &gt; $10k
+});
+</code></pre>
+<h2>Workflow Engine for Custom Strategies</h2>
+<p>For strategies beyond simple order templates, use the Workflow Engine to build DAG-based workflows with complex logic.</p>
+<h3>Node Types</h3>
+<p>The Workflow Engine supports seven node types:</p>
+<ul>
+<li><strong>trigger</strong> - Start execution (webhook, schedule, event)</li>
+<li><strong>action</strong> - Execute plugin action (swap, send notification, etc.)</li>
+<li><strong>condition</strong> - Branch based on evaluation</li>
+<li><strong>loop</strong> - Iterate (count, forEach, while)</li>
+<li><strong>delay</strong> - Wait before continuing</li>
+<li><strong>subflow</strong> - Execute another workflow</li>
+<li><strong>output</strong> - Set workflow result</li>
+</ul>
+<h3>Example: AI-Assisted Trading Workflow</h3>
+<p>Create a workflow that analyzes market conditions with AI before executing trades:</p>
+<pre><code class="language-typescript">const flow = {
+  id: &#39;ai-trading-workflow&#39;,
+  name: &#39;AI-Assisted Trading&#39;,
+  nodes: [
+    {
+      id: &#39;trigger&#39;,
+      type: &#39;trigger&#39;,
+      data: { schedule: &#39;0 */6 * * *&#39; } // Every 6 hours
+    },
+    {
+      id: &#39;get-price&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;tokendata&#39;,
+        action: &#39;getPrice&#39;,
+        params: {
+          token: &#39;{{ input.token }}&#39;,
+          chain: &#39;base&#39;
+        }
+      }
+    },
+    {
+      id: &#39;get-market-data&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;tokendata&#39;,
+        action: &#39;getMarketData&#39;,
+        params: {
+          token: &#39;{{ input.token }}&#39;
+        }
+      }
+    },
+    {
+      id: &#39;analyze&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;ai&#39;,
+        action: &#39;chat&#39;,
+        params: {
+          messages: [
+            {
+              role: &#39;system&#39;,
+              content: &#39;You are a crypto trading analyst. Analyze the provided data and recommend BUY, SELL, or HOLD.&#39;
+            },
+            {
+              role: &#39;user&#39;,
+              content: &#39;Price: ${{ get-price.price }}, Volume 24h: ${{ get-market-data.volume24h }}, Price Change 24h: {{ get-market-data.priceChange24h }}%&#39;
+            }
+          ],
+          temperature: 0.3
+        }
+      }
+    },
+    {
+      id: &#39;check-recommendation&#39;,
+      type: &#39;condition&#39;,
+      data: {
+        conditions: {
+          field: &#39;analyze.response&#39;,
+          operator: &#39;contains&#39;,
+          value: &#39;BUY&#39;
+        }
+      }
+    },
+    {
+      id: &#39;execute-buy&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;swap&#39;,
+        action: &#39;executeSwap&#39;,
+        params: {
+          tokenIn: &#39;USDC&#39;,
+          tokenOut: &#39;{{ input.token }}&#39;,
+          amountIn: &#39;{{ input.buyAmount }}&#39;,
+          slippage: 0.005
+        }
+      }
+    },
+    {
+      id: &#39;notify-success&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;telegram&#39;,
+        action: &#39;sendMessage&#39;,
+        params: {
+          text: &#39;Executed buy order for {{ input.token }} at ${{ get-price.price }}&#39;
+        }
+      }
+    }
+  ],
+  edges: [
+    { source: &#39;trigger&#39;, target: &#39;get-price&#39; },
+    { source: &#39;get-price&#39;, target: &#39;get-market-data&#39; },
+    { source: &#39;get-market-data&#39;, target: &#39;analyze&#39; },
+    { source: &#39;analyze&#39;, target: &#39;check-recommendation&#39; },
+    {
+      source: &#39;check-recommendation&#39;,
+      target: &#39;execute-buy&#39;,
+      sourceHandle: &#39;true&#39;,
+      type: &#39;conditional&#39;
+    },
+    {
+      source: &#39;execute-buy&#39;,
+      target: &#39;notify-success&#39;,
+      type: &#39;success&#39;
+    }
+  ]
+};
+
+const result = await agent.runtime.flowEngine.execute(flow, {
+  token: &#39;ETH&#39;,
+  buyAmount: 1000
+});
+</code></pre>
+<h3>Variable Substitution</h3>
+<p>Use <code>{{ path.to.value }}</code> syntax to reference data from previous nodes:</p>
+<pre><code class="language-typescript">{
+  id: &#39;swap&#39;,
+  type: &#39;action&#39;,
+  data: {
+    plugin: &#39;swap&#39;,
+    action: &#39;executeSwap&#39;,
+    params: {
+      tokenIn: &#39;USDC&#39;,
+      tokenOut: &#39;{{ input.token }}&#39;,
+      amountIn: &#39;{{ analyze.recommendedAmount }}&#39;,
+      slippage: &#39;{{ config.defaultSlippage }}&#39;
+    }
+  }
+}
+</code></pre>
+<h3>Condition Operators</h3>
+<p>Available operators for conditional logic:</p>
+<ul>
+<li><strong>Comparison</strong>: <code>eq</code>, <code>neq</code>, <code>gt</code>, <code>gte</code>, <code>lt</code>, <code>lte</code></li>
+<li><strong>String</strong>: <code>contains</code>, <code>startsWith</code>, <code>endsWith</code></li>
+<li><strong>Array</strong>: <code>in</code>, <code>notIn</code></li>
+<li><strong>Null</strong>: <code>isNull</code>, <code>isNotNull</code></li>
+</ul>
+<h3>Loop Patterns</h3>
+<p>Execute nodes multiple times:</p>
+<pre><code class="language-typescript">{
+  id: &#39;dca-loop&#39;,
+  type: &#39;loop&#39;,
+  data: {
+    loopType: &#39;count&#39;,
+    count: 10,
+    maxIterations: 10
+  }
+}
+</code></pre>
+<pre><code class="language-typescript">{
+  id: &#39;process-tokens&#39;,
+  type: &#39;loop&#39;,
+  data: {
+    loopType: &#39;forEach&#39;,
+    items: &#39;{{ input.tokens }}&#39;,
+    maxIterations: 50
+  }
+}
+</code></pre>
+<h3>Error Handling</h3>
+<p>Add error handling edges to gracefully handle failures:</p>
+<pre><code class="language-typescript">{
+  source: &#39;execute-swap&#39;,
+  target: &#39;notify-error&#39;,
+  sourceHandle: &#39;error&#39;,
+  type: &#39;failure&#39;
+}
+</code></pre>
+<h2>Scheduling Strategies</h2>
+<p>SAM Terminal supports two scheduling approaches:</p>
+<h3>Cron-based Scheduling</h3>
+<p>Use cron expressions for precise timing:</p>
+<pre><code class="language-typescript">const flow = {
+  nodes: [
+    {
+      id: &#39;trigger&#39;,
+      type: &#39;trigger&#39;,
+      data: {
+        schedule: &#39;0 9,15,21 * * *&#39; // 9 AM, 3 PM, 9 PM daily
+      }
+    }
+    // ... other nodes
+  ]
+};
+</code></pre>
+<h3>Interval-based Scheduling</h3>
+<p>Use intervals for simpler recurring tasks:</p>
+<pre><code class="language-typescript">await agent.runtime.scheduler.schedule({
+  id: &#39;portfolio-check&#39;,
+  interval: 3600000, // Every hour
+  handler: async () =&gt; {
+    const portfolio = await agent.getData(&#39;walletdata&#39;, &#39;getPortfolio&#39;, {
+      address: process.env.WALLET_ADDRESS
+    });
+    console.log(&#39;Portfolio value:&#39;, portfolio.totalValue);
+  }
+});
+</code></pre>
+<h2>Multi-Chain Trading</h2>
+<p>Execute trades across multiple chains with automatic chain switching:</p>
+<pre><code class="language-typescript">// Trade on Base
+await agent.executeAction(&#39;swap&#39;, &#39;executeSwap&#39;, {
+  tokenIn: &#39;USDC&#39;,
+  tokenOut: &#39;ETH&#39;,
+  amountIn: 1000,
+  chain: &#39;base&#39;
+});
+
+// Trade on Arbitrum
+await agent.executeAction(&#39;swap&#39;, &#39;executeSwap&#39;, {
+  tokenIn: &#39;USDC&#39;,
+  tokenOut: &#39;ARB&#39;,
+  amountIn: 1000,
+  chain: &#39;arbitrum&#39;
+});
+
+// Create cross-chain strategy
+const multiChainFlow = {
+  nodes: [
+    {
+      id: &#39;check-base-price&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;tokendata&#39;,
+        action: &#39;getPrice&#39;,
+        params: { token: &#39;ETH&#39;, chain: &#39;base&#39; }
+      }
+    },
+    {
+      id: &#39;check-arbitrum-price&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;tokendata&#39;,
+        action: &#39;getPrice&#39;,
+        params: { token: &#39;ETH&#39;, chain: &#39;arbitrum&#39; }
+      }
+    },
+    {
+      id: &#39;find-arbitrage&#39;,
+      type: &#39;condition&#39;,
+      data: {
+        conditions: {
+          field: &#39;check-base-price.price&#39;,
+          operator: &#39;lt&#39;,
+          value: &#39;{{ check-arbitrum-price.price * 0.98 }}&#39; // 2% spread
+        }
+      }
+    }
+    // ... execute arbitrage
+  ]
+};
+</code></pre>
+<h2>Portfolio Monitoring</h2>
+<p>Monitor wallet holdings and trigger actions based on portfolio changes:</p>
+<pre><code class="language-typescript">const portfolioMonitor = {
+  nodes: [
+    {
+      id: &#39;trigger&#39;,
+      type: &#39;trigger&#39;,
+      data: { schedule: &#39;*/15 * * * *&#39; } // Every 15 minutes
+    },
+    {
+      id: &#39;get-portfolio&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;walletdata&#39;,
+        action: &#39;getPortfolio&#39;,
+        params: {
+          address: process.env.WALLET_ADDRESS,
+          chain: &#39;base&#39;
+        }
+      }
+    },
+    {
+      id: &#39;check-exposure&#39;,
+      type: &#39;condition&#39;,
+      data: {
+        conditions: {
+          type: &#39;or&#39;,
+          conditions: [
+            {
+              field: &#39;get-portfolio.tokens[0].percentOfPortfolio&#39;,
+              operator: &#39;gt&#39;,
+              value: 50 // Single token &gt; 50% of portfolio
+            },
+            {
+              field: &#39;get-portfolio.totalValue&#39;,
+              operator: &#39;lt&#39;,
+              value: 5000 // Portfolio &lt; $5000
+            }
+          ]
+        }
+      }
+    },
+    {
+      id: &#39;rebalance-alert&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;telegram&#39;,
+        action: &#39;sendMessage&#39;,
+        params: {
+          text: &#39;Portfolio rebalancing needed. Top holding: {{ get-portfolio.tokens[0].symbol }} ({{ get-portfolio.tokens[0].percentOfPortfolio }}%)&#39;
+        }
+      }
+    }
+  ]
+};
+</code></pre>
+<h2>AI-Assisted Trading</h2>
+<p>Integrate AI analysis into your trading strategies:</p>
+<pre><code class="language-typescript">// Analyze market sentiment
+const sentiment = await agent.executeAction(&#39;ai&#39;, &#39;classify&#39;, {
+  input: &#39;ETH price increased 15% in 24h with high volume&#39;,
+  categories: [&#39;bullish&#39;, &#39;neutral&#39;, &#39;bearish&#39;]
+});
+
+// Generate trading signal
+const signal = await agent.executeAction(&#39;ai&#39;, &#39;chat&#39;, {
+  messages: [
+    {
+      role: &#39;system&#39;,
+      content: &#39;You are a crypto trading analyst. Provide BUY, SELL, or HOLD recommendation with confidence score.&#39;
+    },
+    {
+      role: &#39;user&#39;,
+      content: `Analyze: Price $3500, Volume 24h $25B, RSI 68, MACD bullish crossover`
+    }
+  ],
+  temperature: 0.2
+});
+
+// Extract structured data
+const metrics = await agent.executeAction(&#39;ai&#39;, &#39;extract&#39;, {
+  input: &#39;ETH is trading at $3500 with a market cap of $420B&#39;,
+  schema: {
+    price: &#39;number&#39;,
+    marketCap: &#39;number&#39;
+  }
+});
+</code></pre>
+<h2>Risk Management</h2>
+<p>Implement comprehensive risk controls:</p>
+<pre><code class="language-typescript">const safeSwapConfig = {
+  defaultSlippage: 0.005, // 0.5% max slippage
+  defaultDeadline: 300, // 5 minute deadline
+  minOutputAmount: true, // Enforce minimum output
+  dryRun: process.env.NODE_ENV !== &#39;production&#39; // Test in development
+};
+
+// Add budget limits to orders
+const budgetLimitedOrder = await templates.create(&#39;dca&#39;, {
+  buyToken: &#39;ETH&#39;,
+  sellToken: &#39;USDC&#39;,
+  amountPerExecution: 100,
+  interval: &#39;daily&#39;,
+  maxTotalSpend: 5000 // Stop after spending $5000
+});
+
+// Implement circuit breakers
+const circuitBreaker = {
+  nodes: [
+    {
+      id: &#39;check-losses&#39;,
+      type: &#39;condition&#39;,
+      data: {
+        conditions: {
+          field: &#39;portfolio.dailyPnl&#39;,
+          operator: &#39;lt&#39;,
+          value: -500 // Lost &gt; $500 today
+        }
+      }
+    },
+    {
+      id: &#39;pause-trading&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;core&#39;,
+        action: &#39;pauseAllOrders&#39;,
+        params: {}
+      }
+    },
+    {
+      id: &#39;alert&#39;,
+      type: &#39;action&#39;,
+      data: {
+        plugin: &#39;telegram&#39;,
+        action: &#39;sendMessage&#39;,
+        params: {
+          text: &#39;ALERT: Daily loss limit reached. All trading paused.&#39;
+        }
+      }
+    }
+  ]
+};
+</code></pre>
+<h2>Notifications</h2>
+<p>Configure Telegram alerts for trade execution and important events:</p>
+<pre><code class="language-typescript">// Send notification after each trade
+const notifyingOrder = await templates.create(&#39;stop-loss&#39;, {
+  token: &#39;ETH&#39;,
+  triggerPrice: 3000,
+  sellPercent: 100,
+  notifications: {
+    telegram: {
+      onTrigger: true,
+      onSuccess: true,
+      onError: true
+    }
+  }
+});
+
+// Custom notification workflow
+await agent.executeAction(&#39;telegram&#39;, &#39;sendMessage&#39;, {
+  text: `Trade executed: Sold ${amount} ETH at $${price}`
+});
+</code></pre>
+<h2>Managing Orders</h2>
+<p>Use the CLI to manage active orders:</p>
+<pre><code class="language-bash"># List all orders
+sam order list
+
+# Filter by status
+sam order list --status active
+sam order list --status paused
+
+# Filter by type
+sam order list --type stop-loss
+sam order list --type dca
+
+# Get order details
+sam order get &lt;orderId&gt;
+
+# Pause order
+sam order pause &lt;orderId&gt;
+
+# Resume order
+sam order resume &lt;orderId&gt;
+
+# Cancel order
+sam order cancel &lt;orderId&gt;
+</code></pre>
+<p>Programmatically manage orders:</p>
+<pre><code class="language-typescript">// List active orders
+const orders = await templates.list({
+  status: &#39;active&#39;,
+  type: &#39;stop-loss&#39;
+});
+
+// Cancel order
+await templates.cancel(orders[0].id);
+
+// Pause order
+await templates.pause(orders[0].id);
+
+// Resume order
+await templates.resume(orders[0].id);
+</code></pre>
+<h2>Best Practices</h2>
+<h3>Security</h3>
+<ul>
+<li>Store private keys in secure key management systems (AWS KMS, HashiCorp Vault)</li>
+<li>Use environment variables for API keys and secrets</li>
+<li>Enable transaction simulation before execution</li>
+<li>Implement rate limiting on API calls</li>
+<li>Use read-only RPC endpoints for price checking</li>
+</ul>
+<h3>Testing</h3>
+<p>Test your strategies thoroughly before deploying:</p>
+<pre><code class="language-typescript">// Use dry run mode
+const agent = new SAMTerminal({
+  // ... config
+  runtime: {
+    dryRun: true // Simulate without executing
+  }
+});
+
+// Test with small amounts first
+const testOrder = await templates.create(&#39;dca&#39;, {
+  buyToken: &#39;ETH&#39;,
+  sellToken: &#39;USDC&#39;,
+  amountPerExecution: 10, // Start small
+  interval: &#39;hourly&#39;
+});
+</code></pre>
+<h3>Monitoring</h3>
+<p>Implement comprehensive logging and monitoring:</p>
+<pre><code class="language-typescript">agent.runtime.on(&#39;order:executed&#39;, (order) =&gt; {
+  console.log(&#39;Order executed:&#39;, order);
+  // Send to logging service
+});
+
+agent.runtime.on(&#39;error&#39;, (error) =&gt; {
+  console.error(&#39;Agent error:&#39;, error);
+  // Alert on-call engineer
+});
+
+agent.runtime.on(&#39;flow:completed&#39;, (result) =&gt; {
+  console.log(&#39;Workflow completed:&#39;, result);
+  // Track metrics
+});
+</code></pre>
+<h3>Performance</h3>
+<ul>
+<li>Use multicall for batch price queries</li>
+<li>Cache frequently accessed data (token prices, metadata)</li>
+<li>Optimize gas usage with proper gas estimation</li>
+<li>Use WebSocket connections for real-time data</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Now that you understand how to build trading agents, explore these advanced topics:</p>
+<ul>
+<li><a href="/docs/plugin-development">Plugin Development</a> - Build custom plugins for your strategy</li>
+<li><a href="/docs/mcp-setup-guide">MCP Setup Guide</a> - Control your agent with AI assistants</li>
+<li><a href="/docs/openclaw-skills">OpenClaw Skills</a> - Teach AI assistants to operate your agent</li>
+<li><a href="/docs/getting-started">Getting Started</a> - Complete setup guide for SAM Terminal</li>
+</ul>
+<p>For more examples, check the <a href="https://github.com/samterminal/samterminal/tree/main/apps/playground/src/examples">playground examples</a> in the repository.</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

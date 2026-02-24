@@ -1,0 +1,48 @@
+# Stage 1: Build
+FROM node:20 AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy package.json and install dependencies
+COPY package.json package-lock.json ./
+RUN npm install --frozen-lockfile
+
+# Copy the rest of the app files
+COPY . .
+
+
+
+# Stage 2: Run
+FROM node:20 AS runner
+
+# Set working directory
+WORKDIR /app 
+
+# Copy only necessary files from builder stage
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
+COPY --from=builder /app/tsconfig.build.json ./tsconfig.build.json
+COPY --from=builder /app/eslint.config.mjs ./eslint.config.mjs
+COPY --from=builder /app/nest-cli.json ./nest-cli.json
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+
+COPY --from=builder /app/proto/notification.proto ./src/proto/notification.proto
+
+# Expose port 
+EXPOSE $PORT
+
+
+RUN npm install protoc
+
+RUN npm install -f
+
+
+
+
+# Start the app
+
+
+CMD ["sh", "-c", "npm run proto:gen:docker && npm run generate && npm run build && npm run start:server"]

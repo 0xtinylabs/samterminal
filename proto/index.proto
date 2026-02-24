@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package scanner;
+
+import "token/messages.proto";
+import "wallet/messages.proto";
+
+service Scanner {
+    // Token operations
+    rpc getToken (token.GetTokenRequest) returns (token.GetTokenResponse);
+    rpc getTokenPrice (token.GetTokenPriceRequest) returns (token.GetTokenPriceResponse);
+    rpc addToken (token.AddTokenRequest) returns (token.AddTokenResponse);
+    rpc removeToken (token.RemoveTokenRequest) returns (token.RemoveTokenResponse);
+
+    // Wallet operations
+    rpc addWallet (wallet.AddWalletRequest) returns (wallet.AddWalletResponse);
+    rpc getWallet (wallet.GetWalletRequest) returns (wallet.GetWalletResponse);
+    rpc getWalletTokens (wallet.GetWalletTokensRequest) returns (wallet.GetWalletTokensResponse);
+    rpc getWalletDetails (wallet.GetWalletDetailsRequest) returns (wallet.GetWalletDetailsResponse);
+}

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package scanner_token;
+
+option go_package = "tokendata/proto/token";
+
+import "token/messages.proto";
+
+service ScannerToken {
+    rpc getToken (token.GetTokenRequest) returns (token.GetTokenResponse);
+    rpc getTokens (token.GetTokensRequest) returns (token.GetTokensResponse);
+    rpc getTokenPrice (token.GetTokenPriceRequest) returns (token.GetTokenPriceResponse);
+    rpc addToken (token.AddTokenRequest) returns (token.AddTokenResponse);
+    rpc removeToken (token.RemoveTokenRequest) returns (token.RemoveTokenResponse);
+    rpc addBlacklist (token.AddBlacklistRequest) returns (token.AddBlacklistResponse);
+}

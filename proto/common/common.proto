@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "proto/common";
+
+enum CHAIN {
+    BASE = 0;
+}
+
+message Token {
+    string name = 1;
+    string symbol = 2;
+    string price = 3;
+    string volume = 4;
+    string calculatedVolume = 5;
+    string imageUrl = 6;
+    string address = 7;
+    string poolAddress = 8;
+    string supply = 9;
+    string circulatedSupply = 10;
+    string pairAddress = 11;
+    string reason = 12;
+}
+
+message Wallet {
+    string walletAddress = 1;
+    string totalDollarValue = 2;
+    string nativeBalance = 3;
+    string nativeBalanceFormatted = 4;
+    repeated string tokenAddresses = 5;
+}
+
+message WalletToken {
+    string tokenAddress = 1;
+    string tokenBalance = 2;
+    string tokenBalanceFormatted = 3;
+    string tokenPrice = 4;
+    string tokenDollarValue = 5;
+    string tokenImage = 6;
+    string tokenName = 7;
+    string tokenSymbol = 8;
+    string tokenVolume = 9;
+    string tokenSupply = 10;
+    string tokenPairAddress = 11;
+}

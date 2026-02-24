@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Trading Automation — SAM Terminal</title>
+  <meta name="description" content="Turn your AI agent into an onchain trading machine. Setup, workflows, and best practices.">
+  <link rel="canonical" href="https://samterminal.com/docs/openclaw-trading-automation">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenClaw Trading Automation">
+  <meta property="og:description" content="Turn your AI agent into an onchain trading machine. Setup, workflows, and best practices.">
+  <meta property="og:url" content="https://samterminal.com/docs/openclaw-trading-automation">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenClaw Trading Automation">
+  <meta name="twitter:description" content="Turn your AI agent into an onchain trading machine. Setup, workflows, and best practices.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "OpenClaw Trading Automation",
+    "description": "Turn your AI agent into an onchain trading machine. Setup, workflows, and best practices.",
+    "url": "https://samterminal.com/docs/openclaw-trading-automation",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/openclaw-trading-automation",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>OpenClaw + SAM Terminal: Turn Your AI Agent into an Onchain Trading Machine</h1>
+<p>Your AI agent already understands natural language. With SAM Terminal&#39;s OpenClaw skill, it can now understand onchain trading too. This guide walks you through connecting SAM Terminal to your OpenClaw-powered agent, setting up real trading infrastructure, and building production-grade automation workflows -- from simple price alerts to multi-condition DCA strategies.</p>
+<p>By the end, your agent will be able to execute swaps, track wallets, monitor prices, schedule recurring strategies, and send Telegram alerts -- all through natural language commands.</p>
+<hr>
+<h2>What You&#39;re Building</h2>
+<p>Here&#39;s what the end result looks like. A user talks to their AI agent:</p>
+<pre><code>User: &quot;Track DEGEN on Base and alert me on Telegram if it drops below $0.01&quot;
+
+Agent:
+  1. sam_token_search({ query: &quot;DEGEN&quot; })
+  2. sam_token_track({ tokenAddress: &quot;0x4ed4...&quot; })
+  3. sam_flow_create({
+       name: &quot;DEGEN Price Alert&quot;,
+       nodes: [schedule, getPrice, condition, notify],
+       edges: [...]
+     })
+
+Agent: &quot;Done. I&#39;m monitoring DEGEN every 30 seconds.
+        You&#39;ll get a Telegram alert if it drops below $0.01.&quot;
+</code></pre>
+<p>No code written. No dashboard opened. Just a conversation.</p>
+<hr>
+<h2>Architecture Overview</h2>
+<p>Before diving into setup, here&#39;s how the pieces connect:</p>
+<pre><code>┌──────────────────────────────────┐
+│  AI Agent (Claude, GPT, etc.)    │
+│  with OpenClaw Skill loaded      │
+└──────────────┬───────────────────┘
+               │ MCP Protocol (stdio)
+               v
+┌──────────────────────────────────┐
+│  @samterminal/mcp-server         │
+│  40 tools across 9 categories   │
+└──────────────┬───────────────────┘
+               │ gRPC
+               v
+┌──────────────────────────────────┐
+│  SAM Terminal Backend            │
+│  ┌─────────┐ ┌──────────┐       │
+│  │ Token    │ │ Wallet   │       │
+│  │ Service  │ │ Service  │       │
+│  ├─────────┤ ├──────────┤       │
+│  │ Swap     │ │ Notif.   │       │
+│  │ Service  │ │ Service  │       │
+│  ├─────────┤ ├──────────┤       │
+│  │ AI       │                    │
+│  │ Service  │                    │
+│  └─────────┘                    │
+│       PostgreSQL + Redis         │
+└──────────────────────────────────┘
+               │
+               v
+    Base, Ethereum, Arbitrum,
+    Polygon, Optimism, BSC
+</code></pre>
+<p>The MCP server is the bridge. It translates natural language tool calls from your AI agent into gRPC calls to the backend microservices. Your agent never touches raw blockchain RPCs -- it works with high-level abstractions like <code>sam_swap_execute</code> and <code>sam_get_token_price</code>.</p>
+<hr>
+<h2>Part 1: Setting Up SAM Terminal</h2>
+<h3>Prerequisites</h3>
+<ul>
+<li>Node.js 18+ and pnpm</li>
+<li>Docker (for PostgreSQL and Redis)</li>
+<li>API keys: Alchemy (RPC), Moralis (data), and optionally Telegram bot token</li>
+</ul>
+<h3>Step 1: Clone and Configure</h3>
+<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+cd samterminal
+cp .env.example .env
+</code></pre>
+<p>Edit <code>.env</code> with your keys:</p>
+<pre><code class="language-env"># Required for token/wallet data
+ALCHEMY_API_KEY=your_alchemy_key
+MORALIS_API_KEY=your_moralis_key
+
+# Required for swap execution
+MATCHA_API_KEY=your_0x_key
+
+# Optional: Telegram notifications
+MAIN_BOT_TOKEN=your_telegram_bot_token
+
+# Optional: AI features
+OPENAI_API_KEY=your_openai_key
+</code></pre>
+<blockquote>
+<p><strong>Tip:</strong> Run <code>sam doctor</code> after setup to validate all keys and check service connectivity.</p>
+</blockquote>
+<h3>Step 2: Start Services</h3>
+<pre><code class="language-bash"># Start PostgreSQL and Redis
+docker compose -f docker-compose.dev.yml up -d
+
+# Install, generate protos, build
+pnpm install &amp;&amp; pnpm proto:gen &amp;&amp; pnpm build
+
+# Run database migrations
+make db-migrate
+
+# Start all services in development mode
+pnpm dev
+</code></pre>
+<p>At this point, the gRPC services are running on localhost with these default ports:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Token Data</td>
+<td>50061</td>
+</tr>
+<tr>
+<td>Wallet Data</td>
+<td>50062</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>50059</td>
+</tr>
+<tr>
+<td>Main</td>
+<td>50060</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>50056</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>50054</td>
+</tr>
+</tbody></table>
+<h3>Step 3: Verify with Doctor</h3>
+<pre><code class="language-bash">sam doctor
+</code></pre>
+<p>Expected output:</p>
+<pre><code>SAM Terminal Doctor
+────────────────────────────────
+
+System Prerequisites
+  ✓ Node.js: v22.0.0
+  ✓ pnpm: 9.15.0
+  ✓ Docker: Docker version 27.x
+
+Services
+  ✓ PostgreSQL (localhost:5432): Reachable
+  ✓ Redis (localhost:6379): Reachable
+  ✓ Docker Engine: Running
+
+API Keys
+  ✓ Alchemy API Key: valid
+  ✓ Moralis API Key: valid
+  ✓ Telegram Bot Token: @my_bot
+  ○ OpenAI API Key: Not set (optional)
+
+All checks passed! (10 pass, 1 warnings)
+</code></pre>
+<hr>
+<h2>Part 2: Connecting Your OpenClaw Agent</h2>
+<h3>Option A: Claude Desktop</h3>
+<p>Add the MCP server to your Claude Desktop config:</p>
+<p><strong>macOS:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>
+<strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;sam-terminal&quot;: {
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [&quot;./packages/mcp-server/dist/index.js&quot;],
+      &quot;cwd&quot;: &quot;/path/to/samterminal&quot;,
+      &quot;env&quot;: {
+        &quot;MICROSERVICES_HOST&quot;: &quot;localhost&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>Restart Claude Desktop. You should see &quot;sam-terminal&quot; in the MCP tools list with 40 tools available.</p>
+<h3>Option B: Using the OpenClaw Skill Package</h3>
+<p>If your platform supports OpenClaw skill discovery, the skill package at <code>packages/openclaw-skill/</code> provides everything automatically:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;sam-terminal&quot;,
+  &quot;mcp&quot;: {
+    &quot;command&quot;: &quot;npx&quot;,
+    &quot;args&quot;: [&quot;@samterminal/mcp-server&quot;],
+    &quot;env&quot;: {
+      &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
+      &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+      &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+      &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;
+    }
+  }
+}
+</code></pre>
+<p>The <code>SKILL.md</code> file teaches the agent what each tool does, when to use it, and critical safety rules. This is what makes the agent competent at trading -- not just capable.</p>
+<h3>Option C: Cursor / Other MCP Clients</h3>
+<p>Any MCP-compatible client works. Point it to the MCP server binary and set the gRPC host environment variables. The server auto-discovers all backend services.</p>
+<hr>
+<h2>Part 3: What Your Agent Can Do</h2>
+<p>Once connected, your agent has access to 40 tools across 9 categories. Here&#39;s what matters for trading:</p>
+<h3>Token Intelligence</h3>
+<pre><code>&quot;What&#39;s BRETT trading at?&quot;
+→ sam_token_search + sam_get_token_price
+
+&quot;Give me full details on this token: 0x532f...&quot;
+→ sam_get_token_info (name, symbol, supply, pool, price, volume)
+
+&quot;Start tracking TOSHI&quot;
+→ sam_token_track (enables price monitoring and alerts)
+</code></pre>
+<h3>Wallet Management</h3>
+<pre><code>&quot;Show my Base wallet&quot;
+→ sam_get_wallet_details (all holdings with USD values)
+
+&quot;Label this wallet as &#39;DCA Bot&#39;&quot;
+→ sam_wallet_label
+
+&quot;What wallets am I tracking?&quot;
+→ sam_wallet_tracked_list
+</code></pre>
+<h3>Swap Execution</h3>
+<pre><code>&quot;Swap 0.5 ETH to USDC on Base&quot;
+→ sam_swap_quote → user confirmation → sam_swap_execute
+</code></pre>
+<p>The SKILL.md enforces a strict safety protocol:</p>
+<ol>
+<li><strong>Always quote first</strong> -- show the user expected output and fees</li>
+<li><strong>Always confirm</strong> -- never execute without explicit &quot;yes&quot;</li>
+<li><strong>Slippage guard</strong> -- warn at &gt;3%, refuse at &gt;10%</li>
+<li><strong>Large trade warning</strong> -- extra confirmation for trades &gt;$1000</li>
+</ol>
+<h3>Notifications</h3>
+<pre><code>&quot;Send me a Telegram message when this is done&quot;
+→ sam_notify_send
+
+&quot;Set up my Telegram bot&quot;
+→ sam_notify_bot_url → user clicks link → sam_notify_bot_state to verify
+</code></pre>
+<h3>Scheduling</h3>
+<pre><code>&quot;Check ETH price every hour&quot;
+→ sam_schedule_create with cron: &quot;0 * * * *&quot;
+
+&quot;What schedules are running?&quot;
+→ sam_schedule_list
+</code></pre>
+<hr>
+<h2>Part 4: Trading Automation Workflows</h2>
+<p>This is where SAM Terminal really shines. The Workflow Engine lets your agent build DAG-based automation workflows through natural language.</p>
+<h3>Workflow 1: Price Alert</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;Alert me on Telegram if ETH drops below $3000&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: 30s] → [Get ETH Price] → [Price &lt; $3000?]
+                                          │
+                                   YES    │    NO
+                                    │     │     │
+                                    v     │  [wait]
+                            [Telegram Alert]
+</code></pre>
+<p><strong>The tool calls:</strong></p>
+<pre><code>1. sam_token_search({ query: &quot;ETH&quot; })
+2. sam_flow_create({
+     name: &quot;ETH Price Alert&quot;,
+     nodes: [
+       { type: &quot;trigger&quot;, data: { triggerType: &quot;schedule&quot;, config: { interval: 30000 } } },
+       { type: &quot;action&quot;, data: { pluginName: &quot;tokendata&quot;, actionName: &quot;getMarket&quot;, params: { address: &quot;0x...&quot; } } },
+       { type: &quot;condition&quot;, data: { conditions: [{ field: &quot;price&quot;, operator: &quot;lt&quot;, value: 3000 }] } },
+       { type: &quot;action&quot;, data: { pluginName: &quot;telegram&quot;, actionName: &quot;send&quot;, params: { message: &quot;ETH is below $3000!&quot; } } },
+       { type: &quot;output&quot;, data: { outputType: &quot;return&quot; } }
+     ],
+     edges: [...]
+   })
+</code></pre>
+<h3>Workflow 2: Dollar-Cost Averaging (DCA)</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;Buy $100 of ETH every day using USDC&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: daily] → [Swap $100 USDC → ETH] → [Telegram: &quot;DCA executed&quot;]
+</code></pre>
+<p><strong>Best practice configuration:</strong></p>
+<ul>
+<li>Set <code>maxExecutions</code> to limit total buys (e.g., 30 for a month)</li>
+<li>Add conditions to skip buys during extreme volatility</li>
+<li>Use <code>sam_get_wallet_details</code> before each buy to verify USDC balance</li>
+</ul>
+<h3>Workflow 3: Conditional DCA (Smart Buy)</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;Buy $200 of ETH daily, but only when price is below $3500
+       and 24h volume is above $1M. Max budget: $5000 total.&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: daily]
+      │
+      v
+[Get ETH Market Data]
+      │
+      v
+[Price &lt; $3500 AND Volume &gt; $1M?]
+      │                │
+     YES               NO
+      │                │
+      v            [skip]
+[Swap $200 USDC → ETH]
+  (maxTotal: $5000)
+      │
+      v
+[Telegram: &quot;Bought $200 ETH at $X&quot;]
+</code></pre>
+<p>This uses the <code>smart-entry</code> order template under the hood with budget limits and cooldown protection.</p>
+<h3>Workflow 4: Stop-Loss + Take-Profit (Dual Protection)</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;I&#39;m holding BRETT. Set a stop-loss at $0.05 and take-profit at $0.15.
+       Sell everything on stop-loss, sell 50% on take-profit.&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: 30s]
+      │
+      v
+[Get BRETT Price]
+      │
+      v
+[Price ≤ $0.05?]──YES──→ [Sell 100%] → [Alert: &quot;Stop-loss hit&quot;]
+      │
+      NO
+      │
+      v
+[Price ≥ $0.15?]──YES──→ [Sell 50%] → [Alert: &quot;Take-profit hit&quot;]
+      │
+      NO
+      │
+   [wait]
+</code></pre>
+<p>The stop-loss branch has priority -- if both trigger simultaneously, it sells everything first.</p>
+<h3>Workflow 5: Whale Copy Trading</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;Watch this wallet: 0xWhale...
+       When they buy any token worth more than $5000, buy $500 of the same token.&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: 60s]
+      │
+      v
+[Get Whale Wallet Tokens]
+      │
+      v
+[Compare with Previous Snapshot]
+      │
+      v
+[New Token &gt; $5000 Purchase?]──YES──→ [Swap $500 → Same Token] → [Alert]
+      │
+      NO
+      │
+   [wait]
+</code></pre>
+<blockquote>
+<p><strong>Risk warning:</strong> Whale copy trading is inherently risky. The agent should warn the user about front-running risk, timing delays, and the fact that past performance doesn&#39;t predict future results.</p>
+</blockquote>
+<h3>Workflow 6: Portfolio Rebalance Alert</h3>
+<p><strong>The conversation:</strong></p>
+<pre><code>User: &quot;Every morning at 9am, check my portfolio and send me a summary
+       on Telegram with each token&#39;s allocation percentage.&quot;
+</code></pre>
+<p><strong>What the agent builds:</strong></p>
+<pre><code>[Schedule: cron &quot;0 9 * * *&quot;]
+      │
+      v
+[Get Wallet Details]
+      │
+      v
+[AI Generate Summary]
+      │
+      v
+[Telegram: formatted portfolio report]
+</code></pre>
+<p>This combines <code>sam_get_wallet_details</code> with <code>sam_ai_generate</code> to produce a human-readable daily briefing.</p>
+<hr>
+<h2>Part 5: Best Practices</h2>
+<h3>Safety First</h3>
+<p>These rules are embedded in the SKILL.md file. Your agent should follow them automatically, but verify:</p>
+<ol>
+<li><strong>Never auto-execute swaps.</strong> Always show a quote and wait for explicit confirmation.</li>
+<li><strong>Validate before trading.</strong> Check token liquidity, holder count, and age before buying. Low liquidity = high slippage risk.</li>
+<li><strong>Set budget limits.</strong> Use <code>maxSpendTotal</code> on smart-entry and DCA orders. Unbounded strategies can drain wallets.</li>
+<li><strong>Use cooldowns.</strong> The <code>cooldownMinutes</code> parameter prevents rapid-fire trades during volatile periods.</li>
+<li><strong>Monitor slippage.</strong> Refuse trades with &gt;10% slippage unless the user explicitly overrides.</li>
+</ol>
+<h3>Condition Design</h3>
+<p>Good conditions prevent bad trades. Here are proven patterns:</p>
+<p><strong>Safe token filter (use before any buy):</strong></p>
+<pre><code>Holders ≥ 1000 AND Liquidity ≥ $500K AND TokenAge ≥ 7 days AND Volume24h ≥ $100K
+</code></pre>
+<p><strong>Dip buy signal:</strong></p>
+<pre><code>PriceChange1h ≤ -5% AND Volume24h ≥ $1M AND BuyPressure ≥ 0.4
+</code></pre>
+<p><strong>Danger signal (trigger alerts):</strong></p>
+<pre><code>PriceChange24h ≤ -20% OR Liquidity &lt; $50K OR SellPressure ≥ 0.8
+</code></pre>
+<h3>Available Condition Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it measures</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>price</code></td>
+<td>Current token price in USD</td>
+</tr>
+<tr>
+<td><code>priceChange1h</code></td>
+<td>1-hour price change (%)</td>
+</tr>
+<tr>
+<td><code>priceChange24h</code></td>
+<td>24-hour price change (%)</td>
+</tr>
+<tr>
+<td><code>priceChange7d</code></td>
+<td>7-day price change (%)</td>
+</tr>
+<tr>
+<td><code>mcap</code></td>
+<td>Market capitalization ($)</td>
+</tr>
+<tr>
+<td><code>volume24h</code></td>
+<td>24-hour trading volume ($)</td>
+</tr>
+<tr>
+<td><code>liquidity</code></td>
+<td>Liquidity pool size ($)</td>
+</tr>
+<tr>
+<td><code>holders</code></td>
+<td>Number of token holders</td>
+</tr>
+<tr>
+<td><code>txCount24h</code></td>
+<td>24-hour transaction count</td>
+</tr>
+<tr>
+<td><code>buyPressure</code></td>
+<td>Buy pressure ratio (0-1)</td>
+</tr>
+<tr>
+<td><code>sellPressure</code></td>
+<td>Sell pressure ratio (0-1)</td>
+</tr>
+</tbody></table>
+<h3>Operators</h3>
+<p><code>eq</code> (equal), <code>neq</code> (not equal), <code>gt</code> (greater), <code>gte</code> (greater or equal), <code>lt</code> (less), <code>lte</code> (less or equal), <code>between</code> (range), <code>change</code> (% change from previous)</p>
+<h3>Workflow Engine Tips</h3>
+<ul>
+<li><strong>Check interval:</strong> Default is 30 seconds. For price alerts, this is fine. For DCA, use the named intervals (<code>hourly</code>, <code>daily</code>, <code>weekly</code>).</li>
+<li><strong>Notifications:</strong> Always add a notification node at the end of critical workflows. Silent failures are the worst kind.</li>
+<li><strong>Chain awareness:</strong> Always specify <code>chainId</code> in workflow nodes. If omitted, it defaults to Base.</li>
+<li><strong>Template first:</strong> Use <code>sam_flow_create_from_template</code> for standard patterns before building custom workflows.</li>
+</ul>
+<h3>Monitoring Your Workflows</h3>
+<pre><code>&quot;What workflows are running?&quot;       → sam_flow_list
+&quot;Show me details of workflow X&quot;    → sam_flow_get
+&quot;What&#39;s the status of execution Y&quot; → sam_flow_status
+&quot;List my active orders&quot;            → sam order list --status active
+</code></pre>
+<p>Teach your agent to proactively check workflow status after creation and report any failures.</p>
+<hr>
+<h2>Part 6: Operational Best Practices</h2>
+<h3>API Key Management</h3>
+<ul>
+<li><strong>Never hardcode keys</strong> in skill files or prompts. Use environment variables.</li>
+<li><strong>Rotate keys regularly.</strong> If a key leaks, it has direct access to your trading infrastructure.</li>
+<li><strong>Use separate keys</strong> for development and production.</li>
+<li><strong>Run <code>sam doctor</code> periodically</strong> to verify all keys are still valid.</li>
+</ul>
+<h3>Resource Management</h3>
+<ul>
+<li><strong>Limit concurrent workflows.</strong> Each active workflow makes periodic API calls. 50 workflows checking every 30 seconds = 100 API calls/minute.</li>
+<li><strong>Clean up completed orders.</strong> Use <code>sam order list</code> and cancel stale ones.</li>
+<li><strong>Monitor schedule count.</strong> Too many schedules can overwhelm the backend. Use <code>sam_schedule_list</code> to audit.</li>
+</ul>
+<h3>Multi-Chain Considerations</h3>
+<ul>
+<li><strong>Always verify the active chain</strong> before executing a transaction: <code>sam_chain_current</code></li>
+<li><strong>Switch explicitly</strong> when needed: <code>sam_chain_switch({ chainId: &quot;arbitrum&quot; })</code></li>
+<li><strong>Token addresses differ across chains.</strong> USDC on Base is not the same contract as USDC on Ethereum.</li>
+</ul>
+<h3>Testing Strategies</h3>
+<p>Before deploying a trading strategy with real funds:</p>
+<ol>
+<li><strong>Start with alerts only.</strong> Build the workflow but replace swap actions with notifications.</li>
+<li><strong>Use small amounts.</strong> Test with $1-5 trades to verify the workflow works end-to-end.</li>
+<li><strong>Monitor for a day.</strong> Watch how the workflow behaves across market conditions.</li>
+<li><strong>Gradually increase.</strong> Scale up amounts only after confirming correct behavior.</li>
+</ol>
+<hr>
+<h2>Quick Reference: Essential Commands</h2>
+<table>
+<thead>
+<tr>
+<th>What you want</th>
+<th>What to say to your agent</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Check a token price</td>
+<td>&quot;What&#39;s the price of X?&quot;</td>
+</tr>
+<tr>
+<td>Track a token</td>
+<td>&quot;Start tracking X&quot;</td>
+</tr>
+<tr>
+<td>View wallet</td>
+<td>&quot;Show my wallet on Base&quot;</td>
+</tr>
+<tr>
+<td>Swap tokens</td>
+<td>&quot;Swap X for Y&quot;</td>
+</tr>
+<tr>
+<td>Set price alert</td>
+<td>&quot;Alert me if X drops below $Y&quot;</td>
+</tr>
+<tr>
+<td>Create DCA</td>
+<td>&quot;Buy $X of Y every day/week&quot;</td>
+</tr>
+<tr>
+<td>Set stop-loss</td>
+<td>&quot;Set stop-loss on X at $Y&quot;</td>
+</tr>
+<tr>
+<td>Set take-profit</td>
+<td>&quot;Sell half my X when it reaches $Y&quot;</td>
+</tr>
+<tr>
+<td>Portfolio report</td>
+<td>&quot;Give me a portfolio summary every morning&quot;</td>
+</tr>
+<tr>
+<td>Watch a whale</td>
+<td>&quot;Track wallet 0x... and copy trades above $X&quot;</td>
+</tr>
+<tr>
+<td>Check status</td>
+<td>&quot;What flows/orders/schedules are running?&quot;</td>
+</tr>
+<tr>
+<td>Switch chain</td>
+<td>&quot;Switch to Arbitrum&quot;</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Conclusion</h2>
+<p>SAM Terminal turns your OpenClaw agent from a chatbot into a trading operator. The combination of 40 MCP tools, a DAG-based workflow engine, 10 order templates, and a condition system with 11 data fields gives your agent everything it needs to execute sophisticated onchain strategies.</p>
+<p>The key insight: <strong>you don&#39;t need to be a developer to build trading automation.</strong> If you can describe what you want in plain English, your agent can build it.</p>
+<p>Start simple -- track a token, set a price alert. Then layer on complexity: add conditions, schedule DCA, set up dual protection. The infrastructure scales with your ambition.</p>
+<p><strong>Resources:</strong></p>
+<ul>
+<li><a href="/docs/getting-started">Getting Started</a> -- First-time setup walkthrough</li>
+<li><a href="/docs/mcp-setup-guide">MCP Setup Guide</a> -- Detailed MCP configuration</li>
+<li><a href="/docs/openclaw-skills">OpenClaw Skills</a> -- How skill files work</li>
+<li><a href="/docs/building-trading-agents">Building Trading Agents</a> -- Advanced agent patterns</li>
+<li><a href="https://github.com/samterminal/samterminal">GitHub Repository</a> -- Source code and issues</li>
+</ul>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

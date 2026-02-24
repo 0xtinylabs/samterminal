@@ -1,0 +1,61 @@
+# SAM Terminal
+
+> Automation Framework for Onchain Trading
+
+SAM Terminal is a plugin-based trading framework for AI agents. Build agents that execute swaps, track token prices, manage portfolios, and automate onchain trading strategies. MCP-compatible, works with OpenClaw, Claude and Cursor.
+
+## Links
+
+- Website: https://samterminal.com
+- GitHub: https://github.com/samterminal/samterminal
+- X (Twitter): https://x.com/samterminalcom
+
+## Docs
+
+- Getting Started: https://samterminal.com/docs/getting-started
+- MCP Setup Guide: https://samterminal.com/docs/mcp-setup-guide
+- Plugin Development: https://samterminal.com/docs/plugin-development
+- Building Trading Agents: https://samterminal.com/docs/building-trading-agents
+- OpenClaw Skills: https://samterminal.com/docs/openclaw-skills
+- OpenClaw Trading Automation: https://samterminal.com/docs/openclaw-trading-automation
+- Connecting Your OpenClaw Agent: https://samterminal.com/docs/connecting-openclaw-agent
+- Real-Time Token Discovery: https://samterminal.com/docs/real-time-token-discovery
+- Architecture Deep Dive: https://samterminal.com/docs/architecture
+- Manifesto: https://samterminal.com/docs/manifesto
+- API Reference: https://samterminal.com/docs/api-reference
+
+## Key Features
+
+- Plugin Architecture: Modular system with actions, providers, evaluators, lifecycle hooks, and dependency injection
+- Runtime Engine: State machine orchestration, scheduled tasks, concurrent execution, multi-chain support
+- Workflow Engine: DAG-based workflow execution with triggers, conditions, loops, delays, and error handling
+- Order Templates: 10 built-in trading strategies (stop-loss, take-profit, DCA, trailing-stop, dual-protection, smart-entry, whale-copy, TWAP, conditional-buy/sell)
+- MCP Server: 40+ tools across 9 categories for AI assistant integration
+- Multi-Chain: Base, Ethereum, Arbitrum, Polygon, Optimism, BSC
+- CLI: Agent scaffolding, plugin management, order creation, environment diagnostics
+
+## Tech Stack
+
+- TypeScript, Node.js, NestJS, Go
+- Turborepo monorepo
+- gRPC microservices
+- PostgreSQL, Redis
+- Docker Compose
+
+## Quick Start
+
+```bash
+npx @samterminal/cli init my-agent
+cd my-agent
+pnpm install
+pnpm dev
+```
+
+## Available Plugins
+
+- @samterminal/plugin-tokendata: Token prices, market data, pools, security scores
+- @samterminal/plugin-walletdata: Portfolio tracking, transactions, NFTs, approvals
+- @samterminal/plugin-swap: DEX token swaps via 0x protocol
+- @samterminal/plugin-ai: LLM integration (OpenAI, Anthropic) for chat, classification, extraction
+- @samterminal/plugin-telegram: Telegram bot notifications and alerts
+- @samterminal/plugin-onboarding: User onboarding flows and progress tracking

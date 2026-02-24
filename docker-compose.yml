@@ -1,0 +1,226 @@
+# ============================================================
+# SamTerminal - Docker Compose
+# ============================================================
+# Start all services with one command: docker compose up -d
+# ============================================================
+
+services:
+  # ============================================================
+  # PostgreSQL Database
+  # ============================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: samterminal-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+      POSTGRES_MULTIPLE_DATABASES: samterminal_user,tokendata,walletdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/init-multi-db.sh:/docker-entrypoint-initdb.d/init-multi-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - samterminal-network
+
+  # ============================================================
+  # Redis (Cache & Queue)
+  # ============================================================
+  redis:
+    image: redis:7-alpine
+    container_name: samterminal-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - samterminal-network
+
+  # ============================================================
+  # NestJS Services
+  # ============================================================
+
+  # Main Service (API Gateway)
+  main:
+    build:
+      context: .
+      dockerfile: docker/nestjs.Dockerfile
+      args:
+        SERVICE_NAME: main
+    container_name: samterminal-main
+    ports:
+      - "50060:50060"
+    environment:
+      - NODE_ENV=production
+      - DOCKER=true
+      - MAIN_PORT=50060
+      - MAIN_HOSTNAME=0.0.0.0
+      - MAIN_TOKEN_SERVICE_HOST=tokendata
+      - MAIN_TOKEN_SERVICE_PORT=50061
+      - MAIN_WALLET_SERVICE_HOST=walletdata
+      - MAIN_WALLET_SERVICE_PORT=50062
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      tokendata:
+        condition: service_started
+      walletdata:
+        condition: service_started
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+  # Swap Service
+  swap:
+    build:
+      context: .
+      dockerfile: docker/nestjs.Dockerfile
+      args:
+        SERVICE_NAME: swap
+    container_name: samterminal-swap
+    ports:
+      - "50059:50059"
+    environment:
+      - NODE_ENV=production
+      - DOCKER=true
+      - SWAP_PORT=50059
+      - SWAP_HOSTNAME=0.0.0.0
+      - USER_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/samterminal_user
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+  # Notification Service
+  notification:
+    build:
+      context: .
+      dockerfile: docker/nestjs.Dockerfile
+      args:
+        SERVICE_NAME: notification
+    container_name: samterminal-notification
+    ports:
+      - "50056:50056"
+    environment:
+      - NODE_ENV=production
+      - DOCKER=true
+      - NOTIFICATION_PORT=50056
+      - NOTIFICATION_HOSTNAME=0.0.0.0
+      - USER_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/samterminal_user
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+  # Transactions Service
+  transactions:
+    build:
+      context: .
+      dockerfile: docker/nestjs.Dockerfile
+      args:
+        SERVICE_NAME: transactions
+    container_name: samterminal-transactions
+    ports:
+      - "50054:50054"
+    environment:
+      - NODE_ENV=production
+      - DOCKER=true
+      - TRANSACTIONS_PORT=50054
+      - TRANSACTIONS_HOSTNAME=0.0.0.0
+      - USER_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/samterminal_user
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+  # ============================================================
+  # Go Services
+  # ============================================================
+
+  # TokenData Service (Go)
+  tokendata:
+    build:
+      context: .
+      dockerfile: docker/go.Dockerfile
+      args:
+        SERVICE_NAME: tokendata
+    container_name: samterminal-tokendata
+    ports:
+      - "50061:50061"
+      - "8081:8081"
+    environment:
+      - DOCKER=true
+      - TOKENDATA_PORT=50061
+      - TOKENDATA_HTTP_PORT=8081
+      - TOKENDATA_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/tokendata
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+  # WalletData Service (Go)
+  walletdata:
+    build:
+      context: .
+      dockerfile: docker/go.Dockerfile
+      args:
+        SERVICE_NAME: walletdata
+    container_name: samterminal-walletdata
+    ports:
+      - "50062:50062"
+      - "8082:8082"
+    environment:
+      - DOCKER=true
+      - WALLETDATA_PORT=50062
+      - WALLETDATA_HTTP_PORT=8082
+      - WALLETDATA_DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/walletdata
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - samterminal-network
+    restart: unless-stopped
+
+# ============================================================
+# Networks
+# ============================================================
+networks:
+  samterminal-network:
+    driver: bridge
+
+# ============================================================
+# Volumes
+# ============================================================
+volumes:
+  postgres-data:
+  redis-data:

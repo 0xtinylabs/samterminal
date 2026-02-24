@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package token;
+
+option go_package = "tokendata/proto/token";
+
+import "common/common.proto";
+
+enum TokenAddingType {
+    DUPLICATE = 0;
+    FIRST_TIME = 1;
+    ADD_ERROR = 2;
+}
+
+enum TokenRemovingType {
+    STILL_CALCULATES = 0;
+    ALL_CLEAR = 1;
+    REMOVE_ERROR = 2;
+}
+
+message AddTokenRequest {
+    string tokenAddress = 1;
+    optional string name = 2;
+    optional string symbol = 3;
+    optional string image = 4;
+    optional string poolAddress = 5;
+    optional string circulatedSupply = 6;
+    optional string pairAddress = 7;
+    optional string reason = 8;
+    optional string initialPrice = 9;
+}
+
+message AddTokenResponse {
+    bool success = 1;
+    TokenAddingType type = 2;
+    string Message = 3;
+}
+
+message GetTokenRequest {
+    string tokenAddress = 1;
+    bool addIfNotExist = 2;
+}
+
+message GetTokenPriceRequest {
+    string tokenAddress = 1;
+    optional string reason = 2;
+}
+
+message GetTokenPriceResponse {
+    bool success = 1;
+    string price = 2;
+    string volume = 3;
+}
+
+message GetTokenResponse {
+    common.Token token = 1;
+}
+
+message RemoveTokenRequest {
+    string tokenAddress = 1;
+    optional bool bypassEnds = 2;
+}
+
+message RemoveTokenResponse {
+    bool success = 1;
+    TokenRemovingType type = 2;
+    string Message = 3;
+}
+
+message GetTokensRequest {
+    repeated string tokenAddresses = 1;
+}
+
+message GetTokensResponse {
+    repeated common.Token tokens = 1;
+}
+
+message AddBlacklistRequest {
+    repeated string tokenAddresses = 1;
+}
+
+message AddBlacklistResponse {
+    bool success = 1;
+}

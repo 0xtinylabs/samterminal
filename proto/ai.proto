@@ -1,0 +1,56 @@
+syntax = "proto3";
+import "google/protobuf/struct.proto";
+
+package ai;
+
+enum PromptMessageRole {
+      ASSISTANT = 0;
+      SYSTEM = 1;
+      TOOL = 2;
+      USER = 3;
+}
+
+message PromptMessage {
+  PromptMessageRole role = 1;
+  string content = 2;
+}
+
+message GenerateTextRequest  { 
+     repeated PromptMessage messages = 1;
+     optional float temperature = 2;
+     optional string apikey = 3; 
+} 
+
+message GenerateJSONRequest  { 
+     repeated PromptMessage messages = 1;
+     optional float temperature = 2;
+     optional string apikey = 3; 
+} 
+
+message CheckAPIKeyRequest {
+    string apiKey = 1;
+}
+
+message CheckAPIKeyResponse {
+    bool success = 1;
+}
+
+message GenerateTextResponse {
+    optional string text = 1;
+    optional string id = 2;
+    optional string error = 3;
+}
+
+message GenerateJSONResponse {
+    optional google.protobuf.Struct json = 1;
+    optional string id = 2;
+    optional string error = 3;
+    optional string text = 4;
+}
+
+
+service AIService {
+    rpc generateText (GenerateTextRequest) returns (GenerateTextResponse);
+    rpc generateJSON (GenerateJSONRequest) returns (GenerateJSONResponse);
+    rpc checkAPIKey (CheckAPIKeyRequest) returns (CheckAPIKeyResponse);
+} 

@@ -1,0 +1,64 @@
+# ============================================================
+# Docker Ignore
+# ============================================================
+
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+dist
+**/dist
+coverage
+**/coverage
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Environment (will use docker-compose env_file)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test
+**/*.spec.ts
+**/*.test.ts
+**/test
+**/tests
+**/__tests__
+
+# Documentation
+*.md
+!README.md
+docs
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+
+# Turborepo
+.turbo
+
+# Go
+**/*.exe
+**/*.exe~
+**/*.dll
+**/*.so
+**/*.dylib

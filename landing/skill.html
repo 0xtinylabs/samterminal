@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Guide — SAM Terminal</title>
+  <meta name="description" content="AI agent skill guide for SAM Terminal. Teach AI assistants how to operate your project.">
+  <link rel="canonical" href="https://samterminal.com/skill">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Skill Guide — SAM Terminal">
+  <meta property="og:description" content="AI agent skill guide for SAM Terminal. Teach AI assistants how to operate your project.">
+  <meta property="og:url" content="https://samterminal.com/skill">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Skill Guide — SAM Terminal">
+  <meta name="twitter:description" content="AI agent skill guide for SAM Terminal. Teach AI assistants how to operate your project.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "SAM Terminal AI Agent Skill Guide",
+    "description": "AI agent skill guide for SAM Terminal. Teach AI assistants how to operate your project.",
+    "url": "https://samterminal.com/skill",
+    "author": { "@type": "Organization", "name": "SAM Terminal", "url": "https://samterminal.com" },
+    "publisher": { "@type": "Organization", "name": "SAM Terminal", "url": "https://samterminal.com" }
+  }
+  </script>
+
+  <style>
+    .skill-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .skill-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .skill-back:hover {
+      color: var(--green);
+    }
+    .skill-content {
+      line-height: 1.8;
+    }
+    .skill-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .skill-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .skill-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .skill-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .skill-content a {
+      color: var(--green);
+    }
+    .skill-content a:hover {
+      text-decoration: underline;
+    }
+    .skill-content ul,
+    .skill-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .skill-content li {
+      margin-bottom: 0.4rem;
+    }
+    .skill-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .skill-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .skill-content p code,
+    .skill-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .skill-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .skill-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .skill-content th,
+    .skill-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .skill-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .skill-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .skill-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .skill-raw-link {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 2rem;
+      margin-left: 1rem;
+      transition: all 0.2s;
+    }
+    .skill-raw-link:hover {
+      color: var(--green);
+      border-color: var(--green);
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link active">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="skill-container">
+    <a href="/" class="skill-back">&larr; back to home</a>
+    <a href="/skill.md" class="skill-raw-link" target="_blank">view raw .md</a>
+    <div class="skill-content">
+      <h1>SAM Terminal — AI Agent Skill Guide</h1>
+<blockquote>
+<p>This file teaches AI assistants how to operate SAM Terminal projects. Use it as context for Claude, Cursor, or any MCP-compatible assistant.</p>
+</blockquote>
+<h2>CLI Commands</h2>
+<h3>Project Management</h3>
+<pre><code class="language-bash">sam init &lt;project-name&gt;        # Scaffold a new agent project
+sam run                        # Start agent in production mode
+sam dev                        # Start agent in dev mode (hot reload)
+sam order                      # Generate flow from natural language
+</code></pre>
+<h3>Plugin Management</h3>
+<pre><code class="language-bash">sam plugin install &lt;name&gt;      # Install a plugin
+sam plugin remove &lt;name&gt;       # Remove a plugin
+sam plugin list                # List installed plugins
+</code></pre>
+<h2>Configuration</h2>
+<p>Config file: <code>samterminal.config.json</code></p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;my-agent&quot;,
+  &quot;plugins&quot;: [
+    &quot;@samterminal/plugin-tokendata&quot;,
+    &quot;@samterminal/plugin-swap&quot;,
+    &quot;@samterminal/plugin-walletdata&quot;,
+    &quot;@samterminal/plugin-ai&quot;,
+    &quot;@samterminal/plugin-telegram&quot;
+  ],
+  &quot;chains&quot;: {
+    &quot;default&quot;: &quot;base&quot;,
+    &quot;supported&quot;: [&quot;base&quot;, &quot;ethereum&quot;, &quot;arbitrum&quot;, &quot;polygon&quot;, &quot;optimism&quot;, &quot;bsc&quot;]
+  },
+  &quot;runtime&quot;: {
+    &quot;port&quot;: 3000,
+    &quot;logLevel&quot;: &quot;info&quot;
+  }
+}</code></pre>
+<h2>Available Plugins</h2>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Package</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TokenData</td>
+<td><code>@samterminal/plugin-tokendata</code></td>
+<td>Token prices, metadata, search, security, pools, market data</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td><code>@samterminal/plugin-swap</code></td>
+<td>DEX swap execution via 0x API, quotes, allowances</td>
+</tr>
+<tr>
+<td>WalletData</td>
+<td><code>@samterminal/plugin-walletdata</code></td>
+<td>Portfolio, token balances, NFTs, transactions, approvals</td>
+</tr>
+<tr>
+<td>AI</td>
+<td><code>@samterminal/plugin-ai</code></td>
+<td>Multi-provider AI (OpenAI, Anthropic, Ollama) — chat, classify, generate, summarize</td>
+</tr>
+<tr>
+<td>Telegram</td>
+<td><code>@samterminal/plugin-telegram</code></td>
+<td>Telegram bot notifications and alerts</td>
+</tr>
+<tr>
+<td>Onboarding</td>
+<td><code>@samterminal/plugin-onboarding</code></td>
+<td>User onboarding flows and progress tracking</td>
+</tr>
+</tbody></table>
+<h2>Environment Variables</h2>
+<pre><code class="language-bash"># Core
+SAM_GRPC_HOST=localhost
+SAM_LOG_LEVEL=info
+
+# Database
+DATABASE_URL=postgresql://user:pass@localhost:5432/sam
+REDIS_URL=redis://localhost:6379
+
+# Plugin: TokenData
+MORALIS_API_KEY=your_moralis_key
+COINGECKO_API_KEY=your_coingecko_key
+DEXSCREENER_API_KEY=your_dexscreener_key
+
+# Plugin: Swap
+ZEROX_API_KEY=your_0x_key
+
+# Plugin: AI
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+
+# Plugin: Telegram
+TELEGRAM_BOT_TOKEN=your_bot_token
+
+# MCP Server
+SAM_MCP_PORT=3001</code></pre>
+<h2>Programmatic API</h2>
+<pre><code class="language-typescript">import { SAMTerminal } from '@samterminal/core';
+import { TokenDataPlugin } from '@samterminal/plugin-tokendata';
+import { SwapPlugin } from '@samterminal/plugin-swap';
+
+// Initialize
+const agent = new SAMTerminal({
+  name: 'my-agent',
+  plugins: [
+    new TokenDataPlugin({ moralisApiKey: process.env.MORALIS_API_KEY }),
+    new SwapPlugin({ zeroxApiKey: process.env.ZEROX_API_KEY }),
+  ],
+  chains: { default: 'base' },
+});
+
+// Start the agent
+await agent.start();
+
+// Execute actions
+const price = await agent.execute('tokendata:get-price', { symbol: 'ETH' });
+const quote = await agent.execute('swap:get-quote', {
+  fromToken: 'USDC',
+  toToken: 'ETH',
+  amount: '100',
+  chain: 'base',
+});
+
+// Create and run flows
+const flow = agent.createFlow({
+  name: 'my-flow',
+  steps: [
+    { id: 'step1', action: 'tokendata:get-price', params: { symbol: 'ETH' } },
+    { id: 'step2', action: 'ai:classify', params: { input: '{{step1.result}}', categories: ['buy', 'hold', 'sell'] }, dependsOn: ['step1'] },
+  ],
+});
+await flow.execute();
+
+// Schedule recurring tasks
+agent.schedule({ name: 'hourly-check', cron: '0 * * * *', flow: 'my-flow' });
+
+// Shutdown gracefully
+await agent.shutdown();</code></pre>
+<h2>MCP Server Setup</h2>
+<p>Add to <code>claude_desktop_config.json</code>:</p>
+<pre><code class="language-json">{
+  "mcpServers": {
+    "sam-terminal": {
+      "command": "npx",
+      "args": ["-y", "@samterminal/mcp-server"],
+      "env": {
+        "SAM_GRPC_HOST": "localhost",
+        "SAM_MAIN_PORT": "50060",
+        "SAM_TOKEN_PORT": "50061",
+        "SAM_WALLET_PORT": "50062",
+        "SAM_SWAP_PORT": "50059",
+        "SAM_NOTIFICATION_PORT": "50056"
+      }
+    }
+  }
+}</code></pre>
+<p>The MCP server exposes 40 tools across 9 categories: Token, Wallet, Flow, Swap, AI, Notification, Scheduler, Chain, Plugin.</p>
+<h2>Project Structure</h2>
+<pre><code>sam/
+├── packages/
+│   ├── core/              # Runtime engine, plugin system, workflow engine
+│   ├── cli/               # CLI tool (sam init, run, dev, plugin, order)
+│   ├── mcp-server/        # MCP protocol server (40+ tools)
+│   └── plugins/
+│       ├── ai/            # AI provider (OpenAI, Anthropic, Ollama)
+│       ├── tokendata/     # Token prices and market data
+│       ├── walletdata/    # Wallet portfolio and transactions
+│       ├── swap/          # DEX swap execution
+│       ├── telegram/      # Telegram notifications
+│       └── onboarding/    # User onboarding flows
+├── services/
+│   ├── nestjs/            # NestJS microservices (TypeScript)
+│   └── go/                # Go microservices (high-performance)
+├── apps/
+│   └── playground/        # Example agents and usage demos
+├── proto/                 # gRPC Protocol Buffer definitions
+└── docker-compose.yml     # Full stack orchestration</code></pre>
+<h2>Common Workflows</h2>
+<h3>New Agent Setup</h3>
+<ol>
+<li><code>sam init my-agent</code></li>
+<li>Edit <code>samterminal.config.json</code> — add plugins</li>
+<li>Set environment variables in <code>.env</code></li>
+<li><code>sam dev</code> — start in development mode</li>
+</ol>
+<h3>Adding a Plugin</h3>
+<ol>
+<li><code>sam plugin install @samterminal/plugin-tokendata</code></li>
+<li>Add config in <code>samterminal.config.json</code></li>
+<li>Set required env vars</li>
+<li>Restart agent</li>
+</ol>
+<h3>Running with Docker</h3>
+<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+cd samterminal &amp;&amp; cp .env.example .env
+docker compose up -d</code></pre>
+    </div>
+  </div>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+  "name": "@samterminal/plugin-onboarding",
+  "version": "1.0.0",
+  "description": "User onboarding plugin for SamTerminal - guided flows, progress tracking, and user profiles",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./actions": {
+      "import": "./dist/actions/index.js",
+      "types": "./dist/actions/index.d.ts"
+    },
+    "./providers": {
+      "import": "./dist/providers/index.js",
+      "types": "./dist/providers/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:cov": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "peerDependencies": {
+    "@samterminal/core": "*"
+  },
+  "devDependencies": {
+    "@samterminal/core": "*",
+    "@samterminal/tsconfig": "*",
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.0",
+    "ts-jest": "^29.2.5",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.3"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "samterminal",
+    "plugin",
+    "onboarding",
+    "user-flow",
+    "wizard",
+    "tutorial"
+  ],
+  "author": "SamTerminal Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/samterminal/samterminal/tree/main/packages/plugins/onboarding",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samterminal/samterminal.git",
+    "directory": "packages/plugins/onboarding"
+  },
+  "bugs": {
+    "url": "https://github.com/samterminal/samterminal/issues"
+  }
+}

@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw Skills Guide — SAM Terminal</title>
+  <meta name="description" content="Teach AI assistants to operate your project autonomously with skill files.">
+  <link rel="canonical" href="https://samterminal.com/docs/openclaw-skills">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="OpenClaw Skills Guide">
+  <meta property="og:description" content="Teach AI assistants to operate your project autonomously with skill files.">
+  <meta property="og:url" content="https://samterminal.com/docs/openclaw-skills">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OpenClaw Skills Guide">
+  <meta name="twitter:description" content="Teach AI assistants to operate your project autonomously with skill files.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "OpenClaw Skills Guide",
+    "description": "Teach AI assistants to operate your project autonomously with skill files.",
+    "url": "https://samterminal.com/docs/openclaw-skills",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/openclaw-skills",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>OpenClaw Skills: Teaching AI to Operate SAM Terminal</h1>
+<p>OpenClaw Skills represent a paradigm shift in how AI assistants interact with software projects. Rather than relying on generic prompts and trial-and-error, skills provide structured, project-specific knowledge that enables AI assistants to operate autonomously and effectively.</p>
+<h2>What Are OpenClaw Skills?</h2>
+<p>An OpenClaw Skill is a structured markdown document (typically named <code>SKILL.md</code> or <code>CLAUDE.md</code>) that serves as a comprehensive instruction manual for AI assistants. Think of it as an onboarding guide that teaches an AI:</p>
+<ul>
+<li>What tools and commands are available</li>
+<li>How to execute common workflows</li>
+<li>Project-specific conventions and architecture</li>
+<li>Error handling and troubleshooting steps</li>
+<li>Configuration requirements and environment setup</li>
+</ul>
+<p>Unlike traditional documentation written for human developers, skill files are optimized for AI consumption. They combine reference material, procedural knowledge, and contextual examples in a format that language models can efficiently parse and apply.</p>
+<p><strong>Why Skills Matter:</strong></p>
+<ol>
+<li><strong>Autonomy</strong> - AI can complete complex multi-step tasks without constant human guidance</li>
+<li><strong>Accuracy</strong> - Reduces hallucination by providing authoritative command references</li>
+<li><strong>Efficiency</strong> - AI doesn&#39;t need to explore or guess; it knows exactly what tools exist</li>
+<li><strong>Consistency</strong> - Ensures AI follows project conventions and best practices</li>
+<li><strong>Safety</strong> - Documents destructive operations and required approval steps</li>
+</ol>
+<p>For SAM Terminal, skills are particularly powerful because they bridge three layers of functionality:</p>
+<ul>
+<li>CLI commands (<code>sam init</code>, <code>sam run</code>, etc.)</li>
+<li>MCP tools (40+ tools for token, wallet, workflow operations)</li>
+<li>Plugin configurations and order templates</li>
+</ul>
+<h2>How Skills Work</h2>
+<p>A skill file is structured markdown with specific sections that map to different aspects of operating a project. Here&#39;s the anatomy of an effective skill:</p>
+<h3>Core Sections</h3>
+<p><strong>1. Project Overview</strong></p>
+<pre><code class="language-markdown"># SAM Terminal Skill
+
+SAM Terminal is a Web3 automation framework...
+Stack: TypeScript, NestJS, Go, gRPC
+Networks: Base, Ethereum, Arbitrum, Polygon, Optimism, BSC
+</code></pre>
+<p><strong>2. Tool Reference</strong></p>
+<pre><code class="language-markdown">## CLI Commands
+
+### sam init [path]
+Initialize new agent project
+Options: --template, --plugins
+
+### sam run &lt;agent&gt;
+Execute agent with live plugins
+</code></pre>
+<p><strong>3. Workflow Patterns</strong></p>
+<pre><code class="language-markdown">## Common Workflows
+
+### Setting Up Trading Agent
+1. Run sam init my-agent --template trading
+2. Configure .env with RPC_URL, PRIVATE_KEY
+3. Install plugins: sam plugin install @samterminal/plugin-swap
+4. Test: sam dev my-agent
+</code></pre>
+<p><strong>4. Configuration Reference</strong></p>
+<pre><code class="language-markdown">## Required Environment Variables
+
+RPC_URL - Ethereum RPC endpoint
+PRIVATE_KEY - Wallet private key (never commit)
+TELEGRAM_BOT_TOKEN - For notifications (optional)
+</code></pre>
+<p><strong>5. Troubleshooting</strong></p>
+<pre><code class="language-markdown">## Common Issues
+
+Error: &quot;Plugin not found&quot;
+Solution: Run sam plugin install &lt;name&gt;
+
+Error: &quot;Insufficient gas&quot;
+Solution: Check wallet balance with sam_get_wallet
+</code></pre>
+<p>When an AI assistant loads a skill file, it gains instant expertise in the project. Instead of asking &quot;What commands are available?&quot; or making incorrect API calls, it can directly execute correct operations.</p>
+<h2>SAM Terminal&#39;s Skill File</h2>
+<p>SAM Terminal&#39;s official skill file (<code>skill.md</code>) is a 500+ line document that covers the entire platform. Here&#39;s what it includes:</p>
+<h3>CLI Command Reference</h3>
+<p>Complete documentation of all SAM Terminal CLI commands:</p>
+<pre><code class="language-bash"># Project Management
+sam init [path]               # Initialize new agent
+sam dev &lt;agent&gt;               # Development mode with hot reload
+sam run &lt;agent&gt;               # Production execution
+sam setup                     # Interactive configuration wizard
+sam doctor                    # Diagnose installation issues
+
+# Plugin Management
+sam plugin list               # Show installed plugins
+sam plugin install &lt;name&gt;     # Install plugin from npm
+sam plugin remove &lt;name&gt;      # Uninstall plugin
+sam plugin search &lt;query&gt;     # Search plugin registry
+
+# Order Management
+sam order create &lt;type&gt;       # Create trading order
+sam order list                # List active orders
+sam order cancel &lt;id&gt;         # Cancel order
+sam order status &lt;id&gt;         # Check order status
+</code></pre>
+<h3>MCP Tools Catalog</h3>
+<p>All 40 MCP tools organized by category:</p>
+<p><strong>Token Tools (7)</strong></p>
+<ul>
+<li><code>sam_get_tokens</code> - List all tracked tokens</li>
+<li><code>sam_get_token_price</code> - Real-time price data</li>
+<li><code>sam_get_token_info</code> - Metadata, contract, decimals</li>
+<li><code>sam_token_track</code> - Start monitoring token</li>
+<li><code>sam_token_untrack</code> - Stop monitoring</li>
+<li><code>sam_token_blacklist</code> - Block suspicious tokens</li>
+<li><code>sam_token_search</code> - Search by symbol/address</li>
+</ul>
+<p><strong>Wallet Tools (7)</strong></p>
+<ul>
+<li><code>sam_get_wallet</code> - Get wallet balance and address</li>
+<li><code>sam_get_wallet_tokens</code> - List token holdings</li>
+<li><code>sam_get_wallet_details</code> - Full portfolio breakdown</li>
+<li><code>sam_wallet_track</code> - Monitor external wallet</li>
+<li><code>sam_wallet_update_portfolio</code> - Refresh holdings cache</li>
+<li><code>sam_wallet_label</code> - Tag wallet with custom label</li>
+<li><code>sam_wallet_tracked_list</code> - List all monitored wallets</li>
+</ul>
+<p><strong>Workflow Tools (7)</strong></p>
+<ul>
+<li><code>sam_flow_list</code> - List all workflows</li>
+<li><code>sam_flow_get</code> - Get workflow definition</li>
+<li><code>sam_flow_create</code> - Create custom workflow</li>
+<li><code>sam_flow_create_from_template</code> - Use predefined template</li>
+<li><code>sam_flow_execute</code> - Run workflow immediately</li>
+<li><code>sam_flow_status</code> - Check execution status</li>
+<li><code>sam_flow_templates</code> - List available templates</li>
+</ul>
+<p><strong>Swap Tools (3)</strong></p>
+<ul>
+<li><code>sam_swap_quote</code> - Get swap quote with route</li>
+<li><code>sam_swap_execute</code> - Execute token swap</li>
+<li><code>sam_swap_approve</code> - Approve token spending</li>
+</ul>
+<p><strong>AI Tools (3)</strong></p>
+<ul>
+<li><code>sam_ai_chat</code> - Conversational AI for strategy advice</li>
+<li><code>sam_ai_classify</code> - Classify intent or sentiment</li>
+<li><code>sam_ai_extract</code> - Extract structured data from text</li>
+</ul>
+<p><strong>Notification Tools (4)</strong></p>
+<ul>
+<li><code>sam_notification_send</code> - Send alert via Telegram</li>
+<li><code>sam_notification_configure</code> - Set up notification channels</li>
+<li><code>sam_notification_subscribe</code> - Subscribe to event types</li>
+<li><code>sam_notification_history</code> - View past notifications</li>
+</ul>
+<p><strong>Scheduler Tools (4)</strong></p>
+<ul>
+<li><code>sam_scheduler_create</code> - Schedule recurring task</li>
+<li><code>sam_scheduler_list</code> - List scheduled jobs</li>
+<li><code>sam_scheduler_cancel</code> - Remove scheduled job</li>
+<li><code>sam_scheduler_update</code> - Modify job parameters</li>
+</ul>
+<p><strong>Chain Tools (3)</strong></p>
+<ul>
+<li><code>sam_chain_info</code> - Get blockchain info (height, gas)</li>
+<li><code>sam_chain_tx_status</code> - Check transaction status</li>
+<li><code>sam_chain_gas_estimate</code> - Estimate gas for operation</li>
+</ul>
+<p><strong>Plugin Tools (2)</strong></p>
+<ul>
+<li><code>sam_plugin_list</code> - List installed plugins</li>
+<li><code>sam_plugin_config</code> - Get/set plugin configuration</li>
+</ul>
+<h3>Order Templates</h3>
+<p>Complete reference for all 10 order types:</p>
+<pre><code class="language-markdown">## Stop Loss
+Automatically sell when price drops below threshold
+Parameters: token, triggerPrice, sellAmount, minOutput
+
+## Take Profit
+Lock in gains when price reaches target
+Parameters: token, targetPrice, sellAmount
+
+## DCA (Dollar Cost Average)
+Buy fixed amount at regular intervals
+Parameters: token, amountPerPurchase, interval, totalPurchases
+
+## Conditional Buy
+Buy when condition is met (price, volume, etc.)
+Parameters: token, condition, amount, maxPrice
+
+## Conditional Sell
+Sell when condition is met
+Parameters: token, condition, amount, minPrice
+
+## Smart Entry
+Buy at optimal entry point using AI analysis
+Parameters: token, budget, confidence, timeWindow
+
+## Trailing Stop
+Dynamic stop loss that follows price movements
+Parameters: token, trailPercent, activationPrice
+
+## Dual Protection
+Combines stop loss and take profit
+Parameters: token, stopLoss, takeProfit, amount
+
+## TWAP (Time-Weighted Average Price)
+Execute large order gradually to minimize slippage
+Parameters: token, totalAmount, duration, intervals
+
+## Whale Copy
+Replicate trades from specified wallet
+Parameters: walletAddress, copyRatio, maxOrderSize
+</code></pre>
+<h3>Plugin Configuration</h3>
+<p>Details on configuring each plugin:</p>
+<pre><code class="language-typescript">// @samterminal/plugin-swap plugin
+{
+  &quot;name&quot;: &quot;@samterminal/plugin-swap&quot;,
+  &quot;config&quot;: {
+    &quot;defaultSlippage&quot;: 0.5,
+    &quot;autoApprove&quot;: false,
+    &quot;preferredDex&quot;: &quot;uniswap&quot;,
+    &quot;maxGasPrice&quot;: &quot;100&quot;
+  }
+}
+
+// @samterminal/plugin-telegram plugin
+{
+  &quot;name&quot;: &quot;@samterminal/plugin-telegram&quot;,
+  &quot;config&quot;: {
+    &quot;botToken&quot;: &quot;env:TELEGRAM_BOT_TOKEN&quot;,
+    &quot;chatId&quot;: &quot;env:TELEGRAM_CHAT_ID&quot;,
+    &quot;notifyOnExecution&quot;: true,
+    &quot;notifyOnError&quot;: true
+  }
+}
+</code></pre>
+<h3>Troubleshooting Guide</h3>
+<p>Common errors and resolutions:</p>
+<pre><code class="language-markdown">Error: &quot;RPC_URL not configured&quot;
+Fix: Add RPC_URL=https://... to .env
+
+Error: &quot;Insufficient balance for gas&quot;
+Fix: Check wallet balance with sam_get_wallet, fund wallet
+
+Error: &quot;Transaction reverted&quot;
+Fix: Check token approval with sam_swap_approve first
+
+Error: &quot;Plugin initialization failed&quot;
+Fix: Verify plugin config in samterminal.config.json
+</code></pre>
+<h2>Setting Up Skills</h2>
+<p>Different AI assistants require different setup approaches. Here&#39;s how to configure skills for popular platforms:</p>
+<h3>Claude Desktop</h3>
+<p>Claude Desktop supports skill files through the system prompt configuration:</p>
+<ol>
+<li>Place <code>skill.md</code> in your project root</li>
+<li>Open Claude Desktop settings</li>
+<li>Navigate to Developer settings</li>
+<li>Add to system prompt:</li>
+</ol>
+<pre><code>When working on SAM Terminal, reference /path/to/samterminal/skill.md for complete command and tool documentation.
+</code></pre>
+<p>Alternatively, you can attach the skill file to each conversation:</p>
+<ul>
+<li>Click the attachment icon</li>
+<li>Select <code>skill.md</code></li>
+<li>The skill content is now available for the conversation</li>
+</ul>
+<h3>Claude Code</h3>
+<p>Claude Code automatically detects <code>CLAUDE.md</code> in the project root:</p>
+<ol>
+<li>Rename <code>skill.md</code> to <code>CLAUDE.md</code></li>
+<li>Place in project root directory</li>
+<li>Claude Code loads it automatically on project open</li>
+</ol>
+<p>No additional configuration needed. Claude Code reads CLAUDE.md on startup and maintains context throughout the session.</p>
+<h3>Cursor</h3>
+<p>Cursor uses workspace context:</p>
+<ol>
+<li>Place <code>skill.md</code> in <code>.cursor/</code> directory</li>
+<li>Or add to workspace settings:</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;cursor.context.files&quot;: [
+    &quot;skill.md&quot;
+  ]
+}
+</code></pre>
+<p>Cursor will include the skill file in the context window for all AI interactions within the workspace.</p>
+<h3>Generic MCP Clients</h3>
+<p>For other MCP-compatible clients:</p>
+<ol>
+<li>Check if the client supports context files or system prompts</li>
+<li>If yes, reference the skill file location</li>
+<li>If no, you can manually paste relevant sections when starting conversations</li>
+</ol>
+<p>Some MCP clients allow adding context via server configuration:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;samterminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;context&quot;: [&quot;skill.md&quot;]
+    }
+  }
+}
+</code></pre>
+<h2>Writing a Custom Skill File</h2>
+<p>While SAM Terminal provides an official skill file, you may want to create project-specific skills for:</p>
+<ul>
+<li>Custom plugins you&#39;ve developed</li>
+<li>Team-specific workflows and conventions</li>
+<li>Internal tooling and scripts</li>
+<li>Company-specific deployment procedures</li>
+</ul>
+<p>Here&#39;s a step-by-step guide to writing effective skill files:</p>
+<h3>Step 1: Project Overview Section</h3>
+<p>Start with a clear, concise overview:</p>
+<pre><code class="language-markdown"># [Project Name] Skill
+
+[Project Name] is a [brief description]...
+
+**Stack:** [technologies]
+**Purpose:** [what it does]
+**Repository:** [git url]
+
+## Key Concepts
+
+- **Concept 1:** [explanation]
+- **Concept 2:** [explanation]
+</code></pre>
+<h3>Step 2: CLI Commands Section</h3>
+<p>Document every command with parameters and examples:</p>
+<pre><code class="language-markdown">## CLI Commands
+
+### command-name [required] &lt;optional&gt;
+Description of what the command does
+
+**Parameters:**
+- required: Description
+- optional: Description (default: value)
+
+**Example:**
+`command-name my-value --option`
+
+**Output:**
+[expected output]
+</code></pre>
+<h3>Step 3: MCP Tool Categories Section</h3>
+<p>Group tools by functionality:</p>
+<pre><code class="language-markdown">## MCP Tools
+
+### Category Name
+
+#### tool_name
+**Purpose:** What it does
+**Parameters:**
+- param1 (type): Description
+- param2 (type, optional): Description
+
+**Example:**
+\`\`\`json
+{
+  &quot;param1&quot;: &quot;value&quot;,
+  &quot;param2&quot;: &quot;value&quot;
+}
+\`\`\`
+
+**Returns:**
+[description of return value]
+</code></pre>
+<h3>Step 4: Configuration Reference</h3>
+<p>Document all configuration options:</p>
+<pre><code class="language-markdown">## Configuration
+
+### Environment Variables
+
+**Required:**
+- VAR_NAME: Description, where to obtain
+
+**Optional:**
+- VAR_NAME: Description (default: value)
+
+### Config File
+
+Location: ./config/app.config.json
+
+\`\`\`json
+{
+  &quot;setting&quot;: &quot;value&quot;,
+  &quot;nested&quot;: {
+    &quot;option&quot;: true
+  }
+}
+\`\`\`
+</code></pre>
+<h3>Step 5: Common Workflows Section</h3>
+<p>Provide end-to-end examples:</p>
+<pre><code class="language-markdown">## Common Workflows
+
+### Workflow Name
+
+Goal: [what user wants to achieve]
+
+**Steps:**
+1. Run `command one`
+2. Verify output contains [expected value]
+3. Run `tool_name` with params: [...]
+4. Confirm success message
+
+**Expected Duration:** ~2 minutes
+</code></pre>
+<h3>Step 6: Troubleshooting Section</h3>
+<p>Anticipate common failures:</p>
+<pre><code class="language-markdown">## Troubleshooting
+
+### Error Message: &quot;Exact error text&quot;
+
+**Cause:** Why this happens
+**Solution:** Step-by-step fix
+**Prevention:** How to avoid in future
+
+### Performance Issues
+
+**Symptoms:** [observable behavior]
+**Diagnosis:** How to confirm the issue
+**Fix:** Remediation steps
+</code></pre>
+<h2>Skill File Best Practices</h2>
+<p>Based on extensive testing with Claude and other AI assistants, here are proven best practices:</p>
+<h3>Keep It Concise But Complete</h3>
+<p>AI assistants have context windows, but shorter is better for:</p>
+<ul>
+<li>Faster parsing and retrieval</li>
+<li>Reduced token usage</li>
+<li>Better focus on relevant information</li>
+</ul>
+<p><strong>Good:</strong></p>
+<pre><code class="language-markdown">### sam init [path]
+Initialize new agent project
+Options: --template (trading|basic), --plugins (comma-separated)
+Example: sam init my-agent --template trading
+</code></pre>
+<p><strong>Too Verbose:</strong></p>
+<pre><code class="language-markdown">### sam init
+The sam init command is used to initialize a new agent project. You can optionally provide a path where the project should be created. If no path is provided, the current directory is used. There are several options available...
+[continues for 10 more lines]
+</code></pre>
+<h3>Include Example Commands With Expected Outputs</h3>
+<p>AI assistants learn best from examples:</p>
+<pre><code class="language-markdown">### sam_get_token_price
+
+\`\`\`json
+{
+  &quot;symbol&quot;: &quot;ETH&quot;
+}
+\`\`\`
+
+Returns:
+\`\`\`json
+{
+  &quot;symbol&quot;: &quot;ETH&quot;,
+  &quot;price&quot;: 3245.67,
+  &quot;change24h&quot;: 2.3,
+  &quot;volume24h&quot;: 15678900000
+}
+\`\`\`
+</code></pre>
+<p>This helps AI understand:</p>
+<ul>
+<li>Exact parameter format</li>
+<li>Expected response structure</li>
+<li>Data types and units</li>
+</ul>
+<h3>Document Environment Variables</h3>
+<p>Critical for AI to help with setup:</p>
+<pre><code class="language-markdown">## Environment Variables
+
+**RPC_URL**
+- Purpose: Ethereum node endpoint
+- Obtain from: Alchemy, Infura, or QuickNode
+- Example: https://eth-mainnet.alchemyapi.io/v2/YOUR_KEY
+- Required for: All chain interactions
+
+**PRIVATE_KEY**
+- Purpose: Wallet private key for signing transactions
+- Format: 0x prefixed hex string (64 characters)
+- Security: Never commit to git, use .env only
+- Required for: Swap, order execution
+</code></pre>
+<h3>Version Alongside Code</h3>
+<p>Keep skill files in sync with code:</p>
+<pre><code class="language-markdown"># SAM Terminal Skill
+Version: 1.2.0
+Last Updated: 2026-02-15
+Compatible with: SAM Terminal &gt;= 1.0.0
+</code></pre>
+<p>Use git to track changes:</p>
+<pre><code class="language-bash">git log skill.md
+</code></pre>
+<p>When releasing new CLI commands or MCP tools, update the skill file in the same commit.</p>
+<h3>Include Error Recovery Steps</h3>
+<p>Teach AI how to handle failures:</p>
+<pre><code class="language-markdown">## Error Recovery
+
+### Transaction Failed
+
+1. Check transaction hash with sam_chain_tx_status
+2. If &quot;insufficient gas&quot;, increase gas limit by 20%
+3. If &quot;token not approved&quot;, run sam_swap_approve first
+4. Retry original operation
+
+### Plugin Crash
+
+1. Check logs: ~/.sam/logs/plugin-[name].log
+2. Verify plugin config in samterminal.config.json
+3. Try: sam plugin remove [name] &amp;&amp; sam plugin install [name]
+4. If persistent, report issue with log excerpt
+</code></pre>
+<h2>Real-World Examples</h2>
+<p>Let&#39;s see how skills enable AI to complete complex tasks autonomously.</p>
+<h3>Example 1: Setting Up a New Trading Agent</h3>
+<p><strong>User:</strong> &quot;Set up a new trading agent for Ethereum with stop-loss protection&quot;</p>
+<p><strong>AI with Skills:</strong></p>
+<pre><code>I&#39;ll help you set up a trading agent with stop-loss capabilities.
+
+Step 1: Initializing project
+&gt; sam init eth-trader --template trading
+
+Step 2: Installing required plugins
+&gt; sam plugin install @samterminal/plugin-swap
+&gt; sam plugin install @samterminal/plugin-tokendata
+&gt; sam plugin install @samterminal/plugin-telegram
+
+Step 3: Configuration needed
+I need some information to complete the setup:
+- RPC_URL for Ethereum (Alchemy/Infura)
+- PRIVATE_KEY for your trading wallet
+- TELEGRAM_BOT_TOKEN for notifications (optional)
+
+Please create a .env file with these values.
+
+Step 4: Create agent file
+I&#39;ll create the agent with stop-loss logic...
+</code></pre>
+<p>The AI knows:</p>
+<ul>
+<li>Exact command syntax (from skill)</li>
+<li>Which plugins are needed (from tool reference)</li>
+<li>Required environment variables (from config section)</li>
+<li>Proper project structure (from workflow examples)</li>
+</ul>
+<h3>Example 2: Token Tracking and Price Alerts</h3>
+<p><strong>User:</strong> &quot;Track ETH and alert me when it drops below $3000&quot;</p>
+<p><strong>AI with Skills:</strong></p>
+<pre><code>I&#39;ll set up ETH tracking with a price alert.
+
+Step 1: Start tracking ETH
+&gt; sam_token_track {&quot;symbol&quot;: &quot;ETH&quot;}
+
+Response: ETH tracking enabled
+
+Step 2: Create price alert workflow
+I&#39;m creating a workflow that monitors ETH price and notifies when it drops below $3000.
+
+&gt; sam_flow_create_from_template {
+  &quot;template&quot;: &quot;price-alert&quot;,
+  &quot;params&quot;: {
+    &quot;token&quot;: &quot;ETH&quot;,
+    &quot;condition&quot;: &quot;below&quot;,
+    &quot;threshold&quot;: 3000,
+    &quot;notification&quot;: &quot;telegram&quot;
+  }
+}
+
+Workflow created: flow_eth_alert_001
+
+The alert is now active. You&#39;ll receive a Telegram notification when ETH drops below $3000.
+</code></pre>
+<p>The AI:</p>
+<ul>
+<li>Used correct MCP tool (<code>sam_token_track</code>)</li>
+<li>Selected appropriate template (<code>price-alert</code>)</li>
+<li>Configured parameters correctly</li>
+<li>Explained the outcome</li>
+</ul>
+<h3>Example 3: Portfolio Analysis and Rebalancing</h3>
+<p><strong>User:</strong> &quot;Show my portfolio and suggest rebalancing&quot;</p>
+<p><strong>AI with Skills:</strong></p>
+<pre><code>Let me analyze your portfolio.
+
+Step 1: Fetch portfolio details
+&gt; sam_get_wallet_details {}
+
+Current Holdings:
+- ETH: 2.5 ($8,114 | 45%)
+- USDC: 5,000 ($5,000 | 28%)
+- UNI: 800 ($4,800 | 27%)
+
+Total Value: $17,914
+
+Step 2: AI analysis
+&gt; sam_ai_chat {
+  &quot;message&quot;: &quot;Analyze this portfolio: 45% ETH, 28% USDC, 27% UNI.
+               Suggest rebalancing for moderate risk tolerance.&quot;,
+  &quot;context&quot;: {&quot;portfolio&quot;: [...]}
+}
+
+AI Recommendation:
+- Current allocation is ETH-heavy (45% in single asset)
+- Suggested target: 35% ETH, 35% stablecoins, 30% altcoins
+- Action: Sell 0.6 ETH for USDC ($1,948)
+
+Would you like me to create this rebalancing order?
+</code></pre>
+<p>The AI:</p>
+<ul>
+<li>Called appropriate MCP tools sequentially</li>
+<li>Used AI tool for strategic analysis</li>
+<li>Presented data clearly</li>
+<li>Offered actionable next steps</li>
+</ul>
+<h3>Example 4: DCA Strategy Creation</h3>
+<p><strong>User:</strong> &quot;Create a DCA strategy to buy $100 of ETH every week for 10 weeks&quot;</p>
+<p><strong>AI with Skills:</strong></p>
+<pre><code>I&#39;ll create a DCA (Dollar Cost Average) order for ETH.
+
+&gt; sam order create dca \
+  --token ETH \
+  --amount 100 \
+  --interval 1w \
+  --count 10
+
+Order Created: order_dca_eth_001
+
+Details:
+- Token: ETH (Ethereum)
+- Amount per purchase: $100
+- Interval: Every 7 days
+- Total purchases: 10
+- Total investment: $1,000
+- Start: 2026-02-16
+- End: 2026-04-27
+
+The order will execute automatically every week. You&#39;ll receive notifications
+before each purchase and can cancel anytime with:
+
+&gt; sam order cancel order_dca_eth_001
+
+Track status with:
+&gt; sam order status order_dca_eth_001
+</code></pre>
+<p>The AI:</p>
+<ul>
+<li>Knew the exact order type (<code>dca</code>)</li>
+<li>Formatted parameters correctly</li>
+<li>Calculated dates automatically</li>
+<li>Provided follow-up commands</li>
+</ul>
+<h2>Extending Skills for Teams</h2>
+<p>Organizations can create specialized skill files for internal tools and conventions.</p>
+<h3>Team-Specific Workflows</h3>
+<pre><code class="language-markdown">## Team Workflows
+
+### Deploying to Staging
+
+1. Ensure tests pass: `npm test`
+2. Build: `npm run build`
+3. Deploy: `sam deploy staging --approve`
+4. Run smoke tests: `npm run test:smoke staging`
+5. Notify in #deployments Slack channel
+
+### Creating New Plugin
+
+1. Generate scaffold: `sam plugin create &lt;name&gt;`
+2. Implement IPlugin interface
+3. Add tests in `src/__tests__/`
+4. Document in `README.md`
+5. Submit PR with label `plugin`
+6. Tag @platform-team for review
+</code></pre>
+<h3>Company Conventions</h3>
+<pre><code class="language-markdown">## Naming Conventions
+
+**Agents:** verb-noun format (e.g., track-wallet, alert-price)
+**Flows:** [purpose]-[asset]-[condition] (e.g., stop-loss-eth-3000)
+**Environment variables:** UPPERCASE_SNAKE_CASE with SAM_ prefix
+
+## Code Review Requirements
+
+- All PRs require 2 approvals
+- Include test coverage report
+- Update CHANGELOG.md
+- Run `sam doctor` before submitting
+</code></pre>
+<h3>Internal Tool Integration</h3>
+<pre><code class="language-markdown">## Internal Tools
+
+### Deployment Dashboard
+URL: https://dashboard.internal/sam
+Use `sam deploy` command, then verify in dashboard
+
+### Monitoring
+All agents automatically report to DataDog
+View: https://datadog.internal/sam-terminal
+
+### Cost Tracking
+RPC and gas costs tracked in finance.internal
+Run `sam cost-report` for monthly summary
+</code></pre>
+<h2>Skills + MCP Integration</h2>
+<p>Skills and MCP are complementary technologies:</p>
+<p><strong>MCP Provides:</strong></p>
+<ul>
+<li>Standardized tool interface</li>
+<li>Bidirectional communication</li>
+<li>Real-time data access</li>
+<li>Secure execution environment</li>
+</ul>
+<p><strong>Skills Provide:</strong></p>
+<ul>
+<li>Context on when to use which tools</li>
+<li>Workflow patterns and best practices</li>
+<li>Error handling strategies</li>
+<li>Project-specific knowledge</li>
+</ul>
+<p>Together, they enable truly autonomous AI agents:</p>
+<ol>
+<li><strong>AI reads skill</strong> - Understands project capabilities</li>
+<li><strong>AI plans approach</strong> - Selects appropriate tools and order</li>
+<li><strong>AI executes via MCP</strong> - Calls tools with correct parameters</li>
+<li><strong>AI interprets results</strong> - Uses skill knowledge to validate and proceed</li>
+<li><strong>AI handles errors</strong> - Follows troubleshooting steps from skill</li>
+</ol>
+<p>Without skills, AI would need to:</p>
+<ul>
+<li>Explore available tools through trial and error</li>
+<li>Guess at parameter formats</li>
+<li>Lack context on project conventions</li>
+<li>Struggle with error recovery</li>
+</ul>
+<p>Without MCP, AI would be limited to:</p>
+<ul>
+<li>Generating code snippets for humans to run</li>
+<li>Providing advice without execution capability</li>
+<li>Operating through CLI only (no programmatic access)</li>
+</ul>
+<h2>Comparing Approaches</h2>
+<h3>Skills vs Raw MCP</h3>
+<p><strong>Raw MCP (No Skill File):</strong></p>
+<pre><code>User: &quot;Track ETH&quot;
+AI: Let me see what tools are available...
+    [queries tool list]
+    I found sam_token_track. Let me check its parameters...
+    [trial and error with parameters]
+    [possibly incorrect format]
+    Error: Invalid parameters
+    [tries again]
+    Success after 3 attempts
+</code></pre>
+<p><strong>Skills + MCP:</strong></p>
+<pre><code>User: &quot;Track ETH&quot;
+AI: [reads skill, knows sam_token_track exists and parameter format]
+    &gt; sam_token_track {&quot;symbol&quot;: &quot;ETH&quot;}
+    Success on first attempt
+</code></pre>
+<p><strong>Time saved:</strong> 60-80% reduction in interactions</p>
+<h3>When to Use Skills</h3>
+<p><strong>Use Skills When:</strong></p>
+<ul>
+<li>You have defined CLI commands or APIs</li>
+<li>Workflows follow standard patterns</li>
+<li>You want AI to operate autonomously</li>
+<li>Multiple team members use AI assistants</li>
+<li>You need consistent AI behavior</li>
+</ul>
+<p><strong>Skip Skills When:</strong></p>
+<ul>
+<li>Project is simple (1-2 commands)</li>
+<li>You want exploratory AI behavior</li>
+<li>Tools change very frequently</li>
+<li>One-off personal project</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Now that you understand OpenClaw Skills, here are resources to explore:</p>
+<p><strong>Getting Started:</strong></p>
+<ul>
+<li><a href="/docs/getting-started">SAM Terminal Documentation</a> - Install and setup</li>
+<li><a href="/docs/mcp-setup-guide">MCP Setup Guide</a> - Connect AI assistants</li>
+</ul>
+<p><strong>Advanced Topics:</strong></p>
+<ul>
+<li><a href="/docs/openclaw-trading-automation">Trading Automation</a> - Build autonomous trading agents</li>
+<li><a href="/docs/plugin-development">Plugin Development</a> - Create custom plugins</li>
+</ul>
+<p><strong>Community:</strong></p>
+<ul>
+<li><a href="https://github.com/samterminal/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
+<li><a href="https://x.com/samterminalcom">X (Twitter)</a> - Follow for updates</li>
+</ul>
+<p>Start by downloading SAM Terminal&#39;s official skill file, loading it into your AI assistant, and trying the examples from this guide. As you become comfortable, create custom skill files for your specific use cases and share them with the community.</p>
+<p>Skills transform AI assistants from suggestion engines into autonomous operators. With the right skill file, your AI becomes an expert teammate who can execute complex workflows independently, recover from errors gracefully, and follow project conventions consistently.</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

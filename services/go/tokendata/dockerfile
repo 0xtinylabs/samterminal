@@ -1,0 +1,19 @@
+FROM golang:1.24.3 as build
+ 
+WORKDIR /workspace
+ 
+COPY go.mod go.sum ./
+RUN go mod download
+ 
+RUN go run github.com/steebchen/prisma-client-go prefetch
+ 
+COPY . ./
+RUN chmod +x start.sh
+
+ARG DATABASE_URL
+
+ENV DATABASE_URL=$DATABASE_URL
+
+ENTRYPOINT ["./start.sh"]
+ 
+CMD ["./app"] 

@@ -1,0 +1,59 @@
+// Swap Service Prisma Schema
+// Part of unified user database with multi-schema support
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("USER_DATABASE_URL")
+  schemas  = ["swap"]
+}
+
+model WalletOwner {
+  id                       String      @id @default(uuid())
+  walletAddress            String      @unique
+  appConnectionId          String?
+  appConnectionDescription String?
+  swaps                    Swap[]
+  errors                   SwapError[]
+  dailySwaps               Int         @default(0)
+  weeklySwaps              Int         @default(0)
+  monthlySwaps             Int         @default(0)
+  yearlySwaps              Int         @default(0)
+  createdAt                DateTime    @default(now())
+  updatedAt                DateTime    @default(now()) @updatedAt
+
+  @@schema("swap")
+}
+
+model Swap {
+  id               String       @id @default(uuid())
+  fromTokenAddress String
+  toTokenAddress   String
+  toWalletAddress  String
+  buyAmount        String
+  sellAmount       String
+  transactionHash  String
+  application      String?
+  environment      String?
+  walletOwner      WalletOwner? @relation(fields: [walletOwnerId], references: [id])
+  walletOwnerId    String?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @default(now()) @updatedAt
+
+  @@schema("swap")
+}
+
+model SwapError {
+  id            String       @id @default(uuid())
+  message       String
+  walletOwner   WalletOwner? @relation(fields: [walletOwnerId], references: [id])
+  walletOwnerId String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now()) @updatedAt
+
+  @@schema("swap")
+}

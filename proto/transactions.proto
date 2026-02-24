@@ -1,0 +1,40 @@
+syntax="proto3";
+
+import "google/protobuf/struct.proto";
+
+package transactions;
+
+enum TransactionStatus {
+    SUCCESS = 0;
+    FAIL = 1;
+    WAITING = 2;
+}
+
+message LogTransactionRequest {
+    string txHash = 1;
+    string connectionKey = 2;
+    string connectionValue = 3;
+    TransactionStatus transactionStatus = 4;
+    optional google.protobuf.Struct transactionParams = 5;
+    optional google.protobuf.Struct transactionResultParams = 6;
+    optional string errorMessage = 7;    
+}
+
+message LogTransactionResponse {
+    bool saved = 1;
+}
+
+message UpdateLoggedTransactionStatusRequest {
+    string txHash = 1;
+    TransactionStatus transactionStatus = 4;
+    optional string errorMessage = 7;    
+}
+
+message UpdateLoggedTransactionStatusResponse {
+    bool saved = 1;
+}
+
+service TransactionService {
+    rpc logTransaction (LogTransactionRequest) returns (LogTransactionResponse);
+    rpc updateLoggedTransactionStatus (UpdateLoggedTransactionStatusRequest) returns (UpdateLoggedTransactionStatusResponse);
+}

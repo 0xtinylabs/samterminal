@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package wallet;
+
+option go_package = "walletdata/proto/wallet";
+
+import "common/common.proto";
+
+enum DataType {
+    API = 0;
+    SCANNER = 1;
+}
+
+message AddWalletRequest {
+    string walletAddress = 1;
+}
+
+message AddWalletResponse {
+    bool success = 1;
+}
+
+message GetWalletRequest {
+    string walletAddress = 1;
+    common.CHAIN chain = 2;
+    DataType type = 3;
+    repeated string tokenAddresses = 4;
+}
+
+message GetWalletResponse {
+    common.Wallet walletData = 1;
+}
+
+message GetWalletTokensRequest {
+    string walletAddress = 1;
+    common.CHAIN chain = 2;
+    DataType type = 3;
+    repeated string tokenAddresses = 4;
+    bool filterLowUSD = 5;
+}
+
+message GetWalletTokensResponse {
+    repeated common.WalletToken tokens = 1;
+    int32 numberOfTokens = 2;
+}
+
+message GetWalletDetailsRequest {
+    string walletAddress = 1;
+    common.CHAIN chain = 2;
+    DataType type = 3;
+    repeated string tokenAddresses = 4;
+    bool filterLowUSD = 5;
+}
+
+message GetWalletDetailsResponse {
+    repeated common.WalletToken tokens = 1;
+    int32 numberOfTokens = 2;
+    common.Wallet walletData = 3;
+}
+
+message UpdateWalletPortfolioRequest {
+    string walletAddress = 1;
+    string totalDollarValue = 2;
+}
+
+message UpdateWalletPortfolioResponse {
+    bool success = 1;
+}

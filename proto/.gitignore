@@ -1,0 +1,9 @@
+*
+
+!*/
+
+!*.proto
+!README.md
+!.gitignore
+
+.DS_Store

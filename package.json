@@ -1,0 +1,52 @@
+{
+  "name": "samterminal",
+  "private": true,
+  "description": "Onchain Trading Agent Framework - Modular, plugin-based autonomous trading agents for EVM chains",
+  "homepage": "https://samterminal.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samterminal/samterminal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/samterminal/samterminal/issues"
+  },
+  "license": "MIT",
+  "author": "SamTerminal Contributors",
+  "keywords": [
+    "web3",
+    "trading",
+    "agent",
+    "evm",
+    "blockchain",
+    "plugin",
+    "framework",
+    "defi",
+    "base",
+    "mcp"
+  ],
+  "packageManager": "pnpm@9.15.0",
+  "workspaces": [
+    "packages/*",
+    "packages/plugins/*",
+    "services/nestjs/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:cov": "turbo run test:cov",
+    "test:watch": "turbo run test:watch",
+    "clean": "turbo run clean && rm -rf node_modules coverage",
+    "proto:gen": "turbo run proto:gen",
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:push": "turbo run db:push",
+    "setup": "turbo run setup",
+    "setup:quick": "npx pnpm install && npx pnpm proto:gen && npx pnpm build && npx pnpm db:generate"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0"
+  }
+}

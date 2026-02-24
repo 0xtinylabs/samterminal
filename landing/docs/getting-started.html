@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with SAM Terminal — SAM Terminal</title>
+  <meta name="description" content="Set up your first SAM Terminal agent in minutes. Install, configure, and run.">
+  <link rel="canonical" href="https://samterminal.com/docs/getting-started">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Getting Started with SAM Terminal">
+  <meta property="og:description" content="Set up your first SAM Terminal agent in minutes. Install, configure, and run.">
+  <meta property="og:url" content="https://samterminal.com/docs/getting-started">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Getting Started with SAM Terminal">
+  <meta name="twitter:description" content="Set up your first SAM Terminal agent in minutes. Install, configure, and run.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Getting Started with SAM Terminal",
+    "description": "Set up your first SAM Terminal agent in minutes. Install, configure, and run.",
+    "url": "https://samterminal.com/docs/getting-started",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/getting-started",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>Getting Started with SAM Terminal</h1>
+<h2>Introduction</h2>
+<p>SAM Terminal is a modular, plugin-based autonomous trading agent framework designed for EVM ecosystems. Built with TypeScript and powered by a Turborepo monorepo architecture, it combines the flexibility of microservices with the robustness of enterprise-grade infrastructure.</p>
+<p><strong>Who is SAM Terminal for?</strong></p>
+<ul>
+<li>Blockchain developers building trading bots and automation tools</li>
+<li>DeFi projects requiring programmatic trading capabilities</li>
+<li>Teams building agent-based systems for token tracking, portfolio management, and automated trading</li>
+<li>Developers who want a production-ready framework instead of building from scratch</li>
+</ul>
+<p>SAM Terminal provides a plugin ecosystem that handles the complex parts (chain interactions, data providers, swap execution) so you can focus on your agent&#39;s business logic.</p>
+<h2>Prerequisites</h2>
+<p>Before installing SAM Terminal, ensure you have the following installed:</p>
+<p><strong>Required:</strong></p>
+<ul>
+<li><strong>Node.js 18+</strong> - JavaScript runtime (<a href="https://nodejs.org">download</a>)</li>
+<li><strong>pnpm</strong> - Fast, disk space efficient package manager (<code>npm install -g pnpm</code>)</li>
+<li><strong>Docker</strong> - For running PostgreSQL, Redis, and microservices (<a href="https://docker.com">download</a>)</li>
+<li><strong>Git</strong> - Version control system</li>
+</ul>
+<p><strong>Optional but recommended:</strong></p>
+<ul>
+<li><strong>Docker Compose</strong> (usually included with Docker Desktop)</li>
+<li>A code editor (VS Code, Cursor, etc.)</li>
+<li>Basic understanding of TypeScript and blockchain concepts</li>
+</ul>
+<p><strong>Verify your installation:</strong></p>
+<pre><code class="language-bash">node --version  # Should be v18.0.0 or higher
+pnpm --version  # Should be 9.0.0 or higher
+docker --version
+git --version
+</code></pre>
+<h2>Installation</h2>
+<h3>1. Clone the Repository</h3>
+<pre><code class="language-bash">git clone https://github.com/samterminal/samterminal.git
+cd samterminal
+</code></pre>
+<h3>2. Install Dependencies</h3>
+<pre><code class="language-bash">pnpm install
+</code></pre>
+<p>This installs all packages across the monorepo using pnpm workspaces.</p>
+<h3>3. Configure Environment Variables</h3>
+<p>Copy the example environment file:</p>
+<pre><code class="language-bash">cp .env.example .env
+</code></pre>
+<p>Edit <code>.env</code> and add your API keys (we&#39;ll cover this in detail later):</p>
+<pre><code class="language-bash"># Required for most plugins
+ALCHEMY_API_KEY=your_alchemy_key
+MORALIS_API_KEY=your_moralis_key
+
+# Optional: For AI features
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+
+# Optional: For Telegram notifications
+MAIN_BOT_TOKEN=your_telegram_bot_token
+
+# Optional: For swap functionality
+MATCHA_API_KEY=your_0x_api_key
+
+# Database (defaults work for local development)
+DATABASE_URL=postgresql://user:password@localhost:5432/samterminal
+REDIS_URL=redis://localhost:6379
+</code></pre>
+<h3>4. Setup Development Environment</h3>
+<p>SAM Terminal provides a convenient command to setup everything:</p>
+<pre><code class="language-bash">npx sam setup
+</code></pre>
+<p>This command will:</p>
+<ul>
+<li>Install all dependencies</li>
+<li>Build all packages</li>
+<li>Run database migrations</li>
+<li>Verify Docker services</li>
+</ul>
+<p>Alternatively, you can run these steps manually:</p>
+<pre><code class="language-bash">pnpm install
+pnpm build
+docker compose up -d
+pnpm db:migrate
+</code></pre>
+<h2>Quick Start with CLI</h2>
+<p>SAM Terminal includes a powerful CLI that streamlines agent creation and management.</p>
+<h3>Creating Your First Agent</h3>
+<p><strong>Option 1: Using a Template</strong></p>
+<pre><code class="language-bash">npx sam init my-trading-agent --template web3-agent
+</code></pre>
+<p>Available templates:</p>
+<ul>
+<li><code>basic</code> - Minimal setup with core functionality</li>
+<li><code>telegram-bot</code> - Agent with Telegram notification support</li>
+<li><code>web3-agent</code> - Full-featured trading agent with swap capabilities</li>
+<li><code>custom</code> - Start from scratch</li>
+</ul>
+<p><strong>Option 2: Interactive Wizard Mode (Recommended for beginners)</strong></p>
+<pre><code class="language-bash">npx sam init my-agent --wizard
+</code></pre>
+<p>The wizard will guide you through:</p>
+<ol>
+<li><p><strong>Profile Selection:</strong></p>
+<ul>
+<li><code>minimal</code> - Core functionality only</li>
+<li><code>trader</code> - Token tracking + swap capabilities</li>
+<li><code>notifier</code> - Token tracking + Telegram notifications</li>
+<li><code>full</code> - All plugins enabled</li>
+<li><code>custom</code> - Pick and choose</li>
+</ul>
+</li>
+<li><p><strong>Chain Selection:</strong></p>
+<ul>
+<li>Base (default, L2 with low fees)</li>
+<li>Ethereum Mainnet</li>
+<li>Arbitrum</li>
+<li>Polygon</li>
+<li>Optimism</li>
+<li>BSC</li>
+</ul>
+</li>
+<li><p><strong>API Key Validation:</strong> The wizard validates your API keys before proceeding</p>
+</li>
+<li><p><strong>Package Manager:</strong> Choose between pnpm, npm, or yarn</p>
+</li>
+</ol>
+<p><strong>Option 3: Full Custom Configuration</strong></p>
+<pre><code class="language-bash">npx sam init my-agent \
+  --template custom \
+  --plugins tokendata,walletdata,swap,ai \
+  --typescript \
+  --pm pnpm \
+  --skip-install
+</code></pre>
+<p>Available CLI options:</p>
+<ul>
+<li><code>--template &lt;name&gt;</code> - Use a predefined template</li>
+<li><code>--typescript / --no-typescript</code> - Enable/disable TypeScript</li>
+<li><code>--plugins &lt;list&gt;</code> - Comma-separated plugin list</li>
+<li><code>--skip-install</code> - Don&#39;t run package installation</li>
+<li><code>--pm &lt;manager&gt;</code> - Package manager (pnpm/npm/yarn)</li>
+<li><code>--wizard</code> - Interactive setup mode</li>
+</ul>
+<h2>Project Structure</h2>
+<p>After running <code>sam init</code>, you&#39;ll get a project structure like this:</p>
+<pre><code>my-trading-agent/
+├── samterminal.config.json  # Main configuration file
+├── .env                     # Environment variables
+├── .env.example            # Template for required env vars
+├── package.json            # Project dependencies
+├── tsconfig.json           # TypeScript configuration
+├── src/
+│   ├── index.ts            # Main entry point
+│   ├── agents/             # Your agent implementations
+│   │   └── basic.ts        # Example agent
+│   └── examples/           # Usage examples
+│       ├── ai-chat.ts
+│       ├── token-tracker.ts
+│       └── onboarding.ts
+└── node_modules/
+</code></pre>
+<p><strong>Key files explained:</strong></p>
+<ul>
+<li><code>samterminal.config.json</code> - Defines your agent&#39;s plugins, chains, and behavior</li>
+<li><code>src/index.ts</code> - Entry point where your agent starts</li>
+<li><code>src/agents/</code> - Your custom agent logic lives here</li>
+<li><code>.env</code> - Sensitive configuration (never commit this!)</li>
+</ul>
+<h2>Configuration</h2>
+<p>The <code>samterminal.config.json</code> file is the heart of your agent configuration:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;my-trading-agent&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;plugins&quot;: [
+    &quot;@samterminal/plugin-tokendata&quot;,
+    &quot;@samterminal/plugin-walletdata&quot;,
+    &quot;@samterminal/plugin-swap&quot;,
+    &quot;@samterminal/plugin-ai&quot;
+  ],
+  &quot;chains&quot;: {
+    &quot;default&quot;: &quot;base&quot;,
+    &quot;enabled&quot;: [&quot;base&quot;, &quot;ethereum&quot;, &quot;arbitrum&quot;],
+    &quot;rpc&quot;: {
+      &quot;base&quot;: &quot;https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}&quot;,
+      &quot;ethereum&quot;: &quot;https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}&quot;,
+      &quot;arbitrum&quot;: &quot;https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}&quot;
+    }
+  },
+  &quot;agent&quot;: {
+    &quot;maxConcurrentTasks&quot;: 5,
+    &quot;retryAttempts&quot;: 3,
+    &quot;timeout&quot;: 30000
+  }
+}
+</code></pre>
+<p><strong>Configuration sections:</strong></p>
+<ul>
+<li><code>plugins</code> - Array of plugin package names to load</li>
+<li><code>chains.default</code> - Primary blockchain for operations</li>
+<li><code>chains.enabled</code> - List of chains your agent can interact with</li>
+<li><code>chains.rpc</code> - RPC endpoints (supports env variable interpolation)</li>
+<li><code>agent</code> - Runtime behavior settings</li>
+</ul>
+<h2>Starting Services</h2>
+<p>SAM Terminal requires several backend services. Start them using Docker Compose:</p>
+<pre><code class="language-bash">docker compose up -d
+</code></pre>
+<p>This starts:</p>
+<p><strong>Databases:</strong></p>
+<ul>
+<li><strong>PostgreSQL</strong> (port 5432) - Main database for persistent storage</li>
+<li><strong>Redis</strong> (port 6379) - Caching and pub/sub messaging</li>
+</ul>
+<p><strong>Go Microservices:</strong></p>
+<ul>
+<li><strong>tokendata</strong> - Token price feeds, metadata, security analysis</li>
+<li><strong>walletdata</strong> - Portfolio tracking, transaction history, NFTs</li>
+</ul>
+<p><strong>NestJS Services:</strong></p>
+<ul>
+<li><strong>main</strong> - Core API gateway and orchestration</li>
+<li><strong>notification</strong> - Push notifications and alerts</li>
+<li><strong>swap</strong> - DEX swap execution and routing</li>
+<li><strong>transactions</strong> - Transaction monitoring and indexing
+<strong>Verify services are running:</strong></li>
+</ul>
+<pre><code class="language-bash">docker compose ps
+</code></pre>
+<p>All services should show status &quot;Up&quot;.</p>
+<p><strong>Useful Docker commands:</strong></p>
+<pre><code class="language-bash"># View logs for all services
+docker compose logs -f
+
+# View logs for a specific service
+docker compose logs -f tokendata
+
+# Restart a service
+docker compose restart swap
+
+# Stop all services
+docker compose down
+
+# Stop and remove all data (careful!)
+docker compose down -v
+</code></pre>
+<h2>Running Your Agent</h2>
+<h3>Development Mode (Recommended)</h3>
+<pre><code class="language-bash">npx sam dev
+</code></pre>
+<p>This runs your agent with:</p>
+<ul>
+<li>Hot reload on file changes</li>
+<li>Verbose logging</li>
+<li>Auto-restart on crashes</li>
+</ul>
+<h3>Production Mode</h3>
+<pre><code class="language-bash">npx sam run
+</code></pre>
+<p><strong>Advanced run options:</strong></p>
+<pre><code class="language-bash"># Use a custom config file
+npx sam run --config ./config/production.json
+
+# Use a different environment file
+npx sam run --env .env.production
+
+# Enable watch mode manually
+npx sam run --watch
+
+# Run on a specific port
+npx sam run --port 3001
+</code></pre>
+<p><strong>Monitoring your agent:</strong></p>
+<p>Your agent will log to console. Look for:</p>
+<ul>
+<li>Plugin initialization messages</li>
+<li>Chain connection confirmations</li>
+<li>Active tasks and their status</li>
+<li>Errors and warnings</li>
+</ul>
+<p>Example output:</p>
+<pre><code>[SAM Terminal] Starting agent: my-trading-agent
+[Plugins] Loading @samterminal/plugin-tokendata
+[Plugins] Loading @samterminal/plugin-swap
+[Chains] Connected to Base (chainId: 8453)
+[Agent] Ready - listening for tasks
+</code></pre>
+<h2>Installing Plugins</h2>
+<p>SAM Terminal&#39;s plugin system provides modular functionality.</p>
+<h3>Available Plugins</h3>
+<p><strong>@samterminal/plugin-tokendata</strong></p>
+<ul>
+<li>Real-time token prices (CoinGecko, DexScreener)</li>
+<li>Token search and metadata</li>
+<li>Security analysis and risk scoring</li>
+<li>Liquidity pool information</li>
+<li><strong>Required API Keys:</strong> MORALIS_API_KEY, ALCHEMY_API_KEY</li>
+</ul>
+<p><strong>@samterminal/plugin-walletdata</strong></p>
+<ul>
+<li>Portfolio tracking and valuation</li>
+<li>Token balance queries</li>
+<li>NFT holdings</li>
+<li>Transaction history and indexing</li>
+<li>Approval management</li>
+<li><strong>Required API Keys:</strong> MORALIS_API_KEY, ALCHEMY_API_KEY</li>
+</ul>
+<p><strong>@samterminal/plugin-swap</strong></p>
+<ul>
+<li>DEX swap execution via 0x Protocol</li>
+<li>Multi-hop routing for best prices</li>
+<li>Slippage protection</li>
+<li>Gas optimization</li>
+<li>Token approval management</li>
+<li><strong>Required API Keys:</strong> ALCHEMY_API_KEY</li>
+<li><strong>Optional:</strong> ZEROX_API_KEY (for higher rate limits)</li>
+</ul>
+<p><strong>@samterminal/plugin-ai</strong></p>
+<ul>
+<li>Multi-provider AI support (OpenAI, Anthropic)</li>
+<li>Chat completions for natural language interfaces</li>
+<li>Text classification and extraction</li>
+<li>Content generation and summarization</li>
+<li>Embeddings for semantic search</li>
+<li><strong>Required API Keys:</strong> OPENAI_API_KEY or ANTHROPIC_API_KEY</li>
+</ul>
+<p><strong>@samterminal/plugin-telegram</strong></p>
+<ul>
+<li>Send notifications to Telegram</li>
+<li>Bot-based user interactions</li>
+<li>Command handling</li>
+<li>Toggle notifications on/off</li>
+<li><strong>Required API Keys:</strong> MAIN_BOT_TOKEN</li>
+</ul>
+<p><strong>@samterminal/plugin-onboarding</strong></p>
+<ul>
+<li>User onboarding workflow management</li>
+<li>Step completion tracking</li>
+<li>Progress monitoring</li>
+<li>Custom user data storage</li>
+<li><strong>No API keys required</strong></li>
+</ul>
+<h3>Installing Plugins via CLI</h3>
+<pre><code class="language-bash"># Install a single plugin
+npx sam plugin install tokendata
+
+# Install multiple plugins at once
+npx sam plugin install tokendata walletdata swap
+
+# List installed plugins
+npx sam plugin list
+
+# Remove a plugin
+npx sam plugin remove ai
+
+# Enable a disabled plugin
+npx sam plugin enable telegram
+
+# Disable a plugin without removing it
+npx sam plugin disable telegram
+</code></pre>
+<h3>Installing Plugins via Config</h3>
+<p>Edit <code>samterminal.config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [
+    &quot;@samterminal/plugin-tokendata&quot;,
+    &quot;@samterminal/plugin-walletdata&quot;,
+    &quot;@samterminal/plugin-swap&quot;
+  ]
+}
+</code></pre>
+<p>Then reinstall dependencies:</p>
+<pre><code class="language-bash">pnpm install
+</code></pre>
+<h2>API Keys Setup</h2>
+<h3>Alchemy (Required for most plugins)</h3>
+<p>Alchemy provides RPC endpoints for blockchain interaction.</p>
+<ol>
+<li>Sign up at <a href="https://www.alchemy.com">alchemy.com</a></li>
+<li>Create a new app</li>
+<li>Select your chains (Base, Ethereum, Arbitrum, etc.)</li>
+<li>Copy your API key</li>
+<li>Add to <code>.env</code>: <code>ALCHEMY_API_KEY=your_key_here</code></li>
+</ol>
+<p><strong>Used by:</strong> tokendata, walletdata, swap</p>
+<h3>Moralis (Required for tokendata and walletdata)</h3>
+<p>Moralis provides enriched blockchain data APIs.</p>
+<ol>
+<li>Sign up at <a href="https://moralis.io">moralis.io</a></li>
+<li>Go to Account Settings &gt; Keys</li>
+<li>Copy your Web3 API key</li>
+<li>Add to <code>.env</code>: <code>MORALIS_API_KEY=your_key_here</code></li>
+</ol>
+<p><strong>Used by:</strong> tokendata, walletdata</p>
+<h3>0x API Key (Optional, for swap)</h3>
+<p>The 0x Protocol powers DEX aggregation.</p>
+<ol>
+<li>Sign up at <a href="https://0x.org/docs">0x.org/docs</a></li>
+<li>Generate an API key</li>
+<li>Add to <code>.env</code>: <code>ZEROX_API_KEY=your_key_here</code></li>
+</ol>
+<p><strong>Benefits:</strong> Higher rate limits, better pricing
+<strong>Used by:</strong> swap plugin</p>
+<h3>OpenAI (Optional, for AI features)</h3>
+<ol>
+<li>Sign up at <a href="https://platform.openai.com">platform.openai.com</a></li>
+<li>Go to API Keys section</li>
+<li>Create a new secret key</li>
+<li>Add to <code>.env</code>: <code>OPENAI_API_KEY=your_key_here</code></li>
+</ol>
+<p><strong>Used by:</strong> ai plugin</p>
+<h3>Anthropic (Alternative to OpenAI)</h3>
+<ol>
+<li>Sign up at <a href="https://console.anthropic.com">console.anthropic.com</a></li>
+<li>Generate an API key</li>
+<li>Add to <code>.env</code>: <code>ANTHROPIC_API_KEY=your_key_here</code></li>
+</ol>
+<p><strong>Used by:</strong> ai plugin (alternative to OpenAI)</p>
+<h3>Telegram Bot Token (Optional, for notifications)</h3>
+<ol>
+<li>Open Telegram and search for <a href="https://t.me/botfather">@BotFather</a></li>
+<li>Send <code>/newbot</code> and follow the instructions</li>
+<li>Copy the bot token</li>
+<li>Add to <code>.env</code>: <code>MAIN_BOT_TOKEN=your_token_here</code></li>
+</ol>
+<p><strong>Used by:</strong> telegram plugin</p>
+<h2>Verifying Setup</h2>
+<p>SAM Terminal includes a diagnostic tool to verify your setup:</p>
+<pre><code class="language-bash">npx sam doctor
+</code></pre>
+<p>This command checks:</p>
+<ol>
+<li><p><strong>Prerequisites:</strong></p>
+<ul>
+<li>Node.js version</li>
+<li>pnpm installation</li>
+<li>Docker availability</li>
+</ul>
+</li>
+<li><p><strong>Services:</strong></p>
+<ul>
+<li>PostgreSQL connection</li>
+<li>Redis connection</li>
+<li>Microservice health</li>
+</ul>
+</li>
+<li><p><strong>API Keys:</strong></p>
+<ul>
+<li>Validates each configured API key</li>
+<li>Tests connectivity to external APIs</li>
+<li>Reports which plugins are ready</li>
+</ul>
+</li>
+<li><p><strong>Configuration:</strong></p>
+<ul>
+<li>Validates samterminal.config.json syntax</li>
+<li>Checks for missing required fields</li>
+<li>Warns about deprecated options</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example output:</strong></p>
+<pre><code>SAM Terminal Doctor
+
+Prerequisites:
+✓ Node.js v20.10.0
+✓ pnpm 8.15.0
+✓ Docker 24.0.6
+
+Services:
+✓ PostgreSQL (localhost:5432)
+✓ Redis (localhost:6379)
+✓ Tokendata service (healthy)
+✓ Swap service (healthy)
+
+API Keys:
+✓ ALCHEMY_API_KEY (valid)
+✓ MORALIS_API_KEY (valid)
+⚠ ZEROX_API_KEY (not configured - optional)
+✓ OPENAI_API_KEY (valid)
+✗ MAIN_BOT_TOKEN (invalid or expired)
+
+Configuration:
+✓ samterminal.config.json (valid)
+✓ 4 plugins configured
+✓ 3 chains enabled
+
+Status: Ready with warnings
+</code></pre>
+<h2>Additional CLI Commands</h2>
+<h3>Order Management</h3>
+<p>SAM Terminal supports creating and managing automated trading orders:</p>
+<pre><code class="language-bash"># Create a new order from a template
+npx sam order create --template dca
+
+# List all active orders
+npx sam order list
+
+# Get details for a specific order
+npx sam order get &lt;order-id&gt;
+
+# Cancel an order
+npx sam order cancel &lt;order-id&gt;
+
+# Pause an order temporarily
+npx sam order pause &lt;order-id&gt;
+
+# Resume a paused order
+npx sam order resume &lt;order-id&gt;
+</code></pre>
+<h3>Environment Information</h3>
+<pre><code class="language-bash"># Display current environment configuration
+npx sam info
+</code></pre>
+<p>This shows:</p>
+<ul>
+<li>Project name and version</li>
+<li>Active plugins</li>
+<li>Configured chains</li>
+<li>Service endpoints</li>
+<li>Runtime environment</li>
+</ul>
+<h2>Next Steps</h2>
+<p>Congratulations! You now have SAM Terminal up and running.</p>
+<p><strong>Continue your journey:</strong></p>
+<ul>
+<li><a href="/docs/building-trading-agents">Building Trading Agents</a> - Create autonomous trading strategies</li>
+<li><a href="/docs/plugin-development">Plugin Development Guide</a> - Create your own plugins</li>
+<li><a href="/docs/mcp-setup-guide">MCP Setup Guide</a> - Integrate with Claude Desktop</li>
+<li><a href="/docs/openclaw-skills">OpenClaw Skills</a> - Teach AI assistants to operate your agent</li>
+</ul>
+<p><strong>Community:</strong></p>
+<ul>
+<li><a href="https://github.com/samterminal/samterminal">GitHub Repository</a> - Star, fork, contribute</li>
+<li><a href="https://x.com/samterminalcom">X (Twitter)</a> - Follow for updates</li>
+</ul>
+<p><strong>Need help?</strong></p>
+<ul>
+<li>Run <code>npx sam doctor</code> to diagnose issues</li>
+<li>Check the logs: <code>docker compose logs -f</code></li>
+<li>Review <code>.env</code> for missing API keys</li>
+<li>Check the <a href="/docs/mcp-setup-guide">MCP Setup Guide</a> for integration details</li>
+</ul>
+<p>Happy building with SAM Terminal!</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

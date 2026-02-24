@@ -1,0 +1,42 @@
+// Notification Service Prisma Schema
+// Part of unified user database with multi-schema support
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("USER_DATABASE_URL")
+  schemas  = ["notification"]
+}
+
+model User {
+  id               String     @id @default(uuid())
+  platforms        Platform[]
+  ref              String     @unique
+  verificationCode String
+  connectionKey    String     @unique
+
+  @@schema("notification")
+}
+
+model Platform {
+  id           String       @id @default(uuid())
+  User         User?        @relation(fields: [userId], references: [id])
+  userId       String?
+  platformId   String
+  platformName PlatformName
+  isVerified   Boolean      @default(false)
+  isActive     Boolean      @default(false)
+
+  @@schema("notification")
+}
+
+enum PlatformName {
+  TELEGRAM
+  FARCASTER
+
+  @@schema("notification")
+}

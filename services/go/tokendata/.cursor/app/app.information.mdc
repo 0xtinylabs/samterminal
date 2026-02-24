@@ -1,0 +1,12 @@
+---
+alwaysApply: true
+---
+
+App Information: Querying and saving token price and volume data for specific token addresess. The data will be saved near to realtime thanks to listening contract events and websocket connections to related API's
+
+App Technologies: 
+- Contract Event listening for token address and pool with Alchemy Socket API
+- Listening Websocket API of bitquery for getting token volume data
+- Serving through Websocket
+- Application will add or remove which tokens via the gRPC
+

@@ -1,0 +1,35 @@
+{
+  "name": "@samterminal/playground",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SamTerminal Playground - Example agents and demos",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "basic": "tsx src/agents/basic.ts",
+    "telegram": "tsx src/agents/telegram-bot.ts",
+    "web3": "tsx src/agents/web3-agent.ts",
+    "example:onboarding": "tsx src/examples/onboarding.ts",
+    "example:ai-chat": "tsx src/examples/ai-chat.ts",
+    "example:token-tracker": "tsx src/examples/token-tracker.ts",
+    "example:sniper": "tsx src/examples/clanker-bankr-sniper.ts",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@samterminal/core": "*",
+    "@samterminal/plugin-telegram": "*",
+    "@samterminal/plugin-ai": "*",
+    "@samterminal/plugin-tokendata": "*",
+    "@samterminal/plugin-walletdata": "*",
+    "@samterminal/plugin-swap": "*",
+    "@samterminal/plugin-onboarding": "*"
+  },
+  "devDependencies": {
+    "@samterminal/tsconfig": "*",
+    "@types/node": "^22.10.7",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.3"
+  }
+}

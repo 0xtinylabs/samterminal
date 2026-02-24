@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Server Setup Guide — SAM Terminal</title>
+  <meta name="description" content="Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant.">
+  <link rel="canonical" href="https://samterminal.com/docs/mcp-setup-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="MCP Server Setup Guide">
+  <meta property="og:description" content="Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant.">
+  <meta property="og:url" content="https://samterminal.com/docs/mcp-setup-guide">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MCP Server Setup Guide">
+  <meta name="twitter:description" content="Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "MCP Server Setup Guide",
+    "description": "Connect your agent to Claude, Cursor, or any MCP-compatible AI assistant.",
+    "url": "https://samterminal.com/docs/mcp-setup-guide",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/mcp-setup-guide",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>MCP Server Setup Guide</h1>
+<p>A comprehensive guide to setting up and using SAM Terminal&#39;s Model Context Protocol (MCP) server with Claude Desktop, Cursor, and Claude Code.</p>
+<h2>What is MCP?</h2>
+<p>Model Context Protocol (MCP) is an open standard developed by Anthropic that enables AI assistants to securely connect to external data sources and tools. Instead of copying data into chat or building custom integrations, MCP provides a standardized way for AI models to access real-time data and execute actions through a unified interface.</p>
+<p>SAM Terminal implements an MCP server that exposes blockchain operations, wallet management, token tracking, and workflow automation as structured tools that Claude can use during conversations.</p>
+<h2>SAM Terminal MCP Server Overview</h2>
+<p>The SAM Terminal MCP server exposes <strong>40+ tools</strong> across <strong>9 categories</strong>, providing comprehensive blockchain automation capabilities:</p>
+<ul>
+<li><strong>Token Tools</strong> (7) - Price tracking, search, monitoring</li>
+<li><strong>Wallet Tools</strong> (7) - Portfolio management, balance tracking</li>
+<li><strong>Workflow Tools</strong> (7) - Workflow creation and execution</li>
+<li><strong>Swap Tools</strong> (3) - DEX trading operations</li>
+<li><strong>AI Tools</strong> (3) - LLM-powered analysis</li>
+<li><strong>Notification Tools</strong> (4) - Multi-channel alerts</li>
+<li><strong>Scheduler Tools</strong> (4) - Automated task scheduling</li>
+<li><strong>Chain Tools</strong> (3) - Multi-chain data access</li>
+<li><strong>Plugin Tools</strong> (2) - Plugin management</li>
+</ul>
+<h3>Architecture</h3>
+<p>The MCP server acts as a bridge between Claude and SAM Terminal&#39;s backend infrastructure:</p>
+<pre><code>Claude Desktop/Cursor
+        ↓
+   MCP Protocol
+        ↓
+SAM Terminal MCP Server (@samterminal/mcp-server)
+        ↓
+    gRPC Layer
+        ↓
+Backend Microservices (Go/NestJS)
+        ↓
+Blockchain Networks (Base, Ethereum, Arbitrum, Polygon, Optimism, BSC)
+</code></pre>
+<p>All tools communicate via gRPC with backend microservices, ensuring high performance and type safety.</p>
+<h2>Installation</h2>
+<h3>Using npx (Recommended)</h3>
+<p>No installation required. The MCP server runs on-demand:</p>
+<pre><code class="language-bash">npx -y @samterminal/mcp-server
+</code></pre>
+<h3>Local Installation</h3>
+<p>For development or custom setups:</p>
+<pre><code class="language-bash">pnpm add -g @samterminal/mcp-server
+</code></pre>
+<h2>Claude Desktop Setup</h2>
+<h3>1. Locate Configuration File</h3>
+<p><strong>macOS:</strong></p>
+<pre><code>~/Library/Application Support/Claude/claude_desktop_config.json
+</code></pre>
+<p><strong>Windows:</strong></p>
+<pre><code>%APPDATA%\Claude\claude_desktop_config.json
+</code></pre>
+<p><strong>Linux:</strong></p>
+<pre><code>~/.config/Claude/claude_desktop_config.json
+</code></pre>
+<h3>2. Add MCP Server Configuration</h3>
+<p>Edit the configuration file and add the SAM Terminal MCP server:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;samterminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;env&quot;: {
+        &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
+        &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
+        &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+        &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+        &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;,
+        &quot;SAM_NOTIFICATION_PORT&quot;: &quot;50056&quot;,
+        &quot;WALLET_PRIVATE_KEY&quot;: &quot;your_private_key_here&quot;,
+        &quot;RPC_URL&quot;: &quot;https://mainnet.base.org&quot;,
+        &quot;CHAIN_ID&quot;: &quot;8453&quot;,
+        &quot;MATCHA_API_KEY&quot;: &quot;your_0x_api_key&quot;,
+        &quot;COINGECKO_API_KEY&quot;: &quot;your_coingecko_api_key&quot;,
+        &quot;MORALIS_API_KEY&quot;: &quot;your_moralis_api_key&quot;,
+        &quot;OPENAI_API_KEY&quot;: &quot;your_openai_api_key&quot;,
+        &quot;ANTHROPIC_API_KEY&quot;: &quot;your_anthropic_api_key&quot;,
+        &quot;MAIN_BOT_TOKEN&quot;: &quot;your_telegram_bot_token&quot;,
+        &quot;USER_DATABASE_URL&quot;: &quot;postgresql://user:password@localhost:5432/samterminal_user&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3>3. Restart Claude Desktop</h3>
+<p>Quit Claude Desktop completely and relaunch. The MCP server will connect automatically.</p>
+<h3>4. Verify Connection</h3>
+<p>In Claude Desktop, look for the tools icon (hammer/wrench) in the chat interface. You should see 40+ SAM Terminal tools available.</p>
+<h2>Cursor Setup</h2>
+<h3>1. Open Cursor Settings</h3>
+<ul>
+<li>Press <code>Cmd+Shift+P</code> (macOS) or <code>Ctrl+Shift+P</code> (Windows/Linux)</li>
+<li>Search for &quot;MCP Settings&quot;</li>
+<li>Select &quot;Edit MCP Settings&quot;</li>
+</ul>
+<h3>2. Add Configuration</h3>
+<p>Add the SAM Terminal MCP server to your settings:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;samterminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;env&quot;: {
+        &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
+        &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
+        &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+        &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+        &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;,
+        &quot;SAM_NOTIFICATION_PORT&quot;: &quot;50056&quot;,
+        &quot;WALLET_PRIVATE_KEY&quot;: &quot;your_private_key_here&quot;,
+        &quot;RPC_URL&quot;: &quot;https://mainnet.base.org&quot;,
+        &quot;CHAIN_ID&quot;: &quot;8453&quot;,
+        &quot;MATCHA_API_KEY&quot;: &quot;your_0x_api_key&quot;,
+        &quot;COINGECKO_API_KEY&quot;: &quot;your_coingecko_api_key&quot;,
+        &quot;MORALIS_API_KEY&quot;: &quot;your_moralis_api_key&quot;,
+        &quot;OPENAI_API_KEY&quot;: &quot;your_openai_api_key&quot;,
+        &quot;ANTHROPIC_API_KEY&quot;: &quot;your_anthropic_api_key&quot;,
+        &quot;MAIN_BOT_TOKEN&quot;: &quot;your_telegram_bot_token&quot;,
+        &quot;USER_DATABASE_URL&quot;: &quot;postgresql://user:password@localhost:5432/samterminal_user&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3>3. Reload Cursor</h3>
+<p>Reload the window or restart Cursor for changes to take effect.</p>
+<h3>4. Test Integration</h3>
+<p>Open Cursor&#39;s AI chat and try: &quot;List available SAM Terminal tools&quot;</p>
+<h2>Claude Code Setup</h2>
+<h3>1. Create Configuration Directory</h3>
+<pre><code class="language-bash">mkdir -p ~/.claude
+</code></pre>
+<h3>2. Create MCP Configuration</h3>
+<p>Create or edit <code>~/.claude/mcp_config.json</code>:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;samterminal&quot;: {
+      &quot;command&quot;: &quot;npx&quot;,
+      &quot;args&quot;: [&quot;-y&quot;, &quot;@samterminal/mcp-server&quot;],
+      &quot;env&quot;: {
+        &quot;SAM_GRPC_HOST&quot;: &quot;localhost&quot;,
+        &quot;SAM_MAIN_PORT&quot;: &quot;50060&quot;,
+        &quot;SAM_TOKEN_PORT&quot;: &quot;50061&quot;,
+        &quot;SAM_WALLET_PORT&quot;: &quot;50062&quot;,
+        &quot;SAM_SWAP_PORT&quot;: &quot;50059&quot;,
+        &quot;SAM_NOTIFICATION_PORT&quot;: &quot;50056&quot;,
+        &quot;WALLET_PRIVATE_KEY&quot;: &quot;your_private_key_here&quot;,
+        &quot;RPC_URL&quot;: &quot;https://mainnet.base.org&quot;,
+        &quot;CHAIN_ID&quot;: &quot;8453&quot;,
+        &quot;MATCHA_API_KEY&quot;: &quot;your_0x_api_key&quot;,
+        &quot;COINGECKO_API_KEY&quot;: &quot;your_coingecko_api_key&quot;,
+        &quot;MORALIS_API_KEY&quot;: &quot;your_moralis_api_key&quot;,
+        &quot;OPENAI_API_KEY&quot;: &quot;your_openai_api_key&quot;,
+        &quot;ANTHROPIC_API_KEY&quot;: &quot;your_anthropic_api_key&quot;,
+        &quot;MAIN_BOT_TOKEN&quot;: &quot;your_telegram_bot_token&quot;,
+        &quot;USER_DATABASE_URL&quot;: &quot;postgresql://user:password@localhost:5432/samterminal_user&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3>3. Start Claude Code</h3>
+<pre><code class="language-bash">claude
+</code></pre>
+<p>The MCP server will connect on startup.</p>
+<h2>Available Tools Reference</h2>
+<h3>Token Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_get_tokens</code></td>
+<td>Get token list (all or filtered)</td>
+<td><code>addresses?: string[]</code></td>
+</tr>
+<tr>
+<td><code>sam_get_token_price</code></td>
+<td>Get current price and volume</td>
+<td><code>contractAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_get_token_info</code></td>
+<td>Detailed token information</td>
+<td><code>contractAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_token_track</code></td>
+<td>Start tracking a token</td>
+<td><code>contractAddress: string, metadata?: object</code></td>
+</tr>
+<tr>
+<td><code>sam_token_untrack</code></td>
+<td>Stop tracking a token</td>
+<td><code>contractAddress: string</code></td>
+</tr>
+<tr>
+<td><code>sam_token_blacklist</code></td>
+<td>Blacklist token addresses</td>
+<td><code>addresses: string[]</code></td>
+</tr>
+<tr>
+<td><code>sam_token_search</code></td>
+<td>Search tokens by name/symbol/address</td>
+<td><code>query: string</code></td>
+</tr>
+</tbody></table>
+<h3>Wallet Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_get_wallet</code></td>
+<td>Wallet summary (balance, total value)</td>
+<td><code>address: string, chain?: BASE</code></td>
+</tr>
+<tr>
+<td><code>sam_get_wallet_tokens</code></td>
+<td>All token holdings with prices</td>
+<td><code>address: string, chain?: BASE</code></td>
+</tr>
+<tr>
+<td><code>sam_get_wallet_details</code></td>
+<td>Full wallet details (summary + tokens)</td>
+<td><code>address: string, chain?: BASE</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_track</code></td>
+<td>Start tracking a wallet</td>
+<td><code>address: string, chain?: BASE, label?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_update_portfolio</code></td>
+<td>Update cached portfolio value</td>
+<td><code>address: string, chain?: BASE</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_label</code></td>
+<td>Assign label to wallet</td>
+<td><code>address: string, label: string</code></td>
+</tr>
+<tr>
+<td><code>sam_wallet_tracked_list</code></td>
+<td>List all tracked wallets</td>
+<td><code>chain?: BASE</code></td>
+</tr>
+</tbody></table>
+<h3>Workflow Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_flow_list</code></td>
+<td>List all workflows</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sam_flow_get</code></td>
+<td>Get workflow details</td>
+<td><code>flowId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_create</code></td>
+<td>Create custom workflow</td>
+<td><code>name: string, nodes: Node[], edges: Edge[]</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_create_from_template</code></td>
+<td>Create from template</td>
+<td><code>templateName: string, config: object</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_execute</code></td>
+<td>Execute workflow</td>
+<td><code>flowId: string, input?: object</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_status</code></td>
+<td>Get execution status</td>
+<td><code>executionId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_flow_templates</code></td>
+<td>List available templates</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<p><strong>Workflow Node Types:</strong> <code>trigger</code>, <code>action</code>, <code>condition</code>, <code>loop</code>, <code>delay</code>, <code>subflow</code>, <code>output</code></p>
+<p><strong>Workflow Edge Types:</strong> <code>default</code>, <code>success</code>, <code>failure</code>, <code>conditional</code></p>
+<p><strong>Available Templates:</strong> <code>simple-action</code>, <code>conditional</code>, <code>error-handling</code>, <code>scheduled</code></p>
+<h3>Swap Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_swap_quote</code></td>
+<td>Get swap quote</td>
+<td><code>fromToken: string, toToken: string, amount: string</code></td>
+</tr>
+<tr>
+<td><code>sam_swap_execute</code></td>
+<td>Execute swap</td>
+<td><code>fromToken: string, toToken: string, amount: string, slippage?: number</code></td>
+</tr>
+<tr>
+<td><code>sam_swap_approve</code></td>
+<td>Approve token spending</td>
+<td><code>tokenAddress: string, spender: string, amount: string</code></td>
+</tr>
+</tbody></table>
+<h3>AI Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_ai_chat</code></td>
+<td>Chat with AI models</td>
+<td><code>message: string, model?: string, context?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_ai_analyze</code></td>
+<td>Analyze token/wallet data</td>
+<td><code>data: object, analysisType: string</code></td>
+</tr>
+<tr>
+<td><code>sam_ai_summarize</code></td>
+<td>Summarize blockchain data</td>
+<td><code>content: string, maxLength?: number</code></td>
+</tr>
+</tbody></table>
+<h3>Notification Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_notify_send</code></td>
+<td>Send notification</td>
+<td><code>channel: string, message: string, priority?: string</code></td>
+</tr>
+<tr>
+<td><code>sam_notify_subscribe</code></td>
+<td>Subscribe to events</td>
+<td><code>eventType: string, channel: string, filters?: object</code></td>
+</tr>
+<tr>
+<td><code>sam_notify_unsubscribe</code></td>
+<td>Unsubscribe from events</td>
+<td><code>subscriptionId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_notify_list</code></td>
+<td>List active subscriptions</td>
+<td>None</td>
+</tr>
+</tbody></table>
+<h3>Scheduler Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_schedule_create</code></td>
+<td>Create scheduled task</td>
+<td><code>cronExpression: string, action: string, params: object</code></td>
+</tr>
+<tr>
+<td><code>sam_schedule_list</code></td>
+<td>List scheduled tasks</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sam_schedule_delete</code></td>
+<td>Delete scheduled task</td>
+<td><code>scheduleId: string</code></td>
+</tr>
+<tr>
+<td><code>sam_schedule_pause</code></td>
+<td>Pause scheduled task</td>
+<td><code>scheduleId: string</code></td>
+</tr>
+</tbody></table>
+<h3>Chain Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_chain_info</code></td>
+<td>Get chain information</td>
+<td><code>chainId: number</code></td>
+</tr>
+<tr>
+<td><code>sam_chain_gas</code></td>
+<td>Get current gas prices</td>
+<td><code>chainId: number</code></td>
+</tr>
+<tr>
+<td><code>sam_chain_block</code></td>
+<td>Get block information</td>
+<td><code>chainId: number, blockNumber?: number</code></td>
+</tr>
+</tbody></table>
+<h3>Plugin Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Description</th>
+<th>Key Parameters</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>sam_plugin_list</code></td>
+<td>List installed plugins</td>
+<td>None</td>
+</tr>
+<tr>
+<td><code>sam_plugin_execute</code></td>
+<td>Execute plugin action</td>
+<td><code>pluginName: string, action: string, params: object</code></td>
+</tr>
+</tbody></table>
+<h2>Tool Usage Examples</h2>
+<h3>Example 1: Token Price Query</h3>
+<p><strong>User:</strong> &quot;What&#39;s the current price of USDC on Base?&quot;</p>
+<p><strong>Claude:</strong> I&#39;ll check the USDC price for you.</p>
+<pre><code>Tool: sam_token_search
+Input: { &quot;query&quot;: &quot;USDC&quot; }
+</code></pre>
+<pre><code>Tool: sam_get_token_price
+Input: { &quot;contractAddress&quot;: &quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot; }
+</code></pre>
+<p><strong>Response:</strong> &quot;USDC is currently trading at $1.00 with a 24h volume of $2.3M on Base.&quot;</p>
+<h3>Example 2: Wallet Tracking</h3>
+<p><strong>User:</strong> &quot;Track this wallet and label it as &#39;Whale Wallet&#39;: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb&quot;</p>
+<p><strong>Claude:</strong> I&#39;ll track that wallet with the label you specified.</p>
+<pre><code>Tool: sam_wallet_track
+Input: {
+  &quot;address&quot;: &quot;0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb&quot;,
+  &quot;chain&quot;: &quot;BASE&quot;,
+  &quot;label&quot;: &quot;Whale Wallet&quot;
+}
+</code></pre>
+<p><strong>Response:</strong> &quot;Wallet tracked successfully. Current portfolio value: $1.2M across 15 tokens.&quot;</p>
+<h3>Example 3: Portfolio Check</h3>
+<p><strong>User:</strong> &quot;Show me the full details of my wallet&quot;</p>
+<p><strong>Claude:</strong> I&#39;ll retrieve your complete wallet details.</p>
+<pre><code>Tool: sam_get_wallet_details
+Input: {
+  &quot;address&quot;: &quot;0x...&quot;,
+  &quot;chain&quot;: &quot;BASE&quot;
+}
+</code></pre>
+<p><strong>Response:</strong> Displays native balance, total USD value, and complete token breakdown with prices.</p>
+<h3>Example 4: Creating a Price Alert Workflow</h3>
+<p><strong>User:</strong> &quot;Create a workflow that sends me a Telegram alert when ETH drops below $2000&quot;</p>
+<p><strong>Claude:</strong> I&#39;ll create a price monitoring workflow for you.</p>
+<pre><code>Tool: sam_flow_create
+Input: {
+  &quot;name&quot;: &quot;ETH Price Alert&quot;,
+  &quot;nodes&quot;: [
+    {
+      &quot;id&quot;: &quot;trigger-1&quot;,
+      &quot;type&quot;: &quot;trigger&quot;,
+      &quot;config&quot;: {
+        &quot;eventType&quot;: &quot;price_update&quot;,
+        &quot;filters&quot;: { &quot;token&quot;: &quot;ETH&quot; }
+      }
+    },
+    {
+      &quot;id&quot;: &quot;condition-1&quot;,
+      &quot;type&quot;: &quot;condition&quot;,
+      &quot;config&quot;: {
+        &quot;expression&quot;: &quot;price &lt; 2000&quot;
+      }
+    },
+    {
+      &quot;id&quot;: &quot;action-1&quot;,
+      &quot;type&quot;: &quot;action&quot;,
+      &quot;config&quot;: {
+        &quot;plugin&quot;: &quot;telegram&quot;,
+        &quot;action&quot;: &quot;sendMessage&quot;,
+        &quot;params&quot;: {
+          &quot;message&quot;: &quot;ETH is below $2000!&quot;
+        }
+      }
+    }
+  ],
+  &quot;edges&quot;: [
+    { &quot;from&quot;: &quot;trigger-1&quot;, &quot;to&quot;: &quot;condition-1&quot;, &quot;type&quot;: &quot;default&quot; },
+    { &quot;from&quot;: &quot;condition-1&quot;, &quot;to&quot;: &quot;action-1&quot;, &quot;type&quot;: &quot;success&quot; }
+  ]
+}
+</code></pre>
+<p><strong>Response:</strong> &quot;Price alert workflow created successfully. You&#39;ll receive a Telegram notification when ETH drops below $2000.&quot;</p>
+<h3>Example 5: Token Swap</h3>
+<p><strong>User:</strong> &quot;Get me a quote to swap 100 USDC for ETH&quot;</p>
+<p><strong>Claude:</strong> I&#39;ll get you a swap quote.</p>
+<pre><code>Tool: sam_swap_quote
+Input: {
+  &quot;fromToken&quot;: &quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+  &quot;toToken&quot;: &quot;0x4200000000000000000000000000000000000006&quot;,
+  &quot;amount&quot;: &quot;100000000&quot;
+}
+</code></pre>
+<p><strong>Response:</strong> &quot;You&#39;ll receive approximately 0.045 ETH for 100 USDC (current rate: $2222/ETH). Estimated gas: 0.0002 ETH.&quot;</p>
+<h2>Environment Variables</h2>
+<h3>Required Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SAM_GRPC_HOST</code></td>
+<td>gRPC server host</td>
+<td><code>localhost</code></td>
+</tr>
+<tr>
+<td><code>SAM_MAIN_PORT</code></td>
+<td>Main service gRPC port</td>
+<td><code>50060</code></td>
+</tr>
+<tr>
+<td><code>SAM_TOKEN_PORT</code></td>
+<td>Token data service gRPC port</td>
+<td><code>50061</code></td>
+</tr>
+<tr>
+<td><code>SAM_SWAP_PORT</code></td>
+<td>Swap service gRPC port</td>
+<td><code>50059</code></td>
+</tr>
+<tr>
+<td><code>WALLET_PRIVATE_KEY</code></td>
+<td>Wallet private key for transactions</td>
+<td><code>0x...</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>Security Warning:</strong> Never share your private key or commit it to version control. Use environment variables and consider using a dedicated hot wallet with limited funds for automated trading. For production, use a secure key management system (AWS KMS, HashiCorp Vault).</p>
+</blockquote>
+<p>| <code>RPC_URL</code> | Blockchain RPC endpoint | <code>https://mainnet.base.org</code> |
+| <code>CHAIN_ID</code> | Chain ID for transactions | <code>8453</code> (Base) |
+| <code>USER_DATABASE_URL</code> | PostgreSQL connection string | <code>postgresql://...</code> |</p>
+<h3>Optional API Keys</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+<th>Required For</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MATCHA_API_KEY</code></td>
+<td>0x Protocol API key</td>
+<td>Swap operations</td>
+</tr>
+<tr>
+<td><code>COINGECKO_API_KEY</code></td>
+<td>CoinGecko API key</td>
+<td>Token price data</td>
+</tr>
+<tr>
+<td><code>MORALIS_API_KEY</code></td>
+<td>Moralis API key</td>
+<td>Wallet/token data</td>
+</tr>
+<tr>
+<td><code>OPENAI_API_KEY</code></td>
+<td>OpenAI API key</td>
+<td>AI tools</td>
+</tr>
+<tr>
+<td><code>ANTHROPIC_API_KEY</code></td>
+<td>Anthropic API key</td>
+<td>AI tools</td>
+</tr>
+<tr>
+<td><code>MAIN_BOT_TOKEN</code></td>
+<td>Telegram bot token</td>
+<td>Telegram notifications</td>
+</tr>
+</tbody></table>
+<h3>Chain ID Reference</h3>
+<ul>
+<li>Base: <code>8453</code></li>
+<li>Ethereum Mainnet: <code>1</code></li>
+<li>Arbitrum: <code>42161</code></li>
+<li>Optimism: <code>10</code></li>
+<li>Polygon: <code>137</code></li>
+<li>BSC: <code>56</code></li>
+</ul>
+<h2>Workflow Engine via MCP</h2>
+<p>The Workflow Engine allows you to create sophisticated automation workflows using a visual node-based system through MCP.</p>
+<h3>Workflow Node Types</h3>
+<p><strong>Trigger Nodes</strong></p>
+<ul>
+<li>Start workflows based on events (price changes, transactions, time)</li>
+</ul>
+<p><strong>Action Nodes</strong></p>
+<ul>
+<li>Execute operations (swaps, transfers, notifications)</li>
+</ul>
+<p><strong>Condition Nodes</strong></p>
+<ul>
+<li>Branching logic based on boolean expressions</li>
+</ul>
+<p><strong>Loop Nodes</strong></p>
+<ul>
+<li>Iterate over arrays or repeat actions</li>
+</ul>
+<p><strong>Delay Nodes</strong></p>
+<ul>
+<li>Wait for specified duration</li>
+</ul>
+<p><strong>Subflow Nodes</strong></p>
+<ul>
+<li>Execute nested workflows</li>
+</ul>
+<p><strong>Output Nodes</strong></p>
+<ul>
+<li>Return values from workflow execution</li>
+</ul>
+<h3>Creating a Workflow from Template</h3>
+<pre><code>Tool: sam_flow_create_from_template
+Input: {
+  &quot;templateName&quot;: &quot;simple-action&quot;,
+  &quot;config&quot;: {
+    &quot;triggerType&quot;: &quot;manual&quot;,
+    &quot;action&quot;: {
+      &quot;plugin&quot;: &quot;walletdata&quot;,
+      &quot;action&quot;: &quot;trackWallet&quot;,
+      &quot;params&quot;: {
+        &quot;address&quot;: &quot;0x...&quot;,
+        &quot;chain&quot;: &quot;BASE&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3>Executing a Workflow</h3>
+<pre><code>Tool: sam_flow_execute
+Input: {
+  &quot;flowId&quot;: &quot;flow-123&quot;,
+  &quot;input&quot;: {
+    &quot;walletAddress&quot;: &quot;0x...&quot;,
+    &quot;threshold&quot;: 1000
+  }
+}
+</code></pre>
+<h3>Monitoring Execution</h3>
+<pre><code>Tool: sam_flow_status
+Input: {
+  &quot;executionId&quot;: &quot;exec-456&quot;
+}
+</code></pre>
+<p>Response includes execution state, current node, output, and error details if any.</p>
+<h2>Troubleshooting</h2>
+<h3>MCP Server Not Connecting</h3>
+<p><strong>Issue:</strong> Claude Desktop shows &quot;Connection failed&quot;</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify backend services are running:<pre><code class="language-bash">docker compose up -d
+</code></pre>
+</li>
+<li>Check gRPC port is accessible:<pre><code class="language-bash">nc -zv localhost 50060
+</code></pre>
+</li>
+<li>Review Claude Desktop logs:<ul>
+<li>macOS: <code>~/Library/Logs/Claude/</code></li>
+<li>Windows: <code>%APPDATA%\Claude\logs\</code></li>
+</ul>
+</li>
+</ol>
+<h3>Tools Not Appearing</h3>
+<p><strong>Issue:</strong> MCP tools don&#39;t show in Claude Desktop</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Completely quit Claude Desktop (Cmd+Q on macOS)</li>
+<li>Verify configuration file syntax (valid JSON)</li>
+<li>Check for duplicate <code>mcpServers</code> keys</li>
+<li>Restart after configuration changes</li>
+</ol>
+<h3>Environment Variable Errors</h3>
+<p><strong>Issue:</strong> Tools fail with &quot;missing configuration&quot;</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify all required env vars are set in MCP config</li>
+<li>Use absolute paths for file-based secrets</li>
+<li>Ensure proper escaping for special characters in values</li>
+<li>Check USER_DATABASE_URL format: <code>postgresql://user:pass@host:port/db</code></li>
+</ol>
+<h3>gRPC Connection Errors</h3>
+<p><strong>Issue:</strong> &quot;Connection refused&quot; or &quot;Unavailable&quot;</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify backend services status:<pre><code class="language-bash">docker compose ps
+</code></pre>
+</li>
+<li>Check gRPC health:<pre><code class="language-bash">grpcurl -plaintext localhost:50060 list
+</code></pre>
+</li>
+<li>Verify SAM_GRPC_HOST and SAM_*_PORT values in config</li>
+<li>Check firewall rules for ports 50056-50062</li>
+</ol>
+<h3>Transaction Failures</h3>
+<p><strong>Issue:</strong> Swap/transfer operations fail</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify wallet has sufficient native token for gas</li>
+<li>Check WALLET_PRIVATE_KEY is correctly formatted (0x prefix)</li>
+<li>Ensure RPC_URL is responsive and synced</li>
+<li>Verify CHAIN_ID matches RPC_URL network</li>
+<li>Check token approval before swaps</li>
+</ol>
+<h3>API Rate Limits</h3>
+<p><strong>Issue:</strong> &quot;Rate limit exceeded&quot; errors</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Upgrade to paid API plans (CoinGecko, Moralis)</li>
+<li>Implement caching for frequently accessed data</li>
+<li>Use <code>sam_wallet_update_portfolio</code> to refresh cached data</li>
+<li>Consider running your own RPC node for high-volume usage</li>
+</ol>
+<h3>Database Connection Issues</h3>
+<p><strong>Issue:</strong> &quot;Connection pool exhausted&quot; or timeouts</p>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Verify PostgreSQL is running:<pre><code class="language-bash">docker compose ps postgres
+</code></pre>
+</li>
+<li>Test database connectivity:<pre><code class="language-bash">psql $USER_DATABASE_URL -c &quot;SELECT 1&quot;
+</code></pre>
+</li>
+<li>Check connection string format</li>
+<li>Increase connection pool size in backend config</li>
+</ol>
+<h2>Next Steps</h2>
+<ul>
+<li><strong>Plugin Development:</strong> Learn how to create custom plugins - see <a href="/docs/plugin-development">Plugin Development Guide</a></li>
+<li><strong>Workflow Automation:</strong> Build advanced workflows - see <a href="/docs/building-trading-agents">Trading Agents Guide</a></li>
+</ul>
+<h2>Support</h2>
+<ul>
+<li><strong>GitHub Issues:</strong> <a href="https://github.com/samterminal/samterminal">github.com/samterminal/samterminal</a></li>
+<li><strong>X (Twitter):</strong> <a href="https://x.com/samterminalcom">@samterminalcom</a></li>
+</ul>
+<hr>
+<p><strong>Last Updated:</strong> February 16, 2026</p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

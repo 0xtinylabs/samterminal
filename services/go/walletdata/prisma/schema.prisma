@@ -1,0 +1,19 @@
+generator client {
+  provider = "go run github.com/steebchen/prisma-client-go"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Wallet {
+  id               String   @id @default(uuid())
+  address          String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  erc20DollarValue String   @default("0")
+  nativeBalance    String   @default("0")
+  tokens           String[]
+}

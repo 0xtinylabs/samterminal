@@ -1,0 +1,26 @@
+{
+  "$schema": "https://samterminal.dev/schema/config.json",
+  "version": "1.0.0",
+  "agent": {
+    "name": "playground-agent",
+    "description": "SamTerminal Playground Agent"
+  },
+  "plugins": [
+    "@samterminal/plugin-telegram",
+    "@samterminal/plugin-ai",
+    "@samterminal/plugin-tokendata",
+    "@samterminal/plugin-walletdata",
+    "@samterminal/plugin-swap",
+    "@samterminal/plugin-onboarding"
+  ],
+  "chains": {
+    "default": "base",
+    "enabled": ["base", "ethereum", "arbitrum"]
+  },
+  "settings": {
+    "logging": {
+      "level": "info",
+      "format": "pretty"
+    }
+  }
+}

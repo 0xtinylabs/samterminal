@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "go run github.com/steebchen/prisma-client-go"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Token {
+  id                  String      @id @default(uuid())
+  address             String      @unique
+  volume24H           String
+  price               String
+  supply              String
+  circulatedSupply    String      @default("0")
+  imageURL            String
+  name                String
+  symbol              String
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @default(now()) @updatedAt
+  lastUpdatedAt       DateTime    @default(now()) @updatedAt
+  lastUsedAt          DateTime    @default(now()) @updatedAt
+  usingEnds           Int         @default(0)
+  poolType            DexPoolType @default(UNISWAP_V3)
+  poolAddress         String?
+  pairAddress         String?
+  poolABI             String?
+  watchEnabled        Boolean     @default(true)
+  calculatedVolume24H Float       @default(0)
+  reason              String?
+  isFixedPrice        Boolean     @default(false)
+  alwaysKeep          Boolean     @default(false)
+}
+
+model Blacklists {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  addresses String[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum DexPoolType {
+  UNISWAP_V3
+  UNISWAP_V4
+}

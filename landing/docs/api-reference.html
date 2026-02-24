@@ -1,0 +1,2656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference — SAM Terminal</title>
+  <meta name="description" content="Complete gRPC API documentation — Scanner, Swap, Notification, and Transaction services.">
+  <link rel="canonical" href="https://samterminal.com/docs/api-reference">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="API Reference">
+  <meta property="og:description" content="Complete gRPC API documentation — Scanner, Swap, Notification, and Transaction services.">
+  <meta property="og:url" content="https://samterminal.com/docs/api-reference">
+  <meta property="og:image" content="https://samterminal.com/og-image.png">
+  <meta property="og:site_name" content="SAM Terminal">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API Reference">
+  <meta name="twitter:description" content="Complete gRPC API documentation — Scanner, Swap, Notification, and Transaction services.">
+  <meta name="twitter:image" content="https://samterminal.com/og-image.png">
+  <meta name="twitter:site" content="@samterminalcom">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "API Reference",
+    "description": "Complete gRPC API documentation — Scanner, Swap, Notification, and Transaction services.",
+    "url": "https://samterminal.com/docs/api-reference",
+    "image": "https://samterminal.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com",
+      "logo": { "@type": "ImageObject", "url": "https://samterminal.com/logo.png" }
+    },
+    "mainEntityOfPage": "https://samterminal.com/docs/api-reference",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SAM Terminal",
+      "url": "https://samterminal.com"
+    }
+  }
+  </script>
+
+  <style>
+    .article-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .article-back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .article-back:hover {
+      color: var(--green);
+    }
+    .article-content {
+      line-height: 1.8;
+    }
+    .article-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    .article-content h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .article-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .article-content p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .article-content a {
+      color: var(--green);
+    }
+    .article-content a:hover {
+      text-decoration: underline;
+    }
+    .article-content ul,
+    .article-content ol {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.4rem;
+    }
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .article-content p code,
+    .article-content li code {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 0.15rem 0.4rem;
+      color: var(--green);
+    }
+    .article-content pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+    }
+    .article-content th,
+    .article-content td {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .article-content th {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content blockquote {
+      border-left: 2px solid var(--green);
+      padding-left: 1rem;
+      margin: 1rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .article-content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .article-content hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/logo.png" alt="SAM Terminal" class="logo-img"></a>
+      <nav class="header-links">
+        <a href="/#features" class="nav-link">Features</a>
+        <a href="/docs" class="nav-link">Docs</a>
+        <a href="/docs/api-reference" class="nav-link active">API</a>
+        <a href="/skill" class="nav-link">Skills</a>
+        <a href="/docs/manifesto" class="nav-link">Manifesto</a>
+        <span class="nav-divider"></span>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-container">
+    <a href="/docs" class="article-back">&larr; back to docs</a>
+    <div class="article-content">
+      <h1>SAM Terminal API Documentation</h1>
+<p><strong>Version:</strong> 1.0.0
+<strong>Last Updated:</strong> January 26, 2026
+<strong>Protocol:</strong> gRPC over HTTP/2</p>
+<hr>
+<h2>Table of Contents</h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#service-endpoints">Service Endpoints</a><ul>
+<li><a href="#scanner-service-main">Scanner Service (Main)</a></li>
+<li><a href="#swap-service">Swap Service</a></li>
+<li><a href="#notification-service">Notification Service</a></li>
+<li><a href="#transaction-service">Transaction Service</a></li>
+</ul>
+</li>
+<li><a href="#common-types">Common Types</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#rate-limiting">Rate Limiting</a></li>
+<li><a href="#code-examples">Code Examples</a></li>
+<li><a href="#sdks--client-libraries">SDKs &amp; Client Libraries</a></li>
+<li><a href="#changelog">Changelog</a></li>
+</ol>
+<hr>
+<h2>Overview</h2>
+<p>SamTerminal API is a <strong>gRPC-based microservices architecture</strong> designed for Web3 operations including token tracking, wallet management, swap execution, and notifications.</p>
+<h3>Service Architecture</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CLIENT APPLICATIONS                             │
+│                                                                              │
+│     Web App          Mobile App          CLI              Third-Party        │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ gRPC / HTTP
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              SAMTERMINAL API GATEWAY                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                        │
+│  │ Scanner │  │    Swap     │  │Notification │                        │
+│  │   :50060    │  │   :50059    │  │   :50056    │                        │
+│  │    gRPC     │  │    gRPC     │  │    gRPC     │                        │
+│  └─────────────┘  └─────────────┘  └─────────────┘                        │
+│                                                                              │
+│  ┌─────────────┐                                                            │
+│  │Transactions │                                                            │
+│  │   :50054    │                                                            │
+│  │    gRPC     │                                                            │
+│  └─────────────┘                                                            │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Service Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port</th>
+<th>Protocol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Scanner</strong></td>
+<td>50060</td>
+<td>gRPC</td>
+<td>Token &amp; wallet data operations</td>
+</tr>
+<tr>
+<td><strong>Swap</strong></td>
+<td>50059</td>
+<td>gRPC</td>
+<td>DEX swap execution</td>
+</tr>
+<tr>
+<td><strong>Notification</strong></td>
+<td>50056</td>
+<td>gRPC</td>
+<td>Telegram/Farcaster notifications</td>
+</tr>
+<tr>
+<td><strong>Transactions</strong></td>
+<td>50054</td>
+<td>gRPC</td>
+<td>Transaction logging</td>
+</tr>
+</tbody></table>
+<h3>Base URLs</h3>
+<pre><code># Development
+grpc://localhost:50060  # Scanner
+grpc://localhost:50059  # Swap
+grpc://localhost:50056  # Notification
+grpc://localhost:50054  # Transactions
+
+# Production (self-hosted)
+# Deploy using docker compose and configure your own host
+# grpc://your-host:50060  # Scanner
+# grpc://your-host:50059  # Swap
+</code></pre>
+<hr>
+<h2>Quick Start</h2>
+<h3>1. Install gRPC Client</h3>
+<pre><code class="language-bash"># Node.js
+npm install @grpc/grpc-js @grpc/proto-loader
+</code></pre>
+<h3>2. Generate Client from Proto</h3>
+<pre><code class="language-bash"># Generate TypeScript client
+npx grpc_tools_node_protoc \
+  --js_out=import_style=commonjs,binary:./generated \
+  --grpc_out=grpc_js:./generated \
+  --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` \
+  -I ./proto \
+  ./proto/*.proto
+</code></pre>
+<h3>3. Make Your First Request</h3>
+<pre><code class="language-typescript">import * as grpc from &#39;@grpc/grpc-js&#39;;
+import * as protoLoader from &#39;@grpc/proto-loader&#39;;
+
+// Load proto
+const packageDefinition = protoLoader.loadSync(&#39;./proto/index.proto&#39;);
+const proto = grpc.loadPackageDefinition(packageDefinition) as any;
+
+// Create client
+const client = new proto.scanner.Scanner(
+  &#39;localhost:50060&#39;,
+  grpc.credentials.createInsecure()
+);
+
+// Call method
+client.getToken(
+  { tokenAddress: &#39;0x...&#39;, addIfNotExist: true },
+  (error: Error | null, response: any) =&gt; {
+    if (error) {
+      console.error(&#39;Error:&#39;, error);
+      return;
+    }
+    console.log(&#39;Token:&#39;, response.token);
+  }
+);
+</code></pre>
+<hr>
+<h2>Authentication</h2>
+<h3>API Key Authentication</h3>
+<p>Some services (notably <strong>Swap Service</strong>) require API key authentication via gRPC metadata.</p>
+<h4>How It Works</h4>
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+│                    AUTHENTICATION FLOW                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. Client includes API key in gRPC metadata                    │
+│                                                                  │
+│     metadata: {                                                  │
+│       &#39;apiKey&#39;: &#39;your-api-key-here&#39;                             │
+│     }                                                            │
+│                                                                  │
+│  2. Server validates API key via ApiKeyGuard                    │
+│                                                                  │
+│  3. If valid → Request proceeds                                 │
+│     If invalid → UNAUTHENTICATED error returned                 │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h4>TypeScript Example</h4>
+<pre><code class="language-typescript">import * as grpc from &#39;@grpc/grpc-js&#39;;
+
+// Create metadata with API key
+const metadata = new grpc.Metadata();
+metadata.add(&#39;apiKey&#39;, process.env.SAMTERMINAL_API_KEY!);
+
+// Make authenticated request
+swapClient.swap(
+  {
+    fromTokenAddress: &#39;0x...&#39;,
+    toTokenAddress: &#39;0x...&#39;,
+    amount: 100,
+    chain: Chain.BASE,
+    privateKey: &#39;0x...&#39;,
+  },
+  metadata,
+  (error, response) =&gt; {
+    // Handle response
+  }
+);
+</code></pre>
+<h4>cURL Example (via grpcurl)</h4>
+<pre><code class="language-bash">grpcurl \
+  -plaintext \
+  -d &#39;{&quot;fromTokenAddress&quot;: &quot;0x...&quot;, &quot;toTokenAddress&quot;: &quot;0x...&quot;, &quot;amount&quot;: 100}&#39; \
+  -H &#39;apiKey: your-api-key&#39; \
+  localhost:50059 \
+  swap.SwapService/swap
+</code></pre>
+<h3>Services Requiring Authentication</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Authentication Required</th>
+<th>Method</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scanner</td>
+<td>No</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td><strong>Yes</strong></td>
+<td>API Key in metadata</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>No</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>No</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Service Endpoints</h2>
+<hr>
+<h2>Scanner Service (Main)</h2>
+<p><strong>Package:</strong> <code>scanner</code>
+<strong>Service:</strong> <code>Scanner</code>
+<strong>Port:</strong> 50060
+<strong>Proto File:</strong> <code>proto/index.proto</code></p>
+<h3>Token Operations</h3>
+<h4>GetToken</h4>
+<p>Retrieves information about a specific token.</p>
+<pre><code class="language-protobuf">rpc getToken(GetTokenRequest) returns (GetTokenResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Token contract address</td>
+</tr>
+<tr>
+<td><code>addIfNotExist</code></td>
+<td>bool</td>
+<td>Yes</td>
+<td>Auto-add token if not found</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>token</code></td>
+<td>Token</td>
+<td>Token information object</td>
+</tr>
+</tbody></table>
+<p><strong>Token Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>Token name</td>
+</tr>
+<tr>
+<td><code>symbol</code></td>
+<td>string</td>
+<td>Token symbol</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>string</td>
+<td>Current price (USD)</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>string</td>
+<td>24h trading volume</td>
+</tr>
+<tr>
+<td><code>calculatedVolume</code></td>
+<td>string</td>
+<td>Calculated volume</td>
+</tr>
+<tr>
+<td><code>imageUrl</code></td>
+<td>string</td>
+<td>Token logo URL</td>
+</tr>
+<tr>
+<td><code>address</code></td>
+<td>string</td>
+<td>Contract address</td>
+</tr>
+<tr>
+<td><code>poolAddress</code></td>
+<td>string</td>
+<td>Primary pool address</td>
+</tr>
+<tr>
+<td><code>supply</code></td>
+<td>string</td>
+<td>Total supply</td>
+</tr>
+<tr>
+<td><code>circulatedSupply</code></td>
+<td>string</td>
+<td>Circulating supply</td>
+</tr>
+<tr>
+<td><code>pairAddress</code></td>
+<td>string</td>
+<td>Trading pair address</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td>Additional metadata</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">// TypeScript
+const response = await client.getToken({
+  tokenAddress: &#39;0x4200000000000000000000000000000000000006&#39;, // WETH on Base
+  addIfNotExist: true,
+});
+
+console.log(response.token);
+// {
+//   name: &#39;Wrapped Ether&#39;,
+//   symbol: &#39;WETH&#39;,
+//   price: &#39;3245.67&#39;,
+//   volume: &#39;12500000&#39;,
+//   address: &#39;0x4200000000000000000000000000000000000006&#39;,
+//   ...
+// }
+</code></pre>
+<pre><code class="language-bash"># grpcurl
+grpcurl -plaintext \
+  -d &#39;{&quot;tokenAddress&quot;: &quot;0x4200000000000000000000000000000000000006&quot;, &quot;addIfNotExist&quot;: true}&#39; \
+  localhost:50060 \
+  scanner.Scanner/getToken
+</code></pre>
+<hr>
+<h4>GetTokens</h4>
+<p>Retrieves multiple tokens in batch.</p>
+<pre><code class="language-protobuf">rpc getTokens(GetTokensRequest) returns (GetTokensResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddresses</code></td>
+<td>string[]</td>
+<td>Yes</td>
+<td>Array of token addresses</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokens</code></td>
+<td>Token[]</td>
+<td>Array of token objects</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await client.getTokens({
+  tokenAddresses: [
+    &#39;0x4200000000000000000000000000000000000006&#39;, // WETH
+    &#39;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&#39;, // USDC
+  ],
+});
+
+console.log(`Found ${response.tokens.length} tokens`);
+</code></pre>
+<hr>
+<h4>GetTokenPrice</h4>
+<p>Retrieves current price and volume for a token.</p>
+<pre><code class="language-protobuf">rpc getTokenPrice(GetTokenPriceRequest) returns (GetTokenPriceResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Token address</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td>No</td>
+<td>Reason for price check</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>price</code></td>
+<td>string</td>
+<td>Current token price</td>
+</tr>
+<tr>
+<td><code>volume</code></td>
+<td>string</td>
+<td>Trading volume</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await client.getTokenPrice({
+  tokenAddress: &#39;0x4200000000000000000000000000000000000006&#39;,
+  reason: &#39;portfolio-update&#39;,
+});
+
+if (response.success) {
+  console.log(`Price: $${response.price}`);
+  console.log(`Volume: $${response.volume}`);
+}
+</code></pre>
+<hr>
+<h4>AddToken</h4>
+<p>Adds a new token to the tracking system.</p>
+<pre><code class="language-protobuf">rpc addToken(AddTokenRequest) returns (AddTokenResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Token contract address</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>No</td>
+<td>Token name</td>
+</tr>
+<tr>
+<td><code>symbol</code></td>
+<td>string</td>
+<td>No</td>
+<td>Token symbol</td>
+</tr>
+<tr>
+<td><code>image</code></td>
+<td>string</td>
+<td>No</td>
+<td>Token logo URL</td>
+</tr>
+<tr>
+<td><code>poolAddress</code></td>
+<td>string</td>
+<td>No</td>
+<td>Primary pool address</td>
+</tr>
+<tr>
+<td><code>circulatedSupply</code></td>
+<td>string</td>
+<td>No</td>
+<td>Circulating supply</td>
+</tr>
+<tr>
+<td><code>pairAddress</code></td>
+<td>string</td>
+<td>No</td>
+<td>Trading pair address</td>
+</tr>
+<tr>
+<td><code>reason</code></td>
+<td>string</td>
+<td>No</td>
+<td>Reason for adding</td>
+</tr>
+<tr>
+<td><code>initialPrice</code></td>
+<td>string</td>
+<td>No</td>
+<td>Initial price</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>TokenAddingType</td>
+<td>Result type</td>
+</tr>
+<tr>
+<td><code>Message</code></td>
+<td>string</td>
+<td>Status message</td>
+</tr>
+</tbody></table>
+<p><strong>TokenAddingType Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>DUPLICATE</code></td>
+<td>Token already exists</td>
+</tr>
+<tr>
+<td><code>FIRST_TIME</code></td>
+<td>Token added successfully</td>
+</tr>
+<tr>
+<td><code>ADD_ERROR</code></td>
+<td>Error adding token</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await client.addToken({
+  tokenAddress: &#39;0x...&#39;,
+  name: &#39;My Token&#39;,
+  symbol: &#39;MTK&#39;,
+  reason: &#39;user-request&#39;,
+});
+
+switch (response.type) {
+  case TokenAddingType.FIRST_TIME:
+    console.log(&#39;Token added successfully&#39;);
+    break;
+  case TokenAddingType.DUPLICATE:
+    console.log(&#39;Token already exists&#39;);
+    break;
+  case TokenAddingType.ADD_ERROR:
+    console.error(&#39;Failed to add token:&#39;, response.Message);
+    break;
+}
+</code></pre>
+<hr>
+<h4>RemoveToken</h4>
+<p>Removes a token from the tracking system.</p>
+<pre><code class="language-protobuf">rpc removeToken(RemoveTokenRequest) returns (RemoveTokenResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Token to remove</td>
+</tr>
+<tr>
+<td><code>bypassEnds</code></td>
+<td>bool</td>
+<td>No</td>
+<td>Bypass removal restrictions</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>TokenRemovingType</td>
+<td>Result type</td>
+</tr>
+<tr>
+<td><code>Message</code></td>
+<td>string</td>
+<td>Status message</td>
+</tr>
+</tbody></table>
+<p><strong>TokenRemovingType Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>STILL_CALCULATES</code></td>
+<td>Token still has pending calculations</td>
+</tr>
+<tr>
+<td><code>ALL_CLEAR</code></td>
+<td>Token removed successfully</td>
+</tr>
+<tr>
+<td><code>REMOVE_ERROR</code></td>
+<td>Error removing token</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>Wallet Operations</h3>
+<h4>AddWallet</h4>
+<p>Registers a new wallet for monitoring.</p>
+<pre><code class="language-protobuf">rpc addWallet(AddWalletRequest) returns (AddWalletResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Wallet address</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Registration success</td>
+</tr>
+</tbody></table>
+<hr>
+<h4>GetWallet</h4>
+<p>Retrieves wallet balance information.</p>
+<pre><code class="language-protobuf">rpc getWallet(GetWalletRequest) returns (GetWalletResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Wallet address</td>
+</tr>
+<tr>
+<td><code>chain</code></td>
+<td>CHAIN</td>
+<td>Yes</td>
+<td>BASE (default)</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>DataType</td>
+<td>Yes</td>
+<td>API or SCANNER</td>
+</tr>
+<tr>
+<td><code>tokenAddresses</code></td>
+<td>string[]</td>
+<td>Yes</td>
+<td>Filter by tokens (empty for all)</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletData</code></td>
+<td>Wallet</td>
+<td>Wallet information</td>
+</tr>
+</tbody></table>
+<p><strong>Wallet Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletAddress</code></td>
+<td>string</td>
+<td>Wallet address</td>
+</tr>
+<tr>
+<td><code>totalDollarValue</code></td>
+<td>string</td>
+<td>Total portfolio value (USD)</td>
+</tr>
+<tr>
+<td><code>nativeBalance</code></td>
+<td>string</td>
+<td>Native token balance (wei)</td>
+</tr>
+<tr>
+<td><code>nativeBalanceFormatted</code></td>
+<td>string</td>
+<td>Native balance (formatted)</td>
+</tr>
+<tr>
+<td><code>tokenAddresses</code></td>
+<td>string[]</td>
+<td>Held token addresses</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await client.getWallet({
+  walletAddress: &#39;0x1234...&#39;,
+  chain: Chain.BASE,
+  type: DataType.API,
+  tokenAddresses: [], // All tokens
+});
+
+console.log(`Total Value: $${response.walletData.totalDollarValue}`);
+console.log(`ETH Balance: ${response.walletData.nativeBalanceFormatted}`);
+</code></pre>
+<hr>
+<h4>GetWalletTokens</h4>
+<p>Retrieves all tokens held by a wallet.</p>
+<pre><code class="language-protobuf">rpc getWalletTokens(GetWalletTokensRequest) returns (GetWalletTokensResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Wallet address</td>
+</tr>
+<tr>
+<td><code>chain</code></td>
+<td>CHAIN</td>
+<td>Yes</td>
+<td>BASE (default)</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>DataType</td>
+<td>Yes</td>
+<td>API or SCANNER</td>
+</tr>
+<tr>
+<td><code>tokenAddresses</code></td>
+<td>string[]</td>
+<td>Yes</td>
+<td>Filter by tokens</td>
+</tr>
+<tr>
+<td><code>filterLowUSD</code></td>
+<td>bool</td>
+<td>Yes</td>
+<td>Filter dust amounts</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokens</code></td>
+<td>WalletToken[]</td>
+<td>Array of wallet tokens</td>
+</tr>
+<tr>
+<td><code>numberOfTokens</code></td>
+<td>int32</td>
+<td>Total token count</td>
+</tr>
+</tbody></table>
+<p><strong>WalletToken Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Token contract address</td>
+</tr>
+<tr>
+<td><code>tokenBalance</code></td>
+<td>string</td>
+<td>Raw balance</td>
+</tr>
+<tr>
+<td><code>tokenBalanceFormatted</code></td>
+<td>string</td>
+<td>Formatted balance</td>
+</tr>
+<tr>
+<td><code>tokenPrice</code></td>
+<td>string</td>
+<td>Current price (USD)</td>
+</tr>
+<tr>
+<td><code>tokenDollarValue</code></td>
+<td>string</td>
+<td>Holdings value (USD)</td>
+</tr>
+<tr>
+<td><code>tokenImage</code></td>
+<td>string</td>
+<td>Token logo URL</td>
+</tr>
+<tr>
+<td><code>tokenName</code></td>
+<td>string</td>
+<td>Token name</td>
+</tr>
+<tr>
+<td><code>tokenSymbol</code></td>
+<td>string</td>
+<td>Token symbol</td>
+</tr>
+<tr>
+<td><code>tokenVolume</code></td>
+<td>string</td>
+<td>24h volume</td>
+</tr>
+<tr>
+<td><code>tokenSupply</code></td>
+<td>string</td>
+<td>Total supply</td>
+</tr>
+<tr>
+<td><code>tokenPairAddress</code></td>
+<td>string</td>
+<td>Trading pair address</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await client.getWalletTokens({
+  walletAddress: &#39;0x1234...&#39;,
+  chain: Chain.BASE,
+  type: DataType.API,
+  tokenAddresses: [],
+  filterLowUSD: true, // Hide dust
+});
+
+for (const token of response.tokens) {
+  console.log(`${token.tokenSymbol}: ${token.tokenBalanceFormatted} ($${token.tokenDollarValue})`);
+}
+</code></pre>
+<hr>
+<h4>GetWalletDetails</h4>
+<p>Retrieves comprehensive wallet information with all token details.</p>
+<pre><code class="language-protobuf">rpc getWalletDetails(GetWalletDetailsRequest) returns (GetWalletDetailsResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<p>Same as <code>GetWalletTokensRequest</code>.</p>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tokens</code></td>
+<td>WalletToken[]</td>
+<td>Array of wallet tokens</td>
+</tr>
+<tr>
+<td><code>numberOfTokens</code></td>
+<td>int32</td>
+<td>Total token count</td>
+</tr>
+<tr>
+<td><code>walletData</code></td>
+<td>Wallet</td>
+<td>Full wallet data</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Swap Service</h2>
+<p><strong>Package:</strong> <code>swap</code>
+<strong>Service:</strong> <code>SwapService</code>
+<strong>Port:</strong> 50059
+<strong>Proto File:</strong> <code>proto/swap.proto</code>
+<strong>Authentication:</strong> Required (API Key)</p>
+<h3>Swap</h3>
+<p>Executes a token swap transaction.</p>
+<pre><code class="language-protobuf">rpc swap(SwapRequest) returns (SwapResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fromTokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Source token address</td>
+</tr>
+<tr>
+<td><code>toTokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Destination token address</td>
+</tr>
+<tr>
+<td><code>amount</code></td>
+<td>double</td>
+<td>Yes</td>
+<td>Amount to swap</td>
+</tr>
+<tr>
+<td><code>chain</code></td>
+<td>CHAIN</td>
+<td>Yes</td>
+<td>BASE (default)</td>
+</tr>
+<tr>
+<td><code>privateKey</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Wallet private key</td>
+</tr>
+<tr>
+<td><code>feeResource</code></td>
+<td>FeeResource</td>
+<td>No</td>
+<td>COMPANY or SELF</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td>string</td>
+<td>No</td>
+<td>Environment identifier</td>
+</tr>
+<tr>
+<td><code>app</code></td>
+<td>string</td>
+<td>No</td>
+<td>App identifier</td>
+</tr>
+<tr>
+<td><code>slippage</code></td>
+<td>int64</td>
+<td>No</td>
+<td>Slippage tolerance (bps)</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tx</code></td>
+<td>string</td>
+<td>Transaction hex (if not executed)</td>
+</tr>
+<tr>
+<td><code>txId</code></td>
+<td>string</td>
+<td>Transaction hash (if executed)</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Struct</td>
+<td>Error details (if failed)</td>
+</tr>
+<tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>sellAmount</code></td>
+<td>string</td>
+<td>Amount sold</td>
+</tr>
+<tr>
+<td><code>buyAmount</code></td>
+<td>string</td>
+<td>Amount received</td>
+</tr>
+<tr>
+<td><code>companyFee</code></td>
+<td>string</td>
+<td>Fee charged</td>
+</tr>
+</tbody></table>
+<p><strong>FeeResource Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>COMPANY</code></td>
+<td>Company bears the fee</td>
+</tr>
+<tr>
+<td><code>SELF</code></td>
+<td>User bears the fee</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">import * as grpc from &#39;@grpc/grpc-js&#39;;
+
+// Create authenticated metadata
+const metadata = new grpc.Metadata();
+metadata.add(&#39;apiKey&#39;, process.env.SAMTERMINAL_API_KEY!);
+
+const response = await swapClient.swap(
+  {
+    fromTokenAddress: &#39;0x4200000000000000000000000000000000000006&#39;, // WETH
+    toTokenAddress: &#39;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&#39;,   // USDC
+    amount: 0.1,
+    chain: Chain.BASE,
+    privateKey: process.env.WALLET_PRIVATE_KEY!,
+    slippage: 100, // 1%
+    feeResource: FeeResource.SELF,
+  },
+  metadata
+);
+
+if (response.success) {
+  console.log(`Swap executed: ${response.txId}`);
+  console.log(`Sold: ${response.sellAmount}`);
+  console.log(`Received: ${response.buyAmount}`);
+} else {
+  console.error(&#39;Swap failed:&#39;, response.error);
+}
+</code></pre>
+<pre><code class="language-bash"># grpcurl
+grpcurl -plaintext \
+  -H &#39;apiKey: your-api-key&#39; \
+  -d &#39;{
+    &quot;fromTokenAddress&quot;: &quot;0x4200000000000000000000000000000000000006&quot;,
+    &quot;toTokenAddress&quot;: &quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+    &quot;amount&quot;: 0.1,
+    &quot;chain&quot;: 0,
+    &quot;privateKey&quot;: &quot;0x...&quot;,
+    &quot;slippage&quot;: 100
+  }&#39; \
+  localhost:50059 \
+  swap.SwapService/swap
+</code></pre>
+<hr>
+<h3>GetFee</h3>
+<p>Retrieves fee information for a wallet.</p>
+<pre><code class="language-protobuf">rpc getFee(GetFeeRequest) returns (GetFeeResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Wallet address</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>string</td>
+<td>No</td>
+<td>Amount</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Fee retrieval success</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>Approve</h3>
+<p>Approves token spending for swap contract.</p>
+<pre><code class="language-protobuf">rpc approve(ApproveRequest) returns (ApproveResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>walletPrivateKey</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Private key</td>
+</tr>
+<tr>
+<td><code>tokenAddress</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Token to approve</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Approval success</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const metadata = new grpc.Metadata();
+metadata.add(&#39;apiKey&#39;, process.env.SAMTERMINAL_API_KEY!);
+
+const response = await swapClient.approve(
+  {
+    walletPrivateKey: process.env.WALLET_PRIVATE_KEY!,
+    tokenAddress: &#39;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&#39;, // USDC
+  },
+  metadata
+);
+
+if (response.success) {
+  console.log(&#39;Token approved for swapping&#39;);
+}
+</code></pre>
+<hr>
+<h2>Notification Service</h2>
+<p><strong>Package:</strong> <code>notification</code>
+<strong>Service:</strong> <code>NotificationService</code>
+<strong>Port:</strong> 50056
+<strong>Proto File:</strong> <code>proto/notification.proto</code></p>
+<h3>Send</h3>
+<p>Sends a notification to a user via Telegram or Farcaster.</p>
+<pre><code class="language-protobuf">rpc send(SendNotificationRequest) returns (SendNotificationResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>message</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Message content</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>NotificationType</td>
+<td>Yes</td>
+<td>TELEGRAM or FARCASTER</td>
+</tr>
+<tr>
+<td><code>botName</code></td>
+<td>TelegramBotTypes</td>
+<td>Yes</td>
+<td>MAIN or USER</td>
+</tr>
+<tr>
+<td><code>extras</code></td>
+<td>NotificationExtrasType</td>
+<td>No</td>
+<td>Buttons and metadata</td>
+</tr>
+<tr>
+<td><code>to</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Recipient ID</td>
+</tr>
+<tr>
+<td><code>bypass</code></td>
+<td>bool</td>
+<td>No</td>
+<td>Bypass rate limits</td>
+</tr>
+</tbody></table>
+<p><strong>NotificationType Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TELEGRAM</code></td>
+<td>Send via Telegram</td>
+</tr>
+<tr>
+<td><code>FARCASTER</code></td>
+<td>Send via Farcaster</td>
+</tr>
+</tbody></table>
+<p><strong>TelegramBotTypes Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MAIN</code></td>
+<td>Main bot instance</td>
+</tr>
+<tr>
+<td><code>USER</code></td>
+<td>User-specific bot</td>
+</tr>
+</tbody></table>
+<p><strong>NotificationExtrasType Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>buttons</code></td>
+<td>NotificationButton[]</td>
+<td>Interactive buttons</td>
+</tr>
+</tbody></table>
+<p><strong>NotificationButton Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>label</code></td>
+<td>string</td>
+<td>Button text</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td>string</td>
+<td>Callback data or URL</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>NotificationButtonType</td>
+<td>LINK or FUNCTION</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await notificationClient.send({
+  message: &#39;Your swap has been executed successfully!&#39;,
+  type: NotificationType.TELEGRAM,
+  botName: TelegramBotTypes.MAIN,
+  to: &#39;123456789&#39;, // Telegram chat ID
+  extras: {
+    buttons: [
+      {
+        label: &#39;View Transaction&#39;,
+        data: &#39;https://basescan.org/tx/0x...&#39;,
+        type: NotificationButtonType.LINK,
+      },
+      {
+        label: &#39;Swap Again&#39;,
+        data: &#39;swap_action&#39;,
+        type: NotificationButtonType.FUNCTION,
+      },
+    ],
+  },
+});
+
+if (response.success) {
+  console.log(&#39;Notification sent&#39;);
+}
+</code></pre>
+<hr>
+<h3>GetUserBotUrl</h3>
+<p>Retrieves bot connection URLs for a user.</p>
+<pre><code class="language-protobuf">rpc getUserBotUrl(GetUserBotURLRequest) returns (GetUserBotURLResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>userId</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>User ID</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>urls</code></td>
+<td>UserBotData[]</td>
+<td>Bot connection data</td>
+</tr>
+</tbody></table>
+<p><strong>UserBotData Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>code</code></td>
+<td>string</td>
+<td>Connection code</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>string</td>
+<td>Bot connection URL</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>NotificationType</td>
+<td>TELEGRAM or FARCASTER</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await notificationClient.getUserBotUrl({
+  userId: &#39;user-123&#39;,
+});
+
+for (const bot of response.urls) {
+  console.log(`${bot.type}: ${bot.url}`);
+  // TELEGRAM: https://t.me/SamTerminalBot?start=abc123
+}
+</code></pre>
+<hr>
+<h3>GetUserBotStates</h3>
+<p>Retrieves the state of all bot integrations for a user.</p>
+<pre><code class="language-protobuf">rpc getUserBotStates(GetUserBotStatesRequest) returns (GetUserBotStatesResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>userId</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>User ID</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>botStates</code></td>
+<td>BotState[]</td>
+<td>Bot states</td>
+</tr>
+</tbody></table>
+<p><strong>BotState Object</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>type</code></td>
+<td>NotificationType</td>
+<td>Bot type</td>
+</tr>
+<tr>
+<td><code>isActive</code></td>
+<td>bool</td>
+<td>Is bot active</td>
+</tr>
+</tbody></table>
+<hr>
+<h3>ToggleBotState</h3>
+<p>Enables or disables a bot integration for a user.</p>
+<pre><code class="language-protobuf">rpc toggleBotState(ToggleBotStateRequest) returns (ToggleBotStateResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>userId</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>User ID</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>NotificationType</td>
+<td>Yes</td>
+<td>Bot to toggle</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>success</code></td>
+<td>bool</td>
+<td>Operation success</td>
+</tr>
+<tr>
+<td><code>botStates</code></td>
+<td>BotState[]</td>
+<td>Updated states</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Transaction Service</h2>
+<p><strong>Package:</strong> <code>transactions</code>
+<strong>Service:</strong> <code>TransactionService</code>
+<strong>Port:</strong> 50054
+<strong>Proto File:</strong> <code>proto/transactions.proto</code></p>
+<h3>LogTransaction</h3>
+<p>Records a blockchain transaction with metadata.</p>
+<pre><code class="language-protobuf">rpc logTransaction(LogTransactionRequest) returns (LogTransactionResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>txHash</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Transaction hash</td>
+</tr>
+<tr>
+<td><code>connectionKey</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Connection identifier</td>
+</tr>
+<tr>
+<td><code>connectionValue</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Connection value</td>
+</tr>
+<tr>
+<td><code>transactionStatus</code></td>
+<td>TransactionStatus</td>
+<td>Yes</td>
+<td>Status</td>
+</tr>
+<tr>
+<td><code>transactionParams</code></td>
+<td>Struct</td>
+<td>No</td>
+<td>Input parameters</td>
+</tr>
+<tr>
+<td><code>transactionResultParams</code></td>
+<td>Struct</td>
+<td>No</td>
+<td>Output results</td>
+</tr>
+<tr>
+<td><code>errorMessage</code></td>
+<td>string</td>
+<td>No</td>
+<td>Error details</td>
+</tr>
+</tbody></table>
+<p><strong>TransactionStatus Enum</strong></p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SUCCESS</code></td>
+<td>Transaction successful</td>
+</tr>
+<tr>
+<td><code>FAIL</code></td>
+<td>Transaction failed</td>
+</tr>
+<tr>
+<td><code>WAITING</code></td>
+<td>Transaction pending</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>saved</code></td>
+<td>bool</td>
+<td>Log saved successfully</td>
+</tr>
+</tbody></table>
+<p><strong>Example Request</strong></p>
+<pre><code class="language-typescript">const response = await transactionClient.logTransaction({
+  txHash: &#39;0x123...&#39;,
+  connectionKey: &#39;userId&#39;,
+  connectionValue: &#39;user-123&#39;,
+  transactionStatus: TransactionStatus.SUCCESS,
+  transactionParams: {
+    fromToken: &#39;0x...&#39;,
+    toToken: &#39;0x...&#39;,
+    amount: &#39;1000000&#39;,
+  },
+  transactionResultParams: {
+    actualReceived: &#39;998000&#39;,
+    gasUsed: &#39;150000&#39;,
+  },
+});
+
+console.log(`Transaction logged: ${response.saved}`);
+</code></pre>
+<hr>
+<h3>UpdateLoggedTransactionStatus</h3>
+<p>Updates the status of a previously logged transaction.</p>
+<pre><code class="language-protobuf">rpc updateLoggedTransactionStatus(UpdateLoggedTransactionStatusRequest) returns (UpdateLoggedTransactionStatusResponse)
+</code></pre>
+<p><strong>Request</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>txHash</code></td>
+<td>string</td>
+<td>Yes</td>
+<td>Transaction hash</td>
+</tr>
+<tr>
+<td><code>transactionStatus</code></td>
+<td>TransactionStatus</td>
+<td>Yes</td>
+<td>New status</td>
+</tr>
+<tr>
+<td><code>errorMessage</code></td>
+<td>string</td>
+<td>No</td>
+<td>Error message</td>
+</tr>
+</tbody></table>
+<p><strong>Response</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>saved</code></td>
+<td>bool</td>
+<td>Update saved</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Common Types</h2>
+<h3>CHAIN Enum</h3>
+<p>Used across all services for chain specification.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Int</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BASE</code></td>
+<td>0</td>
+<td>Base L2 (default)</td>
+</tr>
+<tr>
+<td><code>ETHEREUM</code></td>
+<td>1</td>
+<td>Ethereum Mainnet</td>
+</tr>
+<tr>
+<td><code>ARBITRUM</code></td>
+<td>2</td>
+<td>Arbitrum One</td>
+</tr>
+<tr>
+<td><code>POLYGON</code></td>
+<td>3</td>
+<td>Polygon PoS</td>
+</tr>
+<tr>
+<td><code>OPTIMISM</code></td>
+<td>4</td>
+<td>Optimism</td>
+</tr>
+<tr>
+<td><code>BSC</code></td>
+<td>5</td>
+<td>BNB Smart Chain</td>
+</tr>
+</tbody></table>
+<h3>DataType Enum</h3>
+<p>Used for specifying data source.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Int</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>API</code></td>
+<td>0</td>
+<td>External API data</td>
+</tr>
+<tr>
+<td><code>SCANNER</code></td>
+<td>1</td>
+<td>Scanner-collected data</td>
+</tr>
+</tbody></table>
+<h3>Google Protobuf Types</h3>
+<p>Some endpoints use Google&#39;s well-known types:</p>
+<pre><code class="language-protobuf">import &quot;google/protobuf/struct.proto&quot;;
+
+// google.protobuf.Struct - Dynamic JSON-like object
+// Used for flexible request/response fields
+</code></pre>
+<hr>
+<h2>Error Handling</h2>
+<h3>gRPC Status Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>OK</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>1</td>
+<td>CANCELLED</td>
+<td>Operation cancelled</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UNKNOWN</td>
+<td>Unknown error</td>
+</tr>
+<tr>
+<td>3</td>
+<td>INVALID_ARGUMENT</td>
+<td>Invalid request parameters</td>
+</tr>
+<tr>
+<td>5</td>
+<td>NOT_FOUND</td>
+<td>Resource not found</td>
+</tr>
+<tr>
+<td>7</td>
+<td>PERMISSION_DENIED</td>
+<td>Insufficient permissions</td>
+</tr>
+<tr>
+<td>13</td>
+<td>INTERNAL</td>
+<td>Internal server error</td>
+</tr>
+<tr>
+<td>14</td>
+<td>UNAVAILABLE</td>
+<td>Service unavailable</td>
+</tr>
+<tr>
+<td>16</td>
+<td>UNAUTHENTICATED</td>
+<td>Missing/invalid authentication</td>
+</tr>
+</tbody></table>
+<h3>Error Response Format</h3>
+<p><strong>gRPC Error Example</strong></p>
+<pre><code class="language-typescript">try {
+  const response = await client.swap(request, metadata);
+} catch (error) {
+  if (error.code === grpc.status.UNAUTHENTICATED) {
+    console.error(&#39;Invalid API key&#39;);
+  } else if (error.code === grpc.status.INVALID_ARGUMENT) {
+    console.error(&#39;Invalid request:&#39;, error.details);
+  } else {
+    console.error(&#39;Error:&#39;, error.message);
+  }
+}
+</code></pre>
+<p><strong>Swap Service Error Object</strong></p>
+<pre><code class="language-typescript">// SwapResponse.error structure
+{
+  &quot;code&quot;: &quot;INSUFFICIENT_BALANCE&quot;,
+  &quot;message&quot;: &quot;Insufficient token balance for swap&quot;,
+  &quot;details&quot;: {
+    &quot;required&quot;: &quot;1000000000000000000&quot;,
+    &quot;available&quot;: &quot;500000000000000000&quot;
+  }
+}
+</code></pre>
+<h3>Application Error Codes</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Service</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>INSUFFICIENT_BALANCE</code></td>
+<td>Swap</td>
+<td>Not enough tokens</td>
+</tr>
+<tr>
+<td><code>SLIPPAGE_EXCEEDED</code></td>
+<td>Swap</td>
+<td>Price moved too much</td>
+</tr>
+<tr>
+<td><code>TOKEN_NOT_FOUND</code></td>
+<td>Scanner</td>
+<td>Token not in database</td>
+</tr>
+<tr>
+<td><code>WALLET_NOT_FOUND</code></td>
+<td>Scanner</td>
+<td>Wallet not registered</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Rate Limiting</h2>
+<h3>Default Limits</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Limit</th>
+<th>Window</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scanner</td>
+<td>100 req</td>
+<td>1 min</td>
+<td>Per IP</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>20 req</td>
+<td>1 min</td>
+<td>Per API key</td>
+</tr>
+<tr>
+<td>Notification</td>
+<td>60 req</td>
+<td>1 min</td>
+<td>Per user</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>100 req</td>
+<td>1 min</td>
+<td>Per connection</td>
+</tr>
+</tbody></table>
+<h3>Rate Limit Errors</h3>
+<p><strong>gRPC</strong></p>
+<pre><code class="language-typescript">// Error code: RESOURCE_EXHAUSTED (8)
+{
+  code: 8,
+  details: &#39;Rate limit exceeded. Retry after 60 seconds.&#39;
+}
+</code></pre>
+<p><strong>REST</strong></p>
+<pre><code class="language-json">{
+  &quot;statusCode&quot;: 429,
+  &quot;message&quot;: &quot;Too Many Requests&quot;,
+  &quot;retryAfter&quot;: 60
+}
+</code></pre>
+<h3>Bypass Rate Limits</h3>
+<p>Some endpoints support bypass for internal services:</p>
+<pre><code class="language-typescript">// Notification service
+await notificationClient.send({
+  message: &#39;Important alert&#39;,
+  to: &#39;123456789&#39;,
+  type: NotificationType.TELEGRAM,
+  botName: TelegramBotTypes.MAIN,
+  bypass: true, // Bypass rate limit
+});
+</code></pre>
+<hr>
+<h2>Code Examples</h2>
+<h3>Complete TypeScript Client</h3>
+<pre><code class="language-typescript">import * as grpc from &#39;@grpc/grpc-js&#39;;
+import * as protoLoader from &#39;@grpc/proto-loader&#39;;
+import path from &#39;path&#39;;
+
+// Configuration
+const PROTO_PATH = path.join(__dirname, &#39;../proto&#39;);
+const API_KEY = process.env.SAMTERMINAL_API_KEY!;
+
+// Load protos
+const loadProto = (filename: string) =&gt; {
+  const packageDefinition = protoLoader.loadSync(
+    path.join(PROTO_PATH, filename),
+    {
+      keepCase: true,
+      longs: String,
+      enums: String,
+      defaults: true,
+      oneofs: true,
+    }
+  );
+  return grpc.loadPackageDefinition(packageDefinition);
+};
+
+// Create clients
+const scannerProto = loadProto(&#39;index.proto&#39;) as any;
+const swapProto = loadProto(&#39;swap.proto&#39;) as any;
+const notificationProto = loadProto(&#39;notification.proto&#39;) as any;
+
+class SamTerminalClient {
+  private scanner: any;
+  private swap: any;
+  private notification: any;
+  private metadata: grpc.Metadata;
+
+  constructor(config: { apiKey: string; host?: string }) {
+    const host = config.host || &#39;localhost&#39;;
+    const credentials = grpc.credentials.createInsecure();
+
+    this.scanner = new scannerProto.scanner.Scanner(
+      `${host}:50060`,
+      credentials
+    );
+
+    this.swap = new swapProto.swap.SwapService(
+      `${host}:50059`,
+      credentials
+    );
+
+    this.notification = new notificationProto.notification.NotificationService(
+      `${host}:50056`,
+      credentials
+    );
+
+    this.metadata = new grpc.Metadata();
+    this.metadata.add(&#39;apiKey&#39;, config.apiKey);
+  }
+
+  // Token methods
+  async getToken(tokenAddress: string, addIfNotExist = true) {
+    return new Promise((resolve, reject) =&gt; {
+      this.scanner.getToken(
+        { tokenAddress, addIfNotExist },
+        (error: Error | null, response: any) =&gt; {
+          if (error) reject(error);
+          else resolve(response);
+        }
+      );
+    });
+  }
+
+  async getTokenPrice(tokenAddress: string) {
+    return new Promise((resolve, reject) =&gt; {
+      this.scanner.getTokenPrice(
+        { tokenAddress },
+        (error: Error | null, response: any) =&gt; {
+          if (error) reject(error);
+          else resolve(response);
+        }
+      );
+    });
+  }
+
+  // Wallet methods
+  async getWalletDetails(
+    walletAddress: string,
+    chain: &#39;BASE&#39; = &#39;BASE&#39;
+  ) {
+    return new Promise((resolve, reject) =&gt; {
+      this.scanner.getWalletDetails(
+        {
+          walletAddress,
+          chain: chain === &#39;BASE&#39; ? 0 : 1,
+          type: 0, // API
+          tokenAddresses: [],
+          filterLowUSD: true,
+        },
+        (error: Error | null, response: any) =&gt; {
+          if (error) reject(error);
+          else resolve(response);
+        }
+      );
+    });
+  }
+
+  // Swap methods
+  async swap(params: {
+    fromToken: string;
+    toToken: string;
+    amount: number;
+    privateKey: string;
+    slippage?: number;
+  }) {
+    return new Promise((resolve, reject) =&gt; {
+      this.swap.swap(
+        {
+          fromTokenAddress: params.fromToken,
+          toTokenAddress: params.toToken,
+          amount: params.amount,
+          chain: 0, // BASE
+          privateKey: params.privateKey,
+          slippage: params.slippage || 100,
+        },
+        this.metadata,
+        (error: Error | null, response: any) =&gt; {
+          if (error) reject(error);
+          else resolve(response);
+        }
+      );
+    });
+  }
+
+  // Notification methods
+  async sendTelegramNotification(chatId: string, message: string) {
+    return new Promise((resolve, reject) =&gt; {
+      this.notification.send(
+        {
+          message,
+          type: 0, // TELEGRAM
+          botName: 0, // MAIN
+          to: chatId,
+        },
+        (error: Error | null, response: any) =&gt; {
+          if (error) reject(error);
+          else resolve(response);
+        }
+      );
+    });
+  }
+}
+
+// Usage
+async function main() {
+  const client = new SamTerminalClient({ apiKey: API_KEY });
+
+  // Get token info
+  const token = await client.getToken(
+    &#39;0x4200000000000000000000000000000000000006&#39;
+  );
+  console.log(&#39;Token:&#39;, token);
+
+  // Get wallet portfolio
+  const wallet = await client.getWalletDetails(&#39;0x...&#39;);
+  console.log(&#39;Wallet:&#39;, wallet);
+
+  // Execute swap
+  const swapResult = await client.swap({
+    fromToken: &#39;0x4200000000000000000000000000000000000006&#39;,
+    toToken: &#39;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&#39;,
+    amount: 0.1,
+    privateKey: process.env.WALLET_PRIVATE_KEY!,
+  });
+  console.log(&#39;Swap:&#39;, swapResult);
+}
+
+main().catch(console.error);
+</code></pre>
+<h3>cURL Examples (via grpcurl)</h3>
+<pre><code class="language-bash">#!/bin/bash
+
+# Install grpcurl
+# brew install grpcurl (macOS)
+# go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest (Go)
+
+HOST=&quot;localhost&quot;
+
+# Get token
+grpcurl -plaintext \
+  -d &#39;{&quot;tokenAddress&quot;: &quot;0x4200000000000000000000000000000000000006&quot;, &quot;addIfNotExist&quot;: true}&#39; \
+  ${HOST}:50060 \
+  scanner.Scanner/getToken
+
+# Get wallet tokens
+grpcurl -plaintext \
+  -d &#39;{
+    &quot;walletAddress&quot;: &quot;0x1234567890abcdef1234567890abcdef12345678&quot;,
+    &quot;chain&quot;: 0,
+    &quot;type&quot;: 0,
+    &quot;tokenAddresses&quot;: [],
+    &quot;filterLowUSD&quot;: true
+  }&#39; \
+  ${HOST}:50060 \
+  scanner.Scanner/getWalletTokens
+
+# Execute swap (authenticated)
+grpcurl -plaintext \
+  -H &quot;apiKey: your-api-key&quot; \
+  -d &#39;{
+    &quot;fromTokenAddress&quot;: &quot;0x4200000000000000000000000000000000000006&quot;,
+    &quot;toTokenAddress&quot;: &quot;0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913&quot;,
+    &quot;amount&quot;: 0.1,
+    &quot;chain&quot;: 0,
+    &quot;privateKey&quot;: &quot;0x...&quot;,
+    &quot;slippage&quot;: 100
+  }&#39; \
+  ${HOST}:50059 \
+  swap.SwapService/swap
+
+# Send notification
+grpcurl -plaintext \
+  -d &#39;{
+    &quot;message&quot;: &quot;Hello from SamTerminal!&quot;,
+    &quot;type&quot;: 0,
+    &quot;botName&quot;: 0,
+    &quot;to&quot;: &quot;123456789&quot;
+  }&#39; \
+  ${HOST}:50056 \
+  notification.NotificationService/send
+
+# List available services
+grpcurl -plaintext ${HOST}:50060 list
+
+# Describe service
+grpcurl -plaintext ${HOST}:50060 describe scanner.Scanner
+</code></pre>
+<h3>Python Client Example</h3>
+<pre><code class="language-python">import grpc
+from concurrent import futures
+
+# Generate Python stubs first:
+# python -m grpc_tools.protoc -I./proto --python_out=./generated --grpc_python_out=./generated ./proto/*.proto
+
+import index_pb2
+import index_pb2_grpc
+import swap_pb2
+import swap_pb2_grpc
+
+class SamTerminalClient:
+    def __init__(self, api_key: str, host: str = &quot;localhost&quot;):
+        self.api_key = api_key
+
+        # Create channels
+        self.scanner_channel = grpc.insecure_channel(f&quot;{host}:50060&quot;)
+        self.swap_channel = grpc.insecure_channel(f&quot;{host}:50059&quot;)
+
+        # Create stubs
+        self.scanner = index_pb2_grpc.ScannerStub(self.scanner_channel)
+        self.swap = swap_pb2_grpc.SwapServiceStub(self.swap_channel)
+
+    def get_token(self, token_address: str, add_if_not_exist: bool = True):
+        request = index_pb2.GetTokenRequest(
+            tokenAddress=token_address,
+            addIfNotExist=add_if_not_exist
+        )
+        return self.scanner.getToken(request)
+
+    def execute_swap(self, from_token: str, to_token: str, amount: float, private_key: str):
+        metadata = [(&quot;apiKey&quot;, self.api_key)]
+        request = swap_pb2.SwapRequest(
+            fromTokenAddress=from_token,
+            toTokenAddress=to_token,
+            amount=amount,
+            chain=swap_pb2.CHAIN.BASE,
+            privateKey=private_key,
+            slippage=100
+        )
+        return self.swap.swap(request, metadata=metadata)
+
+# Usage
+if __name__ == &quot;__main__&quot;:
+    client = SamTerminalClient(api_key=&quot;your-api-key&quot;)
+
+    # Get token
+    token = client.get_token(&quot;0x4200000000000000000000000000000000000006&quot;)
+    print(f&quot;Token: {token.token.name} ({token.token.symbol})&quot;)
+    print(f&quot;Price: ${token.token.price}&quot;)
+</code></pre>
+<hr>
+<h2>SDKs &amp; Client Libraries</h2>
+<h3>Official SDKs</h3>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Package</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TypeScript</td>
+<td><code>@samterminal/grpc-client</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>samterminal-client</code></td>
+<td>Planned</td>
+</tr>
+<tr>
+<td>Go</td>
+<td><code>github.com/samterminal/go-client</code></td>
+<td>Planned</td>
+</tr>
+</tbody></table>
+<h3>Proto File Generation</h3>
+<p>Generate clients from proto files:</p>
+<pre><code class="language-bash"># TypeScript
+npx grpc_tools_node_protoc \
+  --js_out=import_style=commonjs,binary:./generated \
+  --grpc_out=grpc_js:./generated \
+  --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` \
+  -I ./proto \
+  ./proto/*.proto
+
+# Python
+python -m grpc_tools.protoc \
+  -I./proto \
+  --python_out=./generated \
+  --grpc_python_out=./generated \
+  ./proto/*.proto
+
+# Go
+protoc \
+  --go_out=./generated \
+  --go-grpc_out=./generated \
+  -I ./proto \
+  ./proto/*.proto
+</code></pre>
+<h3>Proto Files Location</h3>
+<pre><code>proto/
+├── common/
+│   └── common.proto       # Shared types (CHAIN, Token, Wallet, WalletToken)
+├── token/
+│   ├── messages.proto     # Token request/response messages
+│   └── token.proto        # ScannerToken service
+├── wallet/
+│   ├── messages.proto     # Wallet request/response messages
+│   └── wallet.proto       # ScannerWallet service
+├── index.proto            # Main Scanner service
+├── swap.proto             # Swap service
+├── notification.proto     # Notification service
+└── transactions.proto     # Transaction service
+</code></pre>
+<hr>
+<p><strong>Initial Release</strong></p>
+<ul>
+<li>Scanner Service (9 endpoints)<ul>
+<li>Token CRUD operations</li>
+<li>Wallet data retrieval</li>
+</ul>
+</li>
+<li>Swap Service (3 endpoints)<ul>
+<li>Token swap execution</li>
+<li>Approval management</li>
+</ul>
+</li>
+<li>Notification Service (4 endpoints)<ul>
+<li>Telegram notifications</li>
+<li>Bot management</li>
+</ul>
+</li>
+<li>Transaction Service (2 endpoints)<ul>
+<li>Transaction logging</li>
+<li>Status updates</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em>This documentation is maintained as part of the SAM Terminal project.</em></p>
+
+    </div>
+  </article>
+
+  <footer>
+    <hr class="footer-rule">
+    <div class="footer-inner">
+      <p class="footer-version">sam v1.0.0 | MIT License</p>
+      <div class="footer-links">
+        <a href="/#features">Features</a>
+        <a href="/docs">Docs</a>
+        <a href="/docs/api-reference">API</a>
+        <a href="/skill">Skills</a>
+        <a href="/docs/manifesto">Manifesto</a>
+        <a href="https://github.com/samterminal/samterminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/samterminalcom" target="_blank" rel="noopener noreferrer">X</a>
+      </div>
+      <p class="footer-built-by">built by <a href="https://tinylabs.studio" target="_blank" rel="noopener noreferrer">TinyLabs</a></p>
+    </div>
+  </footer>
+
+  <script>
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+syntax = "proto3";
+import "google/protobuf/struct.proto";
+
+package swap;
+
+enum CHAIN {
+    BASE = 0;
+}
+
+enum FeeResource {
+    COMPANY = 0;
+    SELF = 1;
+}
+
+message GetEthToWallet {
+    string to = 1;
+    string value = 2;
+}
+
+message SwapRequest {
+    string fromTokenAddress = 1;
+    string toTokenAddress = 2;
+    double amount = 3;
+    CHAIN chain = 4;
+    reserved 5;
+    string privateKey = 6;
+    optional FeeResource feeResource = 7;
+    optional string environment = 8; 
+    optional string app = 9; 
+    optional int64 slippage = 10; 
+    
+    
+}
+
+message SwapResponse {
+    optional string tx = 1;
+    optional string txId = 2;
+    optional google.protobuf.Struct error = 3;
+    bool success = 4;
+    optional string sellAmount = 5;
+    optional  string buyAmount = 6;
+    optional string companyFee = 7;
+}
+
+message GetFeeRequest {
+    string to = 1;
+    optional string value = 2;
+}
+
+message GetFeeResponse {
+    bool success = 1;
+}
+
+message ApproveRequest {
+    string walletPrivateKey = 1;
+    string tokenAddress = 2;
+}
+
+message ApproveResponse {
+    bool success = 1;
+}
+
+service SwapService {
+    rpc swap (SwapRequest) returns (SwapResponse);
+    rpc getFee (GetFeeRequest) returns (GetFeeResponse);
+    rpc approve (ApproveRequest) returns (ApproveResponse);
+}
